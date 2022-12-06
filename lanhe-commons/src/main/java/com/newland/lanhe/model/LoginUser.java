@@ -9,12 +9,10 @@ import java.util.List;
  */
 @Data
 public class LoginUser {
-	private String tenantId;
-	private String departmentId;
-	private String payload;
-	private String username;
-	private String mobile;
-	private List<String> userAuthorities;
-	private String clientId;
-
+    private Long departmentId;
+    private String username;
+    private String mobile;
+    private Long userId;
+    private List<String> roles;
+    private List<String> authorities;
 }

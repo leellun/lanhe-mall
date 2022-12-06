@@ -2,8 +2,11 @@ package com.newland.lanhe.user.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+
 import java.time.LocalDateTime;
 import java.io.Serializable;
+
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -19,13 +22,14 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@ApiModel(value="SysUser对象", description="系统用户")
+@ApiModel(value = "SysUser对象", description = "系统用户")
+@TableName("sys_user")
 public class SysUser implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "ID")
-      @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     @ApiModelProperty(value = "部门名称")
@@ -37,8 +41,11 @@ public class SysUser implements Serializable {
     @ApiModelProperty(value = "昵称")
     private String nickName;
 
+    /**
+     * {@link com.newland.lanhe.enumeration.BasicEnum}
+     */
     @ApiModelProperty(value = "性别 1男 0女")
-    private Boolean gender;
+    private Integer gender;
 
     @ApiModelProperty(value = "手机号码")
     private String phone;
@@ -52,18 +59,25 @@ public class SysUser implements Serializable {
     @ApiModelProperty(value = "密码")
     private String password;
 
-    @ApiModelProperty(value = "是否为admin账号")
-    private Boolean accountType;
+    @ApiModelProperty(value = "账号类型")
+    private Integer accountType;
 
+    /**
+     * {@link com.newland.lanhe.enumeration.BasicEnum}
+     */
     @ApiModelProperty(value = "状态：1启用、0禁用")
-    private Boolean enabled;
+    private Integer enabled;
 
+    /**
+     * {@link com.newland.lanhe.enumeration.BasicEnum}
+     */
     @ApiModelProperty(value = "是否必须修改密码：1是、0否")
-    private Boolean mustResetPwd;
+    private Integer mustResetPwd;
 
     @ApiModelProperty(value = "密码连续错误次数")
     private Integer pwdFailsCount;
-
+    @ApiModelProperty(value = "密码错误锁定时间")
+    private LocalDateTime failLockTime;
     @ApiModelProperty(value = "修改密码的时间")
     private LocalDateTime pwdResetTime;
 
@@ -71,10 +85,10 @@ public class SysUser implements Serializable {
     private LocalDateTime lastLoginTime;
 
     @ApiModelProperty(value = "创建者")
-    private String createdBy;
+    private Long createdBy;
 
     @ApiModelProperty(value = "修改者")
-    private String updatedBy;
+    private Long updatedBy;
 
     @ApiModelProperty(value = "创建时间")
     private LocalDateTime gmtCreate;

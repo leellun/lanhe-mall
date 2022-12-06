@@ -2,6 +2,28 @@ server:
   port: 9000
 spring:
   profiles: dev
+  datasource:
+    url: jdbc:mysql://192.168.100.100:30325/lanhe_user?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: lanheerp
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    druid:
+      initial-size: 10
+      min-idle: 10
+      max-active: 50
+      max-wait: 60000
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      validation-query: SELECT 1 FROM DUAL
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      pool-prepared-statements: true
+      filters: stat,wall
+      max-pool-prepared-statement-per-connection-size: 20
+      use-global-data-source-stat: true
+      connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+    type: com.alibaba.druid.pool.DruidDataSource
   cloud:
     nacos:
       discovery:
@@ -19,23 +41,8 @@ spring:
     sampler:
       probability: 1
 
-  datasource:
-    url: jdbc:mysql://192.168.100.100:30325/lanhe_user?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
-    username: root
-    password: lanheerp
-    driver-class-name: com.mysql.cj.jdbc.Driver
-
-hystrix:
-  command:
-    default:
-      execution:
-        isolation:
-          strategy: com.newland.wanxin.openfeign.config.FeignHystrixConcurrencyStrategy
-feign:
-  client:
-    config:
-      default:
-        connect-timeout: 10000
-        read-timeout: 10000
-  hystrix:
-    enabled: true
+mybatis-plus:
+  mapper-locations: classpath:/xml/*.xml
+  global-config:
+    db-config:
+      id-type: auto
