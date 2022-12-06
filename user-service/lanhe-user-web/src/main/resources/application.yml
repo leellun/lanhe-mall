@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: uua-service
+  profiles:
+    active: dev

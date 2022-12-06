@@ -1,0 +1,16 @@
+
+
+package com.newland.lanhe.exception;
+
+public class BusinessException extends RuntimeException {
+    private Integer code;
+
+    public BusinessException(String msg) {
+        super(msg);
+    }
+
+    public BusinessException(Integer code, String msg) {
+        super(msg);
+        this.code = code;
+    }
+}
