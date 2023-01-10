@@ -1,4 +1,4 @@
-package com.newland.wanxin.openfeign.filter;
+package com.newland.openfeign.filter;
 
 import feign.RequestInterceptor;
 import feign.RequestTemplate;

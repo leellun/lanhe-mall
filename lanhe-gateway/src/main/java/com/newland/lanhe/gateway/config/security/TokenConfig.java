@@ -16,7 +16,7 @@ public class TokenConfig {
     /**
      * 秘钥串
      */
-    private static final String SIGNING_KEY = "wanxin123";
+    private static final String SIGNING_KEY = "lanheerp123";
 
 
     @Bean

@@ -1,4 +1,4 @@
-package com.newland.wanxin.openfeign.properties;
+package com.newland.openfeign.properties;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -8,7 +8,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * Date: 2022/12/4 19:31:37
  */
 @Data
-@ConfigurationProperties(prefix = "wanxin.feign")
+@ConfigurationProperties(prefix = "newland.feign")
 public class FeignProperties {
     private Boolean concurrency;
 }

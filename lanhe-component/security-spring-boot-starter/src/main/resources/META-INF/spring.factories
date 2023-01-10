@@ -1,1 +1,1 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.newland.lanhe.security.WanxinSecurityConfiguration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.newland.lanhe.security.SecurityConfiguration

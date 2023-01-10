@@ -22,5 +22,5 @@ spring:
   datasource:
     url: jdbc:mysql://mysql-hcg4:3306/p2p_uaa?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
     username: root
-    password: wanxinp2p
+    password: lanheerp
     driver-class-name: com.mysql.cj.jdbc.Driver

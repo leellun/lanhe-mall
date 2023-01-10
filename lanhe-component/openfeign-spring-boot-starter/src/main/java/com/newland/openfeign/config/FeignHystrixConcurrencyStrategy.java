@@ -1,4 +1,4 @@
-package com.newland.wanxin.openfeign.config;
+package com.newland.openfeign.config;
 
 import com.netflix.hystrix.HystrixThreadPoolKey;
 import com.netflix.hystrix.HystrixThreadPoolProperties;
@@ -29,7 +29,7 @@ import java.util.concurrent.TimeUnit;
  * Date: 2022/10/16 15:34:58
  */
 @Component
-@ConditionalOnProperty(prefix = "hystrix.command.default.execution.isolation",name = "strategy",havingValue = "com.newland.wanxin.openfeign.config.FeignHystrixConcurrencyStrategy")
+@ConditionalOnProperty(prefix = "hystrix.command.default.execution.isolation",name = "strategy",havingValue = "com.newland.openfeign.config.FeignHystrixConcurrencyStrategy")
 public class FeignHystrixConcurrencyStrategy extends HystrixConcurrencyStrategy {
 
     private static final Logger log = LoggerFactory.getLogger(FeignHystrixConcurrencyStrategy.class);
