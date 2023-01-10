@@ -13,5 +13,6 @@
         <module>swagger-spring-boot-starter</module>
         <module>security-spring-boot-starter</module>
         <module>redis-spring-boot-starter</module>
+        <module>mybatis-spring-boot-starter</module>
     </modules>
 </project>

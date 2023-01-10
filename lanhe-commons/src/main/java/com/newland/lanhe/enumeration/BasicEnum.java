@@ -1,15 +1,16 @@
 package com.newland.lanhe.enumeration;
 
+import com.newland.lanhe.constant.Constant;
+
 /**
  * 基础枚举常量 1：true 0：false
  * Author: leell
  * Date: 2022/12/7 00:03:46
  */
 public enum BasicEnum {
-    YES(1,"启用/是"),
-    NO(0,"关闭/否"),
-            ;
-
+    YES(Constant.FLAG_YES, "启用/是"),
+    NO(Constant.FLAG_NO, "关闭/否"),
+    ;
 
     private Integer code;
     private String desc;

@@ -5,7 +5,6 @@ import com.newland.lanhe.model.LoginUser;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -28,7 +27,7 @@ public class AuthenticationFilter extends OncePerRequestFilter {
             LoginUser user = JSON.parseObject(json, LoginUser.class);
             //身份信息、权限信息填充到用户身份token对象中
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user, null,
-                    AuthorityUtils.createAuthorityList(user.getUserAuthorities().toArray(new String[]{})));
+                    AuthorityUtils.createAuthorityList(user.getAuthorities().toArray(new String[]{})));
             //创建details
             authenticationToken.setDetails(user);
             //将authenticationToken填充到安全上下文

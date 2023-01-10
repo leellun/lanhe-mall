@@ -1,6 +1,6 @@
 package com.newland.lanhe.security.handler;
 
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONObject;
 import com.newland.lanhe.security.enumeration.SecurityErrorCode;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.AccessDeniedException;
