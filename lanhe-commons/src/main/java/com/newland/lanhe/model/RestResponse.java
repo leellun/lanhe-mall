@@ -4,11 +4,16 @@ package com.newland.lanhe.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.newland.lanhe.enumeration.ResultCode;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.ToString;
 
+/**
+ * 响应体
+ * @author leell
+ */
 @Data
 @ToString
 @JsonInclude(Include.NON_NULL)
@@ -26,7 +31,7 @@ public class RestResponse<T> {
 
     public static <T> RestResponse<T> success() {
         RestResponse<T> response = new RestResponse<T>();
-        response.setCode(200);
+        response.setCode(ResultCode.SUCCESS.getCode());
         return response;
     }
 

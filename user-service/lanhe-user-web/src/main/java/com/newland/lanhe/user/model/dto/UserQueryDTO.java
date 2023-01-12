@@ -1,5 +1,6 @@
 package com.newland.lanhe.user.model.dto;
 
+import com.newland.mybatis.page.PageEntity;
 import lombok.Data;
 
 import java.util.HashSet;
@@ -12,7 +13,7 @@ import java.util.Set;
  * Date: 2023/1/10 13:27:40
  */
 @Data
-public class UserQueryDTO {
+public class UserQueryDTO extends PageEntity {
     private Long id;
 
     private Set<Long> deptIds = new HashSet<>();

@@ -15,10 +15,10 @@ import javax.validation.constraints.NotEmpty;
 @ApiModel(value = "LoginDTO", description = "账户注册信息")
 public class LoginDTO {
 
-    @ApiModelProperty("用户名")
     @NotEmpty(message = "请输入用户名")
+    @ApiModelProperty("用户名")
     private String username;
-
+    @NotEmpty(message = "请输入密码")
     @ApiModelProperty("密码")
     private String password;
 

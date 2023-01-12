@@ -1,11 +1,8 @@
 package com.newland.lanhe.uua.service;
 
 import com.newland.lanhe.uua.agent.AccountApiAgent;
-import com.newland.lanhe.uua.model.UnifiedUserDetails;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;

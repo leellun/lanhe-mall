@@ -1,22 +1,18 @@
 package com.newland.lanhe.user.controller;
 
 
-import cn.hutool.core.collection.CollectionUtil;
-import cn.hutool.core.lang.Assert;
 import com.newland.lanhe.model.RestResponse;
 import com.newland.lanhe.user.entity.SysMenu;
-import com.newland.lanhe.user.model.dto.MenuQueryDTO;
 import com.newland.lanhe.validator.Insert;
 import com.newland.lanhe.validator.Update;
+import com.newland.lanhe.user.model.dto.MenuQueryDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * <p>

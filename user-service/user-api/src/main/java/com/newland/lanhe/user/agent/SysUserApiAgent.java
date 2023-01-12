@@ -1,6 +1,7 @@
 package com.newland.lanhe.user.agent;
 
 
+import com.newland.lanhe.model.RestResponse;
 import com.newland.lanhe.model.LoginUser;
 import com.newland.lanhe.user.dto.LoginDTO;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -15,11 +16,11 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @author leellun
  * @since 2022-12-06
  */
-@FeignClient("uua-service")
+@FeignClient("user-service")
 public interface SysUserApiAgent {
 
-    @PostMapping(value = "/sysUser/login")
-    public LoginUser login(@RequestBody LoginDTO loginDTO);
+    @PostMapping(value = "/user/login")
+    RestResponse<LoginUser> login(@RequestBody LoginDTO loginDTO);
 
 }
 

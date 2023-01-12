@@ -1,6 +1,8 @@
 package com.newland.lanhe.user.service;
 
 import com.newland.lanhe.user.entity.SysUser;
+import com.newland.lanhe.model.LoginUser;
+import com.newland.lanhe.user.dto.LoginDTO;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -13,4 +15,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface SysUserService extends IService<SysUser> {
 
+    LoginUser login(LoginDTO loginDTO);
 }

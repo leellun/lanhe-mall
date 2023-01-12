@@ -1,8 +1,8 @@
 package com.newland.lanhe.security.config;
 
+import com.newland.lanhe.security.AuthenticationFilter;
 import com.newland.lanhe.security.handler.LoginUrlAuthenticationEntryPoint;
 import com.newland.lanhe.security.handler.NewlandAccessDeniedHandler;
-import com.newland.lanhe.security.AuthenticationFilter;
 import com.newland.lanhe.security.properties.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

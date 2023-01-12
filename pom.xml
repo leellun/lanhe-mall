@@ -14,6 +14,7 @@
     <module>uua-service</module>
     <module>user-service</module>
     <module>user-service/user-api</module>
+      <module>file-service/file-service-api</module>
   </modules>
   <properties>
     <maven.compiler.source>11</maven.compiler.source>
@@ -35,6 +36,7 @@
     <redisson.version>3.17.0</redisson.version>
     <hutool.version>5.8.8</hutool.version>
     <hibernate.version>6.1.0.Final</hibernate.version>
+    <minio.version>8.0.0</minio.version>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -149,6 +151,11 @@
         <groupId>org.hibernate</groupId>
         <artifactId>hibernate-validator-cdi</artifactId>
         <version>${hibernate.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.minio</groupId>
+        <artifactId>minio</artifactId>
+        <version>${minio.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

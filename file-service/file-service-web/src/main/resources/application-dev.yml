@@ -1,0 +1,26 @@
+server:
+  port: 8000
+spring:
+  profiles: dev
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.100.100:32065
+        namespace: e5dfe71c-4579-4e22-bc7a-ac2e5ffab032
+    sentinel:
+      transport:
+        dashboard: 192.168.100.100:32329
+  zipkin:
+    base-url: http://192.168.100.100:32239
+    sender:
+      type: web
+    discovery-client-enabled: false
+  sleuth:
+    sampler:
+      probability: 1
+
+minio:
+  url: http://192.168.100.100:31582
+  accessKey: jGtLBvw6HhnW9Nsc
+  secretKey: BzDmbL3ZCPERFHPxB5jOnf0w7l48DqOu
+  bucketName: test

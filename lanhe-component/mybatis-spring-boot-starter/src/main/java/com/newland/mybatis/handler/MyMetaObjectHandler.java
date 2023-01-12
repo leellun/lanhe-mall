@@ -1,4 +1,4 @@
-package com.newland.mybatis;
+package com.newland.mybatis.handler;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.newland.lanhe.model.LoginUser;
