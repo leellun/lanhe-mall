@@ -2,9 +2,9 @@ package com.newland.lanhe.user.controller;
 
 
 import com.newland.lanhe.model.RestResponse;
+import com.newland.lanhe.user.entity.SysJob;
 import com.newland.lanhe.validator.Insert;
 import com.newland.lanhe.validator.Update;
-import com.newland.lanhe.user.entity.SysJob;
 import com.newland.lanhe.user.model.dto.JobQueryDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

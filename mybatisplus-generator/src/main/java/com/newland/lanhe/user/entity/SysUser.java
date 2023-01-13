@@ -15,7 +15,7 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author leellun
- * @since 2022-12-06
+ * @since 2023-01-14
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -52,7 +52,7 @@ public class SysUser implements Serializable {
     @ApiModelProperty(value = "密码")
     private String password;
 
-    @ApiModelProperty(value = "是否为admin账号")
+    @ApiModelProperty(value = "账号类型")
     private Boolean accountType;
 
     @ApiModelProperty(value = "状态：1启用、0禁用")
@@ -64,6 +64,9 @@ public class SysUser implements Serializable {
     @ApiModelProperty(value = "密码连续错误次数")
     private Integer pwdFailsCount;
 
+    @ApiModelProperty(value = "密码错误锁定时间")
+    private LocalDateTime failLockTime;
+
     @ApiModelProperty(value = "修改密码的时间")
     private LocalDateTime pwdResetTime;
 
@@ -71,10 +74,10 @@ public class SysUser implements Serializable {
     private LocalDateTime lastLoginTime;
 
     @ApiModelProperty(value = "创建者")
-    private String createdBy;
+    private Long createdBy;
 
     @ApiModelProperty(value = "修改者")
-    private String updatedBy;
+    private Long updatedBy;
 
     @ApiModelProperty(value = "创建时间")
     private LocalDateTime gmtCreate;

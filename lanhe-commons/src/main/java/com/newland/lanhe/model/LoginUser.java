@@ -13,6 +13,5 @@ public class LoginUser {
     private String username;
     private String mobile;
     private Long userId;
-    private List<String> roles;
     private List<String> authorities;
 }

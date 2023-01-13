@@ -1,7 +1,7 @@
 package com.newland.lanhe.user.mapper;
 
-import com.newland.lanhe.user.entity.BackLog;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.newland.lanhe.user.entity.BackLog;
 
 /**
  * <p>
@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author leellun
- * @since 2022-12-06
+ * @since 2023-01-14
  */
 public interface BackLogMapper extends BaseMapper<BackLog> {
 

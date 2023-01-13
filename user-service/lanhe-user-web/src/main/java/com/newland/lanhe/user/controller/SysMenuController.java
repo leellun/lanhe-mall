@@ -30,20 +30,20 @@ public class SysMenuController {
     @GetMapping(value = "/build")
     @ApiOperation("获取前端所需菜单")
     @PreAuthorize("hasAuthority('menu:select')")
-    public RestResponse buildMenus() {
+    public RestResponse buildMenu() {
         return RestResponse.success();
     }
 
     @ApiOperation("返回全部的菜单")
     @GetMapping(value = "/lazy/{pid}")
-    @PreAuthorize("hasAuthority('menu:select','roles:select')")
+    @PreAuthorize("hasAuthority('menu:select','Role:select')")
     public RestResponse listLazy(@PathVariable("pid") Long pid) {
         return RestResponse.success();
     }
 
     @ApiOperation("根据菜单ID返回所有子节点ID，包含自身ID")
     @GetMapping(value = "/child/{id}")
-    @PreAuthorize("hasAuthority('menu:select','roles:select')")
+    @PreAuthorize("hasAuthority('menu:select','Role:select')")
     public RestResponse child(@PathVariable Long id) {
         return RestResponse.success();
     }

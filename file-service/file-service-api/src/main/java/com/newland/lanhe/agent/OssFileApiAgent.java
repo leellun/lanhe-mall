@@ -12,6 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
  */
 @FeignClient("file-service")
 public interface OssFileApiAgent {
-    @GetMapping("/object/{objectName}")
+    @GetMapping("/oss/object/{objectName}")
     public RestResponse getRealUrl(@PathVariable String objectName);
 }

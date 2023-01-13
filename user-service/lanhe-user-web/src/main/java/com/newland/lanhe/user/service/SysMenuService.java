@@ -1,7 +1,9 @@
 package com.newland.lanhe.user.service;
 
-import com.newland.lanhe.user.entity.SysMenu;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.newland.lanhe.user.entity.SysMenu;
+
+import java.util.List;
 
 /**
  * <p>
@@ -12,5 +14,10 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2022-12-06
  */
 public interface SysMenuService extends IService<SysMenu> {
-
+    /**
+     * 获取用户权限
+     * @param userId
+     * @return
+     */
+    List<String> getPermissions(Long userId);
 }

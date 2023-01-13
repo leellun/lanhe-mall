@@ -25,14 +25,10 @@ public class SecurityConfig {
     public SecurityWebFilterChain webFluxSecurityFilterChain(ServerHttpSecurity http) {
         return http
                 .authorizeExchange()
-                .pathMatchers("/uaa/druid/**", "/consumer/l/**").denyAll()
+                .pathMatchers("/uaa/druid/**").denyAll()
                 .pathMatchers(HttpMethod.OPTIONS).permitAll()
                 .pathMatchers("/*/swagger-ui.html", "/*/webjars/**", "/*/swagger-resources/**", "/*/v2/*", "/*/csrf", "/*/").permitAll()
                 .pathMatchers("/uaa/**").permitAll()
-                .pathMatchers("/account/**").permitAll()
-                .pathMatchers("/consumer/my/**").access(new GatewayAuthorizationManager("read", "ROLE_CONSUMER"))
-                .pathMatchers("/consumer/m/**").access(new GatewayAuthorizationManager("read", "ROLE_ADMIN"))
-                .pathMatchers("/consumer/**").permitAll()
                 .anyExchange().authenticated()
                 .and().addFilterAt(webFilter(),SecurityWebFiltersOrder.AUTHENTICATION)
                 .exceptionHandling().accessDeniedHandler(new RestAccessDeniedHandler()).authenticationEntryPoint(new RestOAuth2AuthExceptionEntryPoint())

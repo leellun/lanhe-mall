@@ -2,9 +2,9 @@ package com.newland.lanhe.user.controller;
 
 
 import com.newland.lanhe.model.RestResponse;
+import com.newland.lanhe.user.entity.SysRole;
 import com.newland.lanhe.validator.Insert;
 import com.newland.lanhe.validator.Update;
-import com.newland.lanhe.user.entity.SysRole;
 import com.newland.lanhe.user.model.dto.LevelRoleDTO;
 import com.newland.lanhe.user.model.dto.RoleQueryDTO;
 import com.newland.lanhe.user.model.dto.UserRoleDTO;

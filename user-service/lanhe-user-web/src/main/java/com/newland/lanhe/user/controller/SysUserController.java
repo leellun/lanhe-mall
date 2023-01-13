@@ -12,12 +12,13 @@ import com.newland.lanhe.user.model.dto.UserResetPassDTO;
 import com.newland.lanhe.user.service.SysUserService;
 import com.newland.lanhe.validator.Insert;
 import com.newland.lanhe.validator.Update;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Set;
 
@@ -37,11 +38,15 @@ public class SysUserController {
     private SysUserService sysUserService;
 
     @ApiOperation("用户登录")
+    @ApiImplicitParams({@ApiImplicitParam(name = "loginDTO", value = "登录信息", required = true,
+            dataType = "LoginDTO", paramType = "body")})
     @PostMapping(value = "/login")
     public RestResponse<LoginUser> login(@RequestBody @Validated LoginDTO loginDTO){
         return RestResponse.success(sysUserService.login(loginDTO));
     }
     @ApiOperation("查询用户")
+    @ApiImplicitParams({@ApiImplicitParam(name = "userQueryDTO", value = "用户列表", required = true,
+            dataType = "UserQueryDTO", paramType = "body")})
     @GetMapping
     @PreAuthorize("hasAuthority('user:select')")
     public RestResponse list(@RequestBody UserQueryDTO userQueryDTO) {
@@ -49,6 +54,8 @@ public class SysUserController {
     }
 
     @ApiOperation("新增用户")
+    @ApiImplicitParams({@ApiImplicitParam(name = "sysUser", value = "用户", required = true,
+            dataType = "SysUser", paramType = "body")})
     @PostMapping
     @PreAuthorize("hasAuthority('user:add')")
     public RestResponse add(@RequestBody @Validated(Insert.class) SysUser sysUser) {
@@ -57,6 +64,8 @@ public class SysUserController {
     }
 
     @ApiOperation("修改用户")
+    @ApiImplicitParams({@ApiImplicitParam(name = "sysUser", value = "用户", required = true,
+            dataType = "SysUser", paramType = "body")})
     @PutMapping
     @PreAuthorize("hasAuthority('user:update')")
     public RestResponse update(@RequestBody @Validated(Update.class) SysUser sysUser) {
@@ -65,13 +74,18 @@ public class SysUserController {
     }
 
     @ApiOperation("修改用户：个人中心")
+    @ApiImplicitParams({@ApiImplicitParam(name = "userCenterDTO", value = "个人中心", required = true,
+            dataType = "UserCenterDTO", paramType = "body")})
     @PutMapping(value = "center")
     @PreAuthorize("hasAuthority('user:update')")
     public RestResponse center(@RequestBody UserCenterDTO userCenterDTO) {
+        sysUserService.updateCenter(userCenterDTO);
         return RestResponse.success();
     }
 
     @ApiOperation("删除用户")
+    @ApiImplicitParams({@ApiImplicitParam(name = "ids", value = "用户id列表", required = true,
+            dataType = "Set", paramType = "body")})
     @DeleteMapping
     @PreAuthorize("hasAuthority('user:delete')")
     public RestResponse delete(@RequestBody Set<Long> ids) {
@@ -80,6 +94,8 @@ public class SysUserController {
     }
 
     @ApiOperation("修改密码")
+    @ApiImplicitParams({@ApiImplicitParam(name = "userPassVO", value = "用户密码", required = true,
+            dataType = "UserPassVO", paramType = "body")})
     @PostMapping(value = "/updatePass")
     @PreAuthorize("hasAuthority('user:update')")
     public RestResponse updatePass(@RequestBody UserPassVO userPassVO) {
@@ -88,6 +104,8 @@ public class SysUserController {
     }
 
     @ApiOperation("重置密码")
+    @ApiImplicitParams({@ApiImplicitParam(name = "userResetPassDTO", value = "重置密码", required = true,
+            dataType = "UserResetPassDTO", paramType = "body")})
     @PutMapping(value = "/resetPass")
     @PreAuthorize("hasAuthority('user:update')")
     public RestResponse resetPass(@RequestBody UserResetPassDTO userResetPassDTO) {
@@ -98,7 +116,7 @@ public class SysUserController {
     @ApiOperation("上传头像")
     @PostMapping(value = "/updateAvatar")
     @PreAuthorize("hasAuthority('user:update')")
-    public RestResponse<String> updateAvatar(@RequestParam MultipartFile avatar) {
+    public RestResponse<String> updateAvatar(@RequestParam String avatar) {
         sysUserService.updateAvatar(avatar);
         return RestResponse.success("头像上传成功");
     }

@@ -1,7 +1,7 @@
 package com.newland.lanhe.user.service;
 
-import com.newland.lanhe.user.entity.SysDepartment;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.newland.lanhe.user.entity.SysDepartment;
 
 /**
  * <p>

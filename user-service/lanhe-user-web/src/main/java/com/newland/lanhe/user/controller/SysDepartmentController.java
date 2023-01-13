@@ -1,10 +1,10 @@
 package com.newland.lanhe.user.controller;
 
 
+import com.newland.lanhe.user.entity.SysDepartment;
 import com.newland.lanhe.validator.Insert;
 import com.newland.lanhe.validator.Update;
 import com.newland.lanhe.model.RestResponse;
-import com.newland.lanhe.user.entity.SysDepartment;
 import com.newland.lanhe.user.model.dto.DeptQueryDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
