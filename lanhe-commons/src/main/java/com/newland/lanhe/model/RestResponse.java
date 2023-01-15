@@ -21,7 +21,7 @@ import lombok.ToString;
 public class RestResponse<T> {
 
     @ApiModelProperty("响应错误编码,200为正常")
-    private int code;
+    private Integer code;
 
     @ApiModelProperty("响应错误信息")
     private String msg;

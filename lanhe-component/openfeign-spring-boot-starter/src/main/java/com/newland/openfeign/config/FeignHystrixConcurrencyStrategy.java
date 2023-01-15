@@ -14,6 +14,8 @@ import com.netflix.hystrix.strategy.properties.HystrixProperty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -29,6 +31,7 @@ import java.util.concurrent.TimeUnit;
  * Date: 2022/10/16 15:34:58
  */
 @Component
+@Order(Ordered.HIGHEST_PRECEDENCE)
 @ConditionalOnProperty(prefix = "hystrix.command.default.execution.isolation",name = "strategy",havingValue = "com.newland.openfeign.config.FeignHystrixConcurrencyStrategy")
 public class FeignHystrixConcurrencyStrategy extends HystrixConcurrencyStrategy {
 

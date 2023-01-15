@@ -5,10 +5,11 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
  * Author: leell
- * Date: 2022/12/3 20:54:21
+ * Date: 2023/1/15 21:02:27
  */
 @Data
-@ConfigurationProperties(prefix = "newland.security")
-public class SecurityProperties {
-    private HttpItem[] permitItems;
+@ConfigurationProperties
+public class HttpItem{
+    private String url;
+    private String method;
 }

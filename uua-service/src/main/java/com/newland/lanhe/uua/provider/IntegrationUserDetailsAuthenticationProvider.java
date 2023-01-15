@@ -22,26 +22,26 @@ public class IntegrationUserDetailsAuthenticationProvider extends AbstractUserDe
     @Autowired
     private UserDetailsAuthenticationService userDetailsAuthenticationService;
 
+    /**
+     * 允许子类为给定的身份验证请求执行返回(或缓存)UserDetails的任何附加检查。
+     * 一般来说，子类至少会比较Authentication.getCredentials()和UserDetails.getPassword()。
+     * 如果需要自定义逻辑来比较UserDetails和/或UsernamePasswordAuthenticationToken的其他属性，这些属性也应该出现在这个方法中
+     */
     @Override
     protected void additionalAuthenticationChecks(UserDetails userDetails, UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
 
     }
 
+    /**
+     * 通过authenticationToken携带信息获取UserDetails
+     */
     @Override
     protected UserDetails retrieveUser(String username, UsernamePasswordAuthenticationToken authenticationToken) throws AuthenticationException {
-        Object details = authenticationToken.getDetails();
-        String domain;
-        if (details instanceof Map) {//password模式认证
-            Map<String, String> webAuthenticationDetails = (Map) details;
-            domain = webAuthenticationDetails.get("domain");
-        } else {
-            throw new InternalAuthenticationServiceException("WebAuthenticationDetails type is not support");
-        }
         if (StringUtils.isEmpty(authenticationToken)) {
             throw new InternalAuthenticationServiceException("authenticationType is blank");
         }
 
-        UserDetails userDetails = userDetailsAuthenticationService.authentication(domain,authenticationToken);
+        UserDetails userDetails = userDetailsAuthenticationService.authentication(authenticationToken);
         if (userDetails == null) {
             throw new InternalAuthenticationServiceException("用户认证信息为空");
         }

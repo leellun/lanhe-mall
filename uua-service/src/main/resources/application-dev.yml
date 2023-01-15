@@ -6,7 +6,7 @@ spring:
     nacos:
       discovery:
         server-addr: 192.168.100.100:32065
-        namespace: 52a41dfb-c913-4eca-ad0c-12cc0fa4d777
+        namespace: e5dfe71c-4579-4e22-bc7a-ac2e5ffab032
     sentinel:
       transport:
         dashboard: 192.168.100.100:32329
@@ -20,17 +20,11 @@ spring:
       probability: 1
 
   datasource:
-    url: jdbc:mysql://192.168.100.100:32523/p2p_uaa?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://192.168.100.100:30325/lanhe_uua?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
     username: root
-    password: lanheerp2p
+    password: lanheerp
     driver-class-name: com.mysql.cj.jdbc.Driver
 
-hystrix:
-  command:
-    default:
-      execution:
-        isolation:
-          strategy: com.newland.openfeign.config.FeignHystrixConcurrencyStrategy
 feign:
   client:
     config:
@@ -39,3 +33,10 @@ feign:
         read-timeout: 10000
   hystrix:
     enabled: true
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          strategy: com.newland.openfeign.config.FeignHystrixConcurrencyStrategy

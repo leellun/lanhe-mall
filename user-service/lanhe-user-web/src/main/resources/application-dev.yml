@@ -1,9 +1,9 @@
 server:
-  port: 9000
+  port: 9001
 spring:
   profiles: dev
   datasource:
-    url: jdbc:mysql://192.168.100.100:30325/lanhe_user?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://192.168.100.100:30325/lanhe_user?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
     username: root
     password: lanheerp
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -28,7 +28,7 @@ spring:
     nacos:
       discovery:
         server-addr: 192.168.100.100:32065
-        namespace: 52a41dfb-c913-4eca-ad0c-12cc0fa4d777
+        namespace: e5dfe71c-4579-4e22-bc7a-ac2e5ffab032
     sentinel:
       transport:
         dashboard: 192.168.100.100:32329
@@ -46,3 +46,23 @@ mybatis-plus:
   global-config:
     db-config:
       id-type: auto
+
+lanhe:
+  mail:
+    host: smtp.sina.cn
+    port: 465
+    user: leellun@sina.cn
+    password: e441bb64155ad49b
+    transport:
+      protocol: smtp
+    smtp:
+      auth: true
+    ssl:
+      enable: true
+    send-user: 蓝河ERP
+
+newland:
+  security:
+    permit-items:
+      - method: POST
+        url: /user/login

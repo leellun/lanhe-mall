@@ -21,12 +21,12 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
             LoginUser loginUser = (LoginUser) token.getPrincipal();
             if (loginUser != null) {
                 if (metaObject.hasGetter("createdBy")) {
-                    setFieldValByName("createdBy", loginUser.getUserId(), metaObject);//mybatis-plus版本2.0.9+
+                    setFieldValByName("createdBy", loginUser.getUserId(), metaObject);
                 }
             }
         }
         if (metaObject.hasGetter("gmtCreate")) {
-            setFieldValByName("gmtCreate", LocalDateTime.now().withNano(0), metaObject);//mybatis-plus版本2.0.9+
+            setFieldValByName("gmtCreate", LocalDateTime.now().withNano(0), metaObject);
         }
 
     }
@@ -38,12 +38,12 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
             LoginUser loginUser = (LoginUser) token.getPrincipal();
             if (loginUser != null) {
                 if (metaObject.hasGetter("updatedBy")) {
-                    setFieldValByName("updatedBy", loginUser.getUserId(), metaObject);//mybatis-plus版本2.0.9+
+                    setFieldValByName("updatedBy", loginUser.getUserId(), metaObject);
                 }
             }
         }
         if (metaObject.hasGetter("gmtModified")) {
-            setFieldValByName("gmtModified", LocalDateTime.now().withNano(0), metaObject);//mybatis-plus版本2.0.9+
+            setFieldValByName("gmtModified", LocalDateTime.now().withNano(0), metaObject);
         }
     }
 }

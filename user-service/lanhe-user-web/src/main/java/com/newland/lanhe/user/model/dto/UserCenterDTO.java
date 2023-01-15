@@ -1,5 +1,6 @@
 package com.newland.lanhe.user.model.dto;
 
+import com.newland.lanhe.validator.IntOptions;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -25,5 +26,6 @@ public class UserCenterDTO implements Serializable {
     private String phone;
     @ApiModelProperty(value = "性别", required = true)
     @NotBlank(message = "性别不能为空")
-    private String gender;
+    @IntOptions(options = {1,0},message = "性别参数不正确")
+    private Integer gender;
 }

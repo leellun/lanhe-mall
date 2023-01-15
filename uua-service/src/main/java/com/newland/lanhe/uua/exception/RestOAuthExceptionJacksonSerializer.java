@@ -5,8 +5,11 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 
 import java.io.IOException;
-import java.util.Map;
 
+/**
+ * 异常信息序列化
+ * @author leell
+ */
 public class RestOAuthExceptionJacksonSerializer extends StdSerializer<RestOAuth2Exception> {
 
     protected RestOAuthExceptionJacksonSerializer() {
@@ -16,17 +19,13 @@ public class RestOAuthExceptionJacksonSerializer extends StdSerializer<RestOAuth
     @Override
     public void serialize(RestOAuth2Exception value, JsonGenerator jgen, SerializerProvider serializerProvider) throws IOException {
         jgen.writeStartObject();
-        jgen.writeObjectField("code", value.getHttpErrorCode());
-        jgen.writeStringField("msg", value.getMessage());
-        String summary = value.getSummary();
-        jgen.writeStringField("result", summary);
-
-        if (value.getAdditionalInformation()!=null) {
-            for (Map.Entry<String, String> entry : value.getAdditionalInformation().entrySet()) {
-                String key = entry.getKey();
-                String add = entry.getValue();
-                jgen.writeStringField(key, add);
-            }
+        if (value.getResponse() != null) {
+            jgen.writeObjectField("code",value.getResponse().getCode());
+            jgen.writeObjectField("msg",value.getResponse().getMsg());
+            jgen.writeObjectField("result",value.getResponse().getResult());
+        }else{
+            jgen.writeObjectField("code", value.getHttpErrorCode());
+            jgen.writeStringField("msg", value.getMessage());
         }
         jgen.writeEndObject();
     }

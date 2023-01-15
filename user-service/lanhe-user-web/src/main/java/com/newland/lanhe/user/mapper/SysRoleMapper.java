@@ -2,6 +2,7 @@ package com.newland.lanhe.user.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.newland.lanhe.user.entity.SysRole;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -22,5 +23,5 @@ public interface SysRoleMapper extends BaseMapper<SysRole> {
      * @param userId 用户id
      * @return
      */
-    List<SysRole> getRoleNameWithIdByUserId(Long userId);
+    List<SysRole> getRoleNameWithIdByUserId(@Param("userId") Long userId);
 }

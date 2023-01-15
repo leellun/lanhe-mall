@@ -1,6 +1,13 @@
 package com.newland.lanhe.uua.service;
 
-import com.newland.lanhe.uua.agent.AccountApiAgent;
+import com.newland.lanhe.enumeration.ResultCode;
+import com.newland.lanhe.model.LoginUser;
+import com.newland.lanhe.model.RestResponse;
+import com.newland.lanhe.user.agent.SysUserApiAgent;
+import com.newland.lanhe.user.dto.LoginDTO;
+import com.newland.lanhe.uua.exception.RestOAuth2Exception;
+import com.newland.lanhe.uua.model.UnifiedUserDetails;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,10 +21,10 @@ import org.springframework.util.StringUtils;
  */
 @Service
 public class UserDetailsAuthenticationService {
-//    @Autowired
-    private AccountApiAgent accountApiAgent;
+    @Autowired
+    private SysUserApiAgent sysUserApiAgent;
 
-    public UserDetails authentication(String domain, UsernamePasswordAuthenticationToken token) {
+    public UserDetails authentication(UsernamePasswordAuthenticationToken token) {
         String usernmae = token.getName();
         if (StringUtils.isEmpty(usernmae)) {
             throw new BadCredentialsException("账户不能为空");
@@ -28,22 +35,16 @@ public class UserDetailsAuthenticationService {
         String presentedPassword = token.getCredentials().toString();
 
         //远程调用统一账户服务，进行账户密码校验
-//        AccountLoginDTO accountLoginDTO = new AccountLoginDTO();
-//        accountLoginDTO.setUsername(usernmae);
-//        accountLoginDTO.setDomain(domain);
-//        accountLoginDTO.setPassword(presentedPassword);
-//        accountLoginDTO.setMobile(usernmae);
-//        RestResponse<AccountDTO> response = accountApiAgent.login(accountLoginDTO);
-//
-//        if (response.getCode() != 0) {
-//            throw new BadCredentialsException("登录失败");
-//        }
-//        AccountDTO accountDTO = response.getResult();
-//        UnifiedUserDetails userDetails = new UnifiedUserDetails(accountDTO.getUsername(), presentedPassword, AuthorityUtils.createAuthorityList("ro","rw"));
-//        userDetails.setMobile(accountDTO.getMobile());
-//        userDetails.setStatus(accountDTO.getStatus());
-//        userDetails.setDomain(accountDTO.getDomain());
-//        return userDetails;
-        return null;
+        LoginDTO accountLoginDTO = new LoginDTO();
+        accountLoginDTO.setUsername(usernmae);
+        accountLoginDTO.setPassword(presentedPassword);
+        RestResponse<LoginUser> response = sysUserApiAgent.login(accountLoginDTO);
+
+        if (!response.getCode().equals(ResultCode.SUCCESS.getCode())) {
+            throw new RestOAuth2Exception(response);
+        }
+        LoginUser accountDTO = response.getResult();
+        UnifiedUserDetails userDetails = new UnifiedUserDetails(accountDTO.getUsername(), presentedPassword, accountDTO);
+        return userDetails;
     }
 }

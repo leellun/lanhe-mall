@@ -19,8 +19,22 @@ import java.util.List;
 public interface SysMenuMapper extends BaseMapper<SysMenu> {
     /**
      * 获取角色权限
-     * @param ids 角色id列表
+     * @param roleIds 角色id列表
      * @return
      */
-    List<String> getPermissions(@Param("ids") List<Long> ids);
+    List<String> getPermissions(@Param("roleIds") List<Long> roleIds);
+
+    /**
+     * 获取菜单
+     * @param roleIds
+     * @return
+     */
+    List<SysMenu> getMenuList(@Param("roleIds") List<Long> roleIds);
+    /**
+     * 获取菜单
+     * @param pid 父菜单
+     * @param roleId 角色
+     * @return
+     */
+    List<SysMenu> getLazyMenus(@Param("pid") Long pid,@Param("roleId") Long roleId);
 }

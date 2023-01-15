@@ -3,7 +3,7 @@ package com.newland.lanhe.exception;
 
 import com.newland.lanhe.enumeration.ResultCode;
 import com.newland.lanhe.model.RestResponse;
-import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -14,9 +14,12 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.nio.file.AccessDeniedException;
 
 
+/**
+ * @author leell
+ */
 @RestControllerAdvice
 @Order(value = Ordered.HIGHEST_PRECEDENCE)
-@Log4j
+@Slf4j
 public class GlobalExceptionHandler {
 
     @ExceptionHandler({RuntimeException.class, Exception.class})

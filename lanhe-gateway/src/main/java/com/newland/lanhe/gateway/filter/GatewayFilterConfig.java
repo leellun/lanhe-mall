@@ -31,11 +31,6 @@ public class GatewayFilterConfig implements GlobalFilter, Ordered {
     @Autowired
     private TokenStore tokenStore;
 
-    public static void main(String[] args) {
-        AntPathMatcher pathMatcher = new AntPathMatcher();
-        System.out.println(pathMatcher.match("/swagger**/**", "/swagger-resources/configuration/ui"));
-    }
-
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         String requestUrl = exchange.getRequest().getPath().value();

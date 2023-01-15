@@ -3,6 +3,7 @@ package com.newland.lanhe.security.config;
 import com.newland.lanhe.security.AuthenticationFilter;
 import com.newland.lanhe.security.handler.LoginUrlAuthenticationEntryPoint;
 import com.newland.lanhe.security.handler.NewlandAccessDeniedHandler;
+import com.newland.lanhe.security.properties.HttpItem;
 import com.newland.lanhe.security.properties.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -44,9 +45,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
         http.addFilterBefore(authenticationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .csrf().disable();
-        if (securityProperties.getPermitUrls() != null && securityProperties.getPermitUrls().length > 0) {
-            http.authorizeRequests().antMatchers(securityProperties.getPermitUrls()).permitAll().anyRequest().authenticated();
-        }else{
+        if (securityProperties.getPermitItems() != null && securityProperties.getPermitItems().length > 0) {
+            for (HttpItem httpItem : securityProperties.getPermitItems()) {
+                http.authorizeRequests().antMatchers(HttpMethod.resolve(httpItem.getMethod()), httpItem.getUrl()).permitAll();
+            }
+            http.authorizeRequests().anyRequest().authenticated();
+        } else {
             http.authorizeRequests().anyRequest().authenticated();
         }
         http.exceptionHandling()

@@ -37,6 +37,7 @@
     <hutool.version>5.8.8</hutool.version>
     <hibernate.version>6.1.0.Final</hibernate.version>
     <minio.version>8.0.0</minio.version>
+    <mail.version>1.6.2</mail.version>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -156,6 +157,11 @@
         <groupId>io.minio</groupId>
         <artifactId>minio</artifactId>
         <version>${minio.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.sun.mail</groupId>
+        <artifactId>javax.mail</artifactId>
+        <version>${mail.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

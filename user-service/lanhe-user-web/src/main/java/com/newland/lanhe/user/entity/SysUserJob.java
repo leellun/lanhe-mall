@@ -2,11 +2,12 @@ package com.newland.lanhe.user.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.io.Serializable;
 
 /**
  * <p>
@@ -14,12 +15,12 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author leellun
- * @since 2022-12-06
+ * @since 2023-01-14
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@ApiModel(value="SysUsersJobs对象", description="")
-public class SysUsersJobs implements Serializable {
+@ApiModel(value="SysUserJob对象", description="")
+public class SysUserJob implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

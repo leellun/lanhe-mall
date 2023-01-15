@@ -20,9 +20,7 @@ public class ClientUserAuthenticationConverter extends DefaultUserAuthentication
         response.put(USERNAME, authentication.getName());
         if (authentication.getPrincipal() instanceof UnifiedUserDetails) {
             UnifiedUserDetails unifiedUserDetails = (UnifiedUserDetails) authentication.getPrincipal();
-            response.put("mobile", unifiedUserDetails.getMobile());
-            response.put("status", unifiedUserDetails.getStatus());
-            response.put("domain", unifiedUserDetails.getDomain());
+            response.put("loginUser", unifiedUserDetails.getLoginUser());
         }
         if (authentication.getAuthorities() != null && !authentication.getAuthorities().isEmpty()) {
             response.put(AUTHORITIES, AuthorityUtils.authorityListToSet(authentication.getAuthorities()));

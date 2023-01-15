@@ -7,7 +7,7 @@
         <groupId>com.newland.lanhe</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <groupId>com.newland</groupId>
+    <groupId>com.newland.lanhe</groupId>
     <artifactId>mybatis-spring-boot-starter</artifactId>
     <name>mybatis-spring-boot-starter</name>
     <dependencies>

@@ -1,7 +1,9 @@
 package com.newland.lanhe.uua.model;
 
 
+import com.newland.lanhe.model.LoginUser;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.*;
@@ -19,22 +21,9 @@ public class UnifiedUserDetails implements UserDetails {
 
     private String password;
     /**
-     * 手机号
+     * 登录用户
      */
-    private String mobile;
-    private Integer status;
-    private String domain;
-
-    /**
-     * 用户的角色权限集合，key为角色，value为角色下权限集合
-     */
-    private Map<String, List<String>> userAuthorities = new HashMap<>();
-
-
-    /**
-     * 用户附加信息,json字符串,统一认证透传
-     */
-    private Map<String, Object> payload = new HashMap<>();
+    private LoginUser loginUser;
 
 
     public UnifiedUserDetails(String username, String password) {
@@ -42,10 +31,11 @@ public class UnifiedUserDetails implements UserDetails {
         this.password = password;
     }
 
-    public UnifiedUserDetails(String username, String password, List<GrantedAuthority> authorities) {
+    public UnifiedUserDetails(String username, String password, LoginUser loginUser) {
         this.username = username;
         this.password = password;
-        grantedAuthorities.addAll(authorities);
+        this.loginUser=loginUser;
+        this.grantedAuthorities =  AuthorityUtils.createAuthorityList();
     }
 
 
@@ -64,14 +54,9 @@ public class UnifiedUserDetails implements UserDetails {
         return username;
     }
 
-    public Map<String, Object> getPayload() {
-        return payload;
+    public LoginUser getLoginUser() {
+        return loginUser;
     }
-
-    public void setPayload(Map<String, Object> payload) {
-        this.payload = payload;
-    }
-
 
     /* 账户是否未过期 */
     @Override
@@ -95,38 +80,5 @@ public class UnifiedUserDetails implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
-    }
-
-
-    public String getMobile() {
-        return mobile;
-    }
-
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
-    }
-
-    public Map<String, List<String>> getUserAuthorities() {
-        return userAuthorities;
-    }
-
-    public void setUserAuthorities(Map<String, List<String>> userAuthorities) {
-        this.userAuthorities = userAuthorities;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setDomain(String domain) {
-        this.domain = domain;
-    }
-
-    public String getDomain() {
-        return domain;
     }
 }

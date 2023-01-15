@@ -5,6 +5,7 @@ import com.newland.lanhe.model.RestResponse;
 import com.newland.lanhe.model.LoginUser;
 import com.newland.lanhe.user.dto.LoginDTO;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 

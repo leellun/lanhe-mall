@@ -42,7 +42,11 @@ public class SysDepartment extends BaseEntity {
     @ApiModelProperty(value = "排序")
     private Integer deptSort;
 
+    /**
+     * 1 启用 0 未启用
+     * @see com.newland.lanhe.enumeration.BasicEnum
+     */
     @ApiModelProperty(value = "状态")
-    private Boolean enabled;
+    private Integer enabled;
 
 }

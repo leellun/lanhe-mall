@@ -38,8 +38,12 @@ public class SysUser implements Serializable {
     @ApiModelProperty(value = "昵称")
     private String nickName;
 
+    /**
+     * 性别
+     * @see com.newland.lanhe.user.enums.GenderEnum
+     */
     @ApiModelProperty(value = "性别 1男 0女")
-    private Boolean gender;
+    private Integer gender;
 
     @ApiModelProperty(value = "手机号码")
     private String phone;
@@ -54,13 +58,13 @@ public class SysUser implements Serializable {
     private String password;
 
     @ApiModelProperty(value = "账号类型")
-    private Boolean accountType;
+    private Integer accountType;
 
     @ApiModelProperty(value = "状态：1启用、0禁用")
-    private Boolean enabled;
+    private Integer enabled;
 
     @ApiModelProperty(value = "是否必须修改密码：1是、0否")
-    private Boolean mustResetPwd;
+    private Integer mustResetPwd;
 
     @ApiModelProperty(value = "密码连续错误次数")
     private Integer pwdFailsCount;

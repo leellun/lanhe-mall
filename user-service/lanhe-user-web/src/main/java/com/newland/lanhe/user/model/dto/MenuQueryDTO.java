@@ -1,5 +1,6 @@
 package com.newland.lanhe.user.model.dto;
 
+import com.newland.mybatis.page.PageEntity;
 import lombok.Data;
 
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
  * Date: 2023/1/10 13:14:37
  */
 @Data
-public class MenuQueryDTO {
+public class MenuQueryDTO extends PageEntity {
     private String blurry;
 
 

@@ -18,23 +18,23 @@ public class RestOAuth2WebResponseExceptionTranslator implements WebResponseExce
 
     private ThrowableAnalyzer throwableAnalyzer = new DefaultThrowableAnalyzer();
 
-
+    @Override
     public ResponseEntity<OAuth2Exception> translate(Exception e) throws Exception {
         Throwable[] causeChain = this.throwableAnalyzer.determineCauseChain(e);
-        Exception ase = (OAuth2Exception)this.throwableAnalyzer.getFirstThrowableOfType(OAuth2Exception.class, causeChain);
+        Exception ase = (OAuth2Exception) this.throwableAnalyzer.getFirstThrowableOfType(OAuth2Exception.class, causeChain);
         if (ase != null) {
-            return this.handleOAuth2Exception((OAuth2Exception)ase);
+            return this.handleOAuth2Exception((OAuth2Exception) ase);
         }
-        ase = (AuthenticationException)this.throwableAnalyzer.getFirstThrowableOfType(AuthenticationException.class, causeChain);
+        ase = (AuthenticationException) this.throwableAnalyzer.getFirstThrowableOfType(AuthenticationException.class, causeChain);
         if (ase != null) {
             return this.handleOAuth2Exception(new UnauthorizedException(e.getMessage(), e));
         }
-        ase = (AccessDeniedException)this.throwableAnalyzer.getFirstThrowableOfType(AccessDeniedException.class, causeChain);
+        ase = (AccessDeniedException) this.throwableAnalyzer.getFirstThrowableOfType(AccessDeniedException.class, causeChain);
         if (ase instanceof AccessDeniedException) {
             return this.handleOAuth2Exception(new ForbiddenException(ase.getMessage(), ase));
         }
 
-        ase = (HttpRequestMethodNotSupportedException)this.throwableAnalyzer.getFirstThrowableOfType(HttpRequestMethodNotSupportedException.class, causeChain);
+        ase = (HttpRequestMethodNotSupportedException) this.throwableAnalyzer.getFirstThrowableOfType(HttpRequestMethodNotSupportedException.class, causeChain);
         return ase instanceof HttpRequestMethodNotSupportedException ? this.handleOAuth2Exception(new MethodNotAllowed(ase.getMessage(), ase)) : this.handleOAuth2Exception(new ServerErrorException(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), e));
 
     }
@@ -48,7 +48,7 @@ public class RestOAuth2WebResponseExceptionTranslator implements WebResponseExce
             headers.set("WWW-Authenticate", String.format("%s %s", "Bearer", e.getSummary()));
         }
         //OAuth2Exception 转换restResponse过程
-        RestOAuth2Exception restOAuth2Exception = new RestOAuth2Exception(e.getMessage(),e);
+        RestOAuth2Exception restOAuth2Exception = e instanceof RestOAuth2Exception ? (RestOAuth2Exception) e : new RestOAuth2Exception(e.getMessage(), e);
 
         ResponseEntity<OAuth2Exception> response = new ResponseEntity(restOAuth2Exception, headers, HttpStatus.valueOf(status));
         return response;

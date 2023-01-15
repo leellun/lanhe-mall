@@ -1,7 +1,7 @@
 package com.newland.lanhe.user.service;
 
-import com.newland.lanhe.user.entity.SysUsersRoles;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.newland.lanhe.user.entity.SysUserRole;
 
 /**
  * <p>
@@ -9,8 +9,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * </p>
  *
  * @author leellun
- * @since 2022-12-06
+ * @since 2023-01-14
  */
-public interface SysUsersRolesService extends IService<SysUsersRoles> {
+public interface SysUserRoleService extends IService<SysUserRole> {
 
 }

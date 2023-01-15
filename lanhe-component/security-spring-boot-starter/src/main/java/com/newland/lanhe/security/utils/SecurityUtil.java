@@ -8,7 +8,7 @@ public class SecurityUtil {
     /**
      * 获取当前登录用户
      */
-    public static LoginUser getUser() {
+    public static LoginUser getLoginUser() {
         LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getDetails();
         return loginUser;
     }

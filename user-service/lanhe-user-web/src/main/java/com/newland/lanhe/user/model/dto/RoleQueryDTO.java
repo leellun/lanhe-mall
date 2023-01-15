@@ -1,5 +1,6 @@
 package com.newland.lanhe.user.model.dto;
 
+import com.newland.mybatis.page.PageEntity;
 import lombok.Data;
 
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
  * Date: 2023/1/10 13:18:41
  */
 @Data
-public class RoleQueryDTO {
+public class RoleQueryDTO extends PageEntity {
     private String blurry;
 
     private List<String> gmtCreate;

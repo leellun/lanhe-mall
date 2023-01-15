@@ -78,5 +78,6 @@ public class AesUtils {
     public static void main(String[] args) {
         String str = encrypt("123456");
         System.out.println(str);
+        System.out.println(MD5.encrypt("123456"));
     }
 }

@@ -3,6 +3,7 @@ package com.newland.lanhe.user.controller;
 
 import com.newland.lanhe.model.RestResponse;
 import com.newland.lanhe.user.entity.SysRole;
+import com.newland.lanhe.user.service.SysRoleService;
 import com.newland.lanhe.validator.Insert;
 import com.newland.lanhe.validator.Update;
 import com.newland.lanhe.user.model.dto.LevelRoleDTO;
@@ -30,88 +31,80 @@ import java.util.Set;
 @RequestMapping("/role")
 public class SysRoleController {
 
+    private SysRoleService sysRoleService;
     @ApiOperation("获取单个role")
     @GetMapping(value = "/{id}")
     @PreAuthorize("hasAuthority('role:select')")
     public RestResponse query(@PathVariable Long id) {
-        return null;
+        return RestResponse.success(sysRoleService.getRole(id));
     }
 
     @ApiOperation("返回全部的角色")
     @GetMapping(value = "/all")
     @PreAuthorize("hasAuthority('role:select','user:select')")
     public RestResponse list() {
-        return null;
+        return RestResponse.success(sysRoleService.getAllRoles());
     }
 
     @ApiOperation("查询角色")
     @GetMapping
     @PreAuthorize("hasAuthority('role:select')")
-    public RestResponse get(@RequestBody RoleQueryDTO roleQueryDTO) {
-        return null;
-    }
-
-    @ApiOperation("获取用户级别")
-    @GetMapping(value = "/level")
-    @PreAuthorize("hasAuthority('role:select')")
-    public RestResponse getLevel() {
-        return null;
+    public RestResponse list(@RequestBody RoleQueryDTO roleQueryDTO) {
+        return RestResponse.success(sysRoleService.getRolePage(roleQueryDTO));
     }
 
     @ApiOperation("新增角色")
     @PostMapping
     @PreAuthorize("hasAuthority('role:add')")
     public RestResponse add(@RequestBody @Validated(Insert.class) SysRole sysRole) {
-        return RestResponse.success();
+        sysRoleService.addRole(sysRole);
+        return RestResponse.success("添加成功");
     }
 
     @ApiOperation("修改角色")
     @PutMapping
     @PreAuthorize("hasAuthority('role:update')")
     public RestResponse update(@RequestBody @Validated(Update.class) SysRole sysRole) {
-        return RestResponse.success();
-    }
-
-    @ApiOperation("修改角色菜单")
-    @PutMapping(value = "/menu")
-    @PreAuthorize("hasAuthority('role:update')")
-    public RestResponse updateMenu(@RequestBody @Validated(Update.class) SysRole sysRole) {
-        return RestResponse.success();
+        sysRoleService.updateRole(sysRole);
+        return RestResponse.success("修改成功");
     }
 
     @ApiOperation("删除角色")
     @DeleteMapping
     @PreAuthorize("hasAuthority('role:delete')")
     public RestResponse delete(@RequestBody Set<Long> ids) {
-        return RestResponse.success();
+        sysRoleService.deleteRoles(ids);
+        return RestResponse.success("删除成功");
     }
 
     @ApiOperation("查询下属用户")
     @GetMapping("/users")
     @PreAuthorize("hasAuthority('role:select')")
-    public RestResponse listByRole(@RequestBody LevelRoleDTO levelRoleDTO) {
-        return RestResponse.success();
+    public RestResponse listUsersByRole(@RequestBody LevelRoleDTO levelRoleDTO) {
+        return RestResponse.success(sysRoleService.getUsersByRole(levelRoleDTO));
     }
 
     @ApiOperation("查询非下属用户")
     @GetMapping("/not/users")
     @PreAuthorize("hasAuthority('role:select')")
     public RestResponse listNotByRole(@RequestBody LevelRoleDTO levelRoleDTO) {
-        return RestResponse.success();
+        return RestResponse.success(sysRoleService.getNoUsersByRole(levelRoleDTO));
     }
 
     @ApiOperation("删除下属用户")
     @DeleteMapping("/users")
     @PreAuthorize("hasAuthority('role:del')")
     public RestResponse deleteUsers(@RequestBody List<UserRoleDTO> list) {
-        return RestResponse.success();
+        sysRoleService.deleteUsers(list);
+        return RestResponse.success("删除成功");
     }
 
     @ApiOperation("添加下属用户")
     @PostMapping("/users")
     @PreAuthorize("hasAuthority('role:del')")
     public RestResponse addUsers(@RequestBody List<UserRoleDTO> list) {
-        return RestResponse.success();
+        sysRoleService.addUserBinds(list);
+        return RestResponse.success("添加成功");
     }
 }
 

@@ -1,5 +1,6 @@
 package com.newland.lanhe.user.model.dto;
 
+import com.newland.mybatis.page.PageEntity;
 import lombok.Data;
 
 /**
@@ -8,7 +9,7 @@ import lombok.Data;
  * Date: 2023/1/10 13:24:11
  */
 @Data
-public class LevelRoleDTO {
+public class LevelRoleDTO extends PageEntity {
     private Integer roleId;
     private String blurry;
 }
