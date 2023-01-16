@@ -10,14 +10,14 @@ import java.io.IOException;
  * 异常信息序列化
  * @author leell
  */
-public class RestOAuthExceptionJacksonSerializer extends StdSerializer<RestOAuth2Exception> {
+public class RestOauthExceptionJacksonSerializer extends StdSerializer<RestOauth2Exception> {
 
-    protected RestOAuthExceptionJacksonSerializer() {
-        super(RestOAuth2Exception.class);
+    protected RestOauthExceptionJacksonSerializer() {
+        super(RestOauth2Exception.class);
     }
 
     @Override
-    public void serialize(RestOAuth2Exception value, JsonGenerator jgen, SerializerProvider serializerProvider) throws IOException {
+    public void serialize(RestOauth2Exception value, JsonGenerator jgen, SerializerProvider serializerProvider) throws IOException {
         jgen.writeStartObject();
         if (value.getResponse() != null) {
             jgen.writeObjectField("code",value.getResponse().getCode());

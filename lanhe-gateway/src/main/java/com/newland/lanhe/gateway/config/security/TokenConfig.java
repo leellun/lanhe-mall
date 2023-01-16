@@ -1,5 +1,6 @@
 package com.newland.lanhe.gateway.config.security;
 
+import com.newland.lanhe.constant.Constant;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.oauth2.provider.token.TokenStore;
@@ -12,13 +13,6 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
  */
 @Configuration
 public class TokenConfig {
-
-    /**
-     * 秘钥串
-     */
-    private static final String SIGNING_KEY = "lanheerp123";
-
-
     @Bean
     public TokenStore tokenStore() {
         return new JwtTokenStore(accessTokenConverter());
@@ -27,7 +21,7 @@ public class TokenConfig {
     @Bean
     public JwtAccessTokenConverter accessTokenConverter() {
         JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-        converter.setSigningKey(SIGNING_KEY);
+        converter.setSigningKey(Constant.SIGNING_KEY);
         return converter;
     }
 

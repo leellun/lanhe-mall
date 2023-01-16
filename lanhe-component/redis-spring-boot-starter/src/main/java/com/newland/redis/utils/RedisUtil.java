@@ -108,9 +108,9 @@ public class RedisUtil {
      * @param key
      * @return
      */
-    public Object get(final String key) {
+    public <T> T get(final String key) {
         ValueOperations operations = redisTemplate.opsForValue();
-        return operations.get(key);
+        return (T) operations.get(key);
     }
 
     /**

@@ -14,12 +14,16 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 
 import java.io.IOException;
 
-public class RestOAuth2WebResponseExceptionTranslator implements WebResponseExceptionTranslator {
+/**
+ * @author leell
+ */
+public class RestOauth2WebResponseExceptionTranslator implements WebResponseExceptionTranslator {
 
     private ThrowableAnalyzer throwableAnalyzer = new DefaultThrowableAnalyzer();
 
     @Override
     public ResponseEntity<OAuth2Exception> translate(Exception e) throws Exception {
+        e.printStackTrace();
         Throwable[] causeChain = this.throwableAnalyzer.determineCauseChain(e);
         Exception ase = (OAuth2Exception) this.throwableAnalyzer.getFirstThrowableOfType(OAuth2Exception.class, causeChain);
         if (ase != null) {
@@ -48,7 +52,7 @@ public class RestOAuth2WebResponseExceptionTranslator implements WebResponseExce
             headers.set("WWW-Authenticate", String.format("%s %s", "Bearer", e.getSummary()));
         }
         //OAuth2Exception 转换restResponse过程
-        RestOAuth2Exception restOAuth2Exception = e instanceof RestOAuth2Exception ? (RestOAuth2Exception) e : new RestOAuth2Exception(e.getMessage(), e);
+        RestOauth2Exception restOAuth2Exception = e instanceof RestOauth2Exception ? (RestOauth2Exception) e : new RestOauth2Exception(e.getMessage(), e);
 
         ResponseEntity<OAuth2Exception> response = new ResponseEntity(restOAuth2Exception, headers, HttpStatus.valueOf(status));
         return response;

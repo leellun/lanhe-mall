@@ -1,5 +1,6 @@
 package com.newland.lanhe.uua.provider;
 
+import com.newland.lanhe.constant.Constant;
 import com.newland.lanhe.uua.model.UnifiedUserDetails;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -10,8 +11,8 @@ import java.util.Map;
 
 /**
  * 认证转换器
- * Author: leell
- * Date: 2022/12/3 17:50:49
+ * @Date: 2022/12/3 17:50:49
+ * @author leell
  */
 public class ClientUserAuthenticationConverter extends DefaultUserAuthenticationConverter {
     @Override
@@ -20,7 +21,7 @@ public class ClientUserAuthenticationConverter extends DefaultUserAuthentication
         response.put(USERNAME, authentication.getName());
         if (authentication.getPrincipal() instanceof UnifiedUserDetails) {
             UnifiedUserDetails unifiedUserDetails = (UnifiedUserDetails) authentication.getPrincipal();
-            response.put("loginUser", unifiedUserDetails.getLoginUser());
+            response.put(Constant.KEY_USERID, unifiedUserDetails.getUserId());
         }
         if (authentication.getAuthorities() != null && !authentication.getAuthorities().isEmpty()) {
             response.put(AUTHORITIES, AuthorityUtils.authorityListToSet(authentication.getAuthorities()));

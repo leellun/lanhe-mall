@@ -47,7 +47,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable();
         if (securityProperties.getPermitItems() != null && securityProperties.getPermitItems().length > 0) {
             for (HttpItem httpItem : securityProperties.getPermitItems()) {
-                http.authorizeRequests().antMatchers(HttpMethod.resolve(httpItem.getMethod()), httpItem.getUrl()).permitAll();
+                if (httpItem.getMethod() == null) {
+                    http.authorizeRequests().antMatchers(httpItem.getUrl()).permitAll();
+                } else {
+                    http.authorizeRequests().antMatchers(HttpMethod.resolve(httpItem.getMethod()), httpItem.getUrl()).permitAll();
+                }
             }
             http.authorizeRequests().anyRequest().authenticated();
         } else {

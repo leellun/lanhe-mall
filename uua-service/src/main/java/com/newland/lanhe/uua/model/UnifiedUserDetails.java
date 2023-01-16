@@ -34,8 +34,8 @@ public class UnifiedUserDetails implements UserDetails {
     public UnifiedUserDetails(String username, String password, LoginUser loginUser) {
         this.username = username;
         this.password = password;
-        this.loginUser=loginUser;
-        this.grantedAuthorities =  AuthorityUtils.createAuthorityList();
+        this.loginUser = loginUser;
+        this.grantedAuthorities = AuthorityUtils.createAuthorityList();
     }
 
 
@@ -56,6 +56,10 @@ public class UnifiedUserDetails implements UserDetails {
 
     public LoginUser getLoginUser() {
         return loginUser;
+    }
+
+    public Long getUserId() {
+        return loginUser != null ? loginUser.getUserId() : null;
     }
 
     /* 账户是否未过期 */

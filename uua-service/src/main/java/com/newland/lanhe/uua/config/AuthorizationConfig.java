@@ -1,10 +1,19 @@
 package com.newland.lanhe.uua.config;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.newland.lanhe.constant.Constant;
+import com.newland.lanhe.uua.mapper.OauthClientDetailsMapper;
 import com.newland.lanhe.uua.provider.ClientUserAuthenticationConverter;
+import com.newland.redis.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
@@ -19,6 +28,9 @@ import org.springframework.security.oauth2.provider.request.DefaultOAuth2Request
 import org.springframework.security.oauth2.provider.token.*;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
+import org.springframework.security.oauth2.provider.token.store.redis.JdkSerializationStrategy;
+import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
+import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStoreSerializationStrategy;
 
 import javax.sql.DataSource;
 import java.util.Arrays;
@@ -32,10 +44,6 @@ import java.util.Map;
  */
 @Configuration
 public class AuthorizationConfig {
-    /**
-     * 秘钥串
-     */
-    private static final String SIGNING_KEY = "lanheerp123";
     @Autowired
     private TokenStore tokenStore;
     @Autowired
@@ -43,17 +51,18 @@ public class AuthorizationConfig {
     @Autowired
     @Qualifier("jdbcClientDetailsService")
     private ClientDetailsService clientDetailsService;
+
     @Bean
-    public TokenStore tokenStore() {
-        return new JwtTokenStore(accessTokenConverter());
+    public TokenStore tokenStore(RedisUtil redisUtil, OauthClientDetailsMapper oauthClientDetailsMapper) {
+        return new RedisJwtTokenStore(accessTokenConverter(),redisUtil,oauthClientDetailsMapper);
     }
 
     @Bean
     public JwtAccessTokenConverter accessTokenConverter() {
         JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-        converter.setSigningKey(SIGNING_KEY);
-        DefaultAccessTokenConverter accessTokenConverter=new DefaultAccessTokenConverter();
-        DefaultUserAuthenticationConverter userAuthenticationConverter=new ClientUserAuthenticationConverter();
+        converter.setSigningKey(Constant.SIGNING_KEY);
+        DefaultAccessTokenConverter accessTokenConverter = new DefaultAccessTokenConverter();
+        DefaultUserAuthenticationConverter userAuthenticationConverter = new ClientUserAuthenticationConverter();
         accessTokenConverter.setUserTokenConverter(userAuthenticationConverter);
         converter.setAccessTokenConverter(accessTokenConverter);
         return converter;

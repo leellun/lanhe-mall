@@ -17,6 +17,12 @@ spring:
             - Path=/uaa/**
           filters:
             - RewritePath=/uaa/(?<segment>/?.*),/$\{segment}
+        - id: user-service
+          uri: lb://user-service
+          predicates:
+            - Path=/user/**
+          filters:
+            - RewritePath=/user/(?<segment>/?.*),/$\{segment}
   zipkin:
     base-url: http://192.168.100.100:32239
     sender:
@@ -25,3 +31,15 @@ spring:
   sleuth:
     sampler:
       probability: 1
+  redis:
+    host: 192.168.100.100
+    port: 31351
+    database: 0
+    password: liulun666
+    timeout: PT10S
+    lettuce:
+      pool:
+        max-active:  50
+        max-idle: 20
+        min-idle: 1
+        max-wait: PT10S

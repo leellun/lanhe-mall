@@ -5,7 +5,7 @@ import com.newland.lanhe.model.LoginUser;
 import com.newland.lanhe.model.RestResponse;
 import com.newland.lanhe.user.agent.SysUserApiAgent;
 import com.newland.lanhe.user.dto.LoginDTO;
-import com.newland.lanhe.uua.exception.RestOAuth2Exception;
+import com.newland.lanhe.uua.exception.RestOauth2Exception;
 import com.newland.lanhe.uua.model.UnifiedUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -41,7 +41,7 @@ public class UserDetailsAuthenticationService {
         RestResponse<LoginUser> response = sysUserApiAgent.login(accountLoginDTO);
 
         if (!response.getCode().equals(ResultCode.SUCCESS.getCode())) {
-            throw new RestOAuth2Exception(response);
+            throw new RestOauth2Exception(response);
         }
         LoginUser accountDTO = response.getResult();
         UnifiedUserDetails userDetails = new UnifiedUserDetails(accountDTO.getUsername(), presentedPassword, accountDTO);

@@ -2,6 +2,9 @@ package com.newland.lanhe.gateway.filter;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.newland.lanhe.constant.Constant;
+import com.newland.lanhe.model.LoginUser;
+import com.newland.redis.utils.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +33,8 @@ public class GatewayFilterConfig implements GlobalFilter, Ordered {
 
     @Autowired
     private TokenStore tokenStore;
+    @Autowired
+    private RedisUtil redisUtil;
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
@@ -46,14 +51,9 @@ public class GatewayFilterConfig implements GlobalFilter, Ordered {
                 OAuth2AccessToken oAuth2AccessToken = tokenStore.readAccessToken(token);
                 Map<String, Object> additionalInformation = oAuth2AccessToken.getAdditionalInformation();
                 //获取用户权限
-                List<String> authorities = (List<String>) additionalInformation.get("authorities");
-//                LoginUser loginUser = new LoginUser();
-//                loginUser.setUsername(MapUtils.getString(additionalInformation, "user_name"));
-//                loginUser.setMobile(MapUtils.getString(additionalInformation, "mobile"));
-//                loginUser.setUserAuthorities(authorities);
-//                //给header里面添加值
-//                String base64 = EncryptUtil.encodeUTF8StringBase64(JSON.toJSONString(loginUser));
-                ServerHttpRequest tokenRequest = exchange.getRequest().mutate().header("json-token", "").build();
+                Number userId = (Number) additionalInformation.get(Constant.KEY_USERID);
+                LoginUser loginUser = redisUtil.get(Constant.USER_LOGIN_INFO + userId);
+                ServerHttpRequest tokenRequest = exchange.getRequest().mutate().header("json-token", JSON.toJSONString(loginUser)).build();
                 ServerWebExchange build = exchange.mutate().request(tokenRequest).build();
                 return chain.filter(build);
             } catch (InvalidTokenException e) {

@@ -1,6 +1,6 @@
 package com.newland.lanhe.uua.config;
 
-import com.newland.lanhe.uua.exception.RestOAuth2WebResponseExceptionTranslator;
+import com.newland.lanhe.uua.exception.RestOauth2WebResponseExceptionTranslator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
@@ -52,7 +52,7 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
                 .pathMapping("/oauth/confirm_access", "/confirm_access")
                 .pathMapping("/oauth/error", "/oauth_error")
                 .allowedTokenEndpointRequestMethods(HttpMethod.POST)
-                .exceptionTranslator(new RestOAuth2WebResponseExceptionTranslator());
+                .exceptionTranslator(new RestOauth2WebResponseExceptionTranslator());
     }
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security)
