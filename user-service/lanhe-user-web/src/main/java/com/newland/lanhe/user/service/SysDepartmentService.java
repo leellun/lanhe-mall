@@ -52,8 +52,15 @@ public interface SysDepartmentService extends IService<SysDepartment> {
     /**
      * 获取同级目录和上级目录
      *
-     * @param ids
+     * @param name
      * @return
      */
-    List<SysDepartment> getSuperior(List<Long> ids);
+    List<SysDepartment> getDepartSearch( String name);
+
+    /**
+     * 获取子部门
+     * @param pid
+     * @return
+     */
+    List<SysDepartment> getSubDepts(Long pid);
 }

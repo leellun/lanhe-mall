@@ -9,6 +9,7 @@ import com.newland.lanhe.user.model.dto.UserCenterDTO;
 import com.newland.lanhe.user.model.dto.UserPassVO;
 import com.newland.lanhe.user.model.dto.UserQueryDTO;
 import com.newland.lanhe.user.model.dto.UserResetPassDTO;
+import com.newland.lanhe.user.model.vo.SysUserVo;
 
 import java.util.Set;
 
@@ -33,7 +34,7 @@ public interface SysUserService extends IService<SysUser> {
      * @param userQueryDTO
      * @return
      */
-    Page<SysUser> getUsers(UserQueryDTO userQueryDTO);
+    Page<SysUserVo> getUsers(UserQueryDTO userQueryDTO);
 
     /**
      * 添加用户

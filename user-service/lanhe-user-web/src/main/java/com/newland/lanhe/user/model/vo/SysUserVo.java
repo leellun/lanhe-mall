@@ -1,6 +1,9 @@
 package com.newland.lanhe.user.model.vo;
 
+import com.newland.lanhe.user.entity.SysUser;
 import lombok.Data;
+
+import java.util.List;
 
 /**
  * 用户列表接口返回信息
@@ -8,10 +11,13 @@ import lombok.Data;
  * Date: 2022/12/7 01:05:30
  */
 @Data
-
-public class SysUserVo {
+public class SysUserVo extends SysUser {
     /**
-     * 用户id
+     * 部门名称
      */
-
+    private String deptName;
+    /**
+     * 角色名称
+     */
+    private List<String> roleName;
 }

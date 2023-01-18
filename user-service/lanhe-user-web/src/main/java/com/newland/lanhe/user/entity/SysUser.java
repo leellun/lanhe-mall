@@ -2,6 +2,8 @@ package com.newland.lanhe.user.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.newland.lanhe.model.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -20,13 +22,13 @@ import java.time.LocalDateTime;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@ApiModel(value="SysUser对象", description="系统用户")
-public class SysUser implements Serializable {
+@ApiModel(value = "SysUser对象", description = "系统用户")
+public class SysUser extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "ID")
-      @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     @ApiModelProperty(value = "部门名称")
@@ -40,6 +42,7 @@ public class SysUser implements Serializable {
 
     /**
      * 性别
+     *
      * @see com.newland.lanhe.user.enums.GenderEnum
      */
     @ApiModelProperty(value = "性别 1男 0女")
@@ -70,25 +73,15 @@ public class SysUser implements Serializable {
     private Integer pwdFailsCount;
 
     @ApiModelProperty(value = "密码错误锁定时间")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime failLockTime;
 
     @ApiModelProperty(value = "修改密码的时间")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime pwdResetTime;
 
     @ApiModelProperty(value = "最后一次登陆时间")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime lastLoginTime;
-
-    @ApiModelProperty(value = "创建者")
-    private Long createdBy;
-
-    @ApiModelProperty(value = "修改者")
-    private Long updatedBy;
-
-    @ApiModelProperty(value = "创建时间")
-    private LocalDateTime gmtCreate;
-
-    @ApiModelProperty(value = "修改时间")
-    private LocalDateTime gmtModified;
-
 
 }

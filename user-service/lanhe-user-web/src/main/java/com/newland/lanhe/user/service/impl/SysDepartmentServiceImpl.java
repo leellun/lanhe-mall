@@ -13,9 +13,7 @@ import com.newland.lanhe.utils.AssertUtil;
 import com.newland.mybatis.page.PageWrapper;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -55,28 +53,39 @@ public class SysDepartmentServiceImpl extends ServiceImpl<SysDepartmentMapper, S
     }
 
     @Override
-    public List<SysDepartment> getSuperior(List<Long> ids) {
-        List<SysDepartment> list = new ArrayList<>();
-        List<Long> tempIds = ids;
-        boolean pidNull = false;
-        for (int i = 0; i < 2; i++) {
-            List<SysDepartment> pDepts = baseMapper.selectList(Wrappers.<SysDepartment>lambdaQuery().select(SysDepartment::getPid).select(SysDepartment::getId).in(SysDepartment::getId, tempIds));
-            List<SysDepartment> newDepts = new ArrayList<>();
-            for (SysDepartment department : pDepts) {
-                if (department.getPid() == null) {
-                    if (!pidNull) {
-                        pidNull = true;
-                        newDepts.addAll(baseMapper.selectList(Wrappers.<SysDepartment>lambdaQuery().isNull(SysDepartment::getPid)));
-                    }
+    public List<SysDepartment> getDepartSearch(String name) {
+        List<SysDepartment> list = baseMapper.selectList(Wrappers.<SysDepartment>lambdaQuery().like(SysDepartment::getName, name));
+        Map<Long, SysDepartment> map = new HashMap<>();
+        List<SysDepartment> datas = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            SysDepartment department = list.get(i);
+            while (department.getPid() != null && department.getPid() != 0) {
+                List<SysDepartment> children = new ArrayList<>();
+                children.add(department);
+                if (map.containsKey(department.getPid())) {
+                    SysDepartment parentDept = map.get(department.getPid());
+                    parentDept.getChildren().add(department);
+                    break;
                 } else {
-                    newDepts.addAll(baseMapper.selectList(Wrappers.<SysDepartment>lambdaQuery().eq(SysDepartment::getPid, department.getPid())));
+                    department = baseMapper.selectById(department.getPid());
+                    department.setChildren(children);
+                    map.put(department.getId(), department);
                 }
             }
-            list.addAll(newDepts);
-            tempIds = pDepts.stream().filter(item -> item.getPid() != null).map(SysDepartment::getPid).collect(Collectors.toList());
+            if ((department.getPid() == null || department.getPid() == 0) && map.get(department.getId()) == department) {
+                datas.add(department);
+            }
         }
+        return datas;
+    }
 
-        return list;
+    @Override
+    public List<SysDepartment> getSubDepts(Long pid) {
+        if (pid == null || pid == 0) {
+            return baseMapper.selectList(Wrappers.<SysDepartment>lambdaQuery().isNull(SysDepartment::getPid).orderByAsc(SysDepartment::getDeptSort));
+        } else {
+            return baseMapper.selectList(Wrappers.<SysDepartment>lambdaQuery().eq(SysDepartment::getPid, pid).orderByAsc(SysDepartment::getDeptSort));
+        }
     }
 
 }

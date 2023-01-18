@@ -47,8 +47,8 @@ public class SysUserController {
     @ApiOperation("查询用户")
     @ApiImplicitParams({@ApiImplicitParam(name = "userQueryDTO", value = "用户列表", required = true,
             dataType = "UserQueryDTO", paramType = "body")})
-    @GetMapping
-    @PreAuthorize("hasAuthority('user:select')")
+    @PostMapping("/list")
+//    //@PreAuthorize("hasAuthority('user:select')")
     public RestResponse list(@RequestBody UserQueryDTO userQueryDTO) {
         return RestResponse.success(sysUserService.getUsers(userQueryDTO));
     }
@@ -57,7 +57,7 @@ public class SysUserController {
     @ApiImplicitParams({@ApiImplicitParam(name = "sysUser", value = "用户", required = true,
             dataType = "SysUser", paramType = "body")})
     @PostMapping
-    @PreAuthorize("hasAuthority('user:add')")
+    //@PreAuthorize("hasAuthority('user:add')")
     public RestResponse add(@RequestBody @Validated(Insert.class) SysUser sysUser) {
         sysUserService.addUser(sysUser);
         return RestResponse.success("添加成功");
@@ -67,7 +67,7 @@ public class SysUserController {
     @ApiImplicitParams({@ApiImplicitParam(name = "sysUser", value = "用户", required = true,
             dataType = "SysUser", paramType = "body")})
     @PutMapping
-    @PreAuthorize("hasAuthority('user:update')")
+    //@PreAuthorize("hasAuthority('user:update')")
     public RestResponse update(@RequestBody @Validated(Update.class) SysUser sysUser) {
         sysUserService.updateUser(sysUser);
         return RestResponse.success("更新成功");
@@ -77,7 +77,7 @@ public class SysUserController {
     @ApiImplicitParams({@ApiImplicitParam(name = "userCenterDTO", value = "个人中心", required = true,
             dataType = "UserCenterDTO", paramType = "body")})
     @PutMapping(value = "center")
-    @PreAuthorize("hasAuthority('user:update')")
+    //@PreAuthorize("hasAuthority('user:update')")
     public RestResponse center(@RequestBody UserCenterDTO userCenterDTO) {
         sysUserService.updateCenter(userCenterDTO);
         return RestResponse.success();
@@ -87,7 +87,7 @@ public class SysUserController {
     @ApiImplicitParams({@ApiImplicitParam(name = "ids", value = "用户id列表", required = true,
             dataType = "Set", paramType = "body")})
     @DeleteMapping
-    @PreAuthorize("hasAuthority('user:delete')")
+    //@PreAuthorize("hasAuthority('user:delete')")
     public RestResponse delete(@RequestBody Set<Long> ids) {
         sysUserService.deleteUser(ids);
         return RestResponse.success("删除用户成功");
@@ -97,7 +97,7 @@ public class SysUserController {
     @ApiImplicitParams({@ApiImplicitParam(name = "userPassVO", value = "用户密码", required = true,
             dataType = "UserPassVO", paramType = "body")})
     @PostMapping(value = "/updatePass")
-    @PreAuthorize("hasAuthority('user:update')")
+    //@PreAuthorize("hasAuthority('user:update')")
     public RestResponse updatePass(@RequestBody UserPassVO userPassVO) {
         sysUserService.updatePass(userPassVO);
         return RestResponse.success("密码修改成功");
@@ -107,7 +107,7 @@ public class SysUserController {
     @ApiImplicitParams({@ApiImplicitParam(name = "userResetPassDTO", value = "重置密码", required = true,
             dataType = "UserResetPassDTO", paramType = "body")})
     @PutMapping(value = "/resetPass")
-    @PreAuthorize("hasAuthority('user:update')")
+    //@PreAuthorize("hasAuthority('user:update')")
     public RestResponse resetPass(@RequestBody UserResetPassDTO userResetPassDTO) {
         sysUserService.resetPass(userResetPassDTO);
         return RestResponse.success("密码重置成功");
@@ -115,7 +115,7 @@ public class SysUserController {
 
     @ApiOperation("上传头像")
     @PostMapping(value = "/updateAvatar")
-    @PreAuthorize("hasAuthority('user:update')")
+    //@PreAuthorize("hasAuthority('user:update')")
     public RestResponse<String> updateAvatar(@RequestParam String avatar) {
         sysUserService.updateAvatar(avatar);
         return RestResponse.success("头像上传成功");

@@ -14,6 +14,7 @@ import com.newland.lanhe.user.model.dto.UserCenterDTO;
 import com.newland.lanhe.user.model.dto.UserPassVO;
 import com.newland.lanhe.user.model.dto.UserQueryDTO;
 import com.newland.lanhe.user.model.dto.UserResetPassDTO;
+import com.newland.lanhe.user.model.vo.SysUserVo;
 import com.newland.lanhe.user.service.SysMenuService;
 import com.newland.lanhe.user.service.SysUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -57,9 +58,9 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     }
 
     @Override
-    public Page<SysUser> getUsers(UserQueryDTO userQueryDTO) {
-        Page<SysUser> page = PageWrapper.wrapper(userQueryDTO);
-        return baseMapper.selectPage(page, Wrappers.lambdaQuery());
+    public Page<SysUserVo> getUsers(UserQueryDTO userQueryDTO) {
+        Page<SysUserVo> page = PageWrapper.wrapper(userQueryDTO);
+        return baseMapper.selectUsersPage(page, userQueryDTO);
     }
 
     @Override

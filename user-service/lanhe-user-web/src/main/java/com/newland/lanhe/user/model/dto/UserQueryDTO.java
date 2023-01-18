@@ -14,15 +14,8 @@ import java.util.Set;
  */
 @Data
 public class UserQueryDTO extends PageEntity {
-    private Long id;
-
     private Set<Long> deptIds = new HashSet<>();
-
     private String blurry;
-
-    private Boolean enabled;
-
+    private Integer enabled;
     private List<String> gmtCreate;
-
-    private Long deptId;
 }
