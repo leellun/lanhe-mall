@@ -2,6 +2,7 @@ package com.newland.lanhe.user.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.newland.lanhe.user.entity.SysDepartment;
+import org.springframework.stereotype.Repository;
 
 /**
  * <p>
@@ -11,6 +12,7 @@ import com.newland.lanhe.user.entity.SysDepartment;
  * @author leellun
  * @since 2023-01-14
  */
+@Repository
 public interface SysDepartmentMapper extends BaseMapper<SysDepartment> {
 
 }

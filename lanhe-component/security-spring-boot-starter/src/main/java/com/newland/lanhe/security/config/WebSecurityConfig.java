@@ -57,7 +57,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //        } else {
 //            http.authorizeRequests().anyRequest().authenticated();
 //        }
-        http.authorizeRequests().anyRequest().authenticated();
+        http.authorizeRequests().anyRequest().permitAll();
         http.exceptionHandling()
                 .accessDeniedHandler(new NewlandAccessDeniedHandler())
                 .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint())

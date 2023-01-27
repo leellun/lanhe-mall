@@ -31,9 +31,15 @@ public class SysJobController {
 
     @Autowired
     private SysJobService sysJobService;
+    @ApiOperation("返回全部的岗位")
+    @GetMapping(value = "/all")
+    //@PreAuthorize("hasAnyAuthority('job:select','user:select')")
+    public RestResponse all() {
+        return RestResponse.success(sysJobService.getAllJobs());
+    }
     @ApiOperation("查询岗位")
     @GetMapping
-    @PreAuthorize("hasAuthority('job:select','user:select')")
+    @PreAuthorize("hasAnyAuthority('job:select','user:select')")
     public RestResponse list(@RequestBody JobQueryDTO jobQueryDTO) {
         return RestResponse.success(sysJobService.getJobs(jobQueryDTO));
     }

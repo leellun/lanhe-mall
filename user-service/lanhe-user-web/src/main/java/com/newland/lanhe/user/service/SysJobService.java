@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.newland.lanhe.user.entity.SysJob;
 import com.newland.lanhe.user.model.dto.JobQueryDTO;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -16,6 +17,11 @@ import java.util.Set;
  * @since 2022-12-06
  */
 public interface SysJobService extends IService<SysJob> {
+    /**
+     * 获取所有角色
+     * @return
+     */
+    List<SysJob> getAllJobs();
     /**
      * 获取分页job
      * @param jobQueryDTO

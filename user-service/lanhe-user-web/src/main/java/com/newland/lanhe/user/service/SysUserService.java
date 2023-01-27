@@ -5,10 +5,8 @@ import com.newland.lanhe.model.LoginUser;
 import com.newland.lanhe.user.dto.LoginDTO;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.newland.lanhe.user.entity.SysUser;
-import com.newland.lanhe.user.model.dto.UserCenterDTO;
-import com.newland.lanhe.user.model.dto.UserPassVO;
-import com.newland.lanhe.user.model.dto.UserQueryDTO;
-import com.newland.lanhe.user.model.dto.UserResetPassDTO;
+import com.newland.lanhe.user.model.dto.*;
+import com.newland.lanhe.user.model.vo.SysUserItemVo;
 import com.newland.lanhe.user.model.vo.SysUserVo;
 
 import java.util.Set;
@@ -35,18 +33,24 @@ public interface SysUserService extends IService<SysUser> {
      * @return
      */
     Page<SysUserVo> getUsers(UserQueryDTO userQueryDTO);
+    /**
+     * 获取用户
+     * @param userId 用户id
+     * @return
+     */
+    SysUserItemVo getUser(Long userId);
 
     /**
      * 添加用户
-     * @param sysUser
+     * @param sysUserDto
      */
-    void addUser(SysUser sysUser);
+    void addUser(SysUserDto sysUserDto);
 
     /**
      * 更新用户
-     * @param sysUser
+     * @param sysUserDto
      */
-    void updateUser(SysUser sysUser);
+    void updateUser(SysUserDto sysUserDto);
 
     /**
      * 个人中心修改
@@ -68,9 +72,8 @@ public interface SysUserService extends IService<SysUser> {
 
     /**
      * 重置密码
-     * @param userResetPassDTO
      */
-    void resetPass(UserResetPassDTO userResetPassDTO);
+    void resetPass(Long id);
 
     /**
      * 更新头像

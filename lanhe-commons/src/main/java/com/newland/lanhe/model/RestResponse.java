@@ -41,6 +41,12 @@ public class RestResponse<T> {
         response.setResult(result);
         return response;
     }
+    public static <T> RestResponse<T> msg(String msg) {
+        RestResponse<T> response = new RestResponse<T>();
+        response.setCode(200);
+        response.setMsg(msg);
+        return response;
+    }
 
     public static <T> RestResponse<T> error(String msg) {
         RestResponse<T> response = new RestResponse<T>();

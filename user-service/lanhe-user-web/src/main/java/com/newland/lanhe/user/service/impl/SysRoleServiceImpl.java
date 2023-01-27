@@ -116,6 +116,6 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
 
     @Override
     public List<SysRole> getAllRoles() {
-        return baseMapper.selectList(Wrappers.emptyWrapper());
+        return baseMapper.selectList(Wrappers.<SysRole>lambdaQuery().orderByAsc(SysRole::getLevel));
     }
 }

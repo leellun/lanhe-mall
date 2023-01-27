@@ -12,6 +12,7 @@ import com.newland.lanhe.utils.AssertUtil;
 import com.newland.mybatis.page.PageWrapper;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -24,6 +25,11 @@ import java.util.Set;
  */
 @Service
 public class SysJobServiceImpl extends ServiceImpl<SysJobMapper, SysJob> implements SysJobService {
+
+    @Override
+    public List<SysJob> getAllJobs() {
+        return baseMapper.selectList(Wrappers.<SysJob>lambdaQuery().orderByAsc(SysJob::getJobSort));
+    }
 
     @Override
     public Page<SysJob> getJobs(JobQueryDTO jobQueryDTO) {

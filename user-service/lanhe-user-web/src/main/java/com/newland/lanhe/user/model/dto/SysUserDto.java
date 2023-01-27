@@ -1,44 +1,29 @@
 package com.newland.lanhe.user.model.dto;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.impl.IndexedStringListSerializer;
+import com.newland.lanhe.user.entity.SysUser;
+import com.newland.lanhe.validator.Update;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
+ * 用户添加、修改
  * Author: leell
  * Date: 2022/12/7 14:16:15
  */
 @Data
 @ApiModel(value = "用户列表返回对象")
-public class SysUserDto {
-    @ApiModelProperty(value = "用户id")
+public class SysUserDto extends SysUser {
+    @ApiModelProperty(value = "ID")
+    @NotNull(message = "id不能为空",groups = {Update.class})
     private Long id;
+
     @ApiModelProperty(value = "角色id")
+    @JsonSerialize(using= IndexedStringListSerializer.class)
     private List<Long> roleIds;
-
-    @ApiModelProperty(value = "部门id")
-    private Long departmentId;
-    @ApiModelProperty(value = "岗位id")
-    private Long jobId;
-
-    @ApiModelProperty(value = "用户名")
-    private String username;
-
-    @ApiModelProperty(value = "昵称")
-    private String nickName;
-
-    @ApiModelProperty(value = "邮箱")
-    private String email;
-
-    @ApiModelProperty("手机号码")
-    private String phone;
-
-    @ApiModelProperty("性别")
-    private Integer gender;
-    @ApiModelProperty("头像")
-    private String avatar;
-
-    private Integer enabled;
 }

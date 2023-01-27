@@ -5,10 +5,7 @@ import com.newland.lanhe.model.LoginUser;
 import com.newland.lanhe.model.RestResponse;
 import com.newland.lanhe.user.dto.LoginDTO;
 import com.newland.lanhe.user.entity.SysUser;
-import com.newland.lanhe.user.model.dto.UserCenterDTO;
-import com.newland.lanhe.user.model.dto.UserPassVO;
-import com.newland.lanhe.user.model.dto.UserQueryDTO;
-import com.newland.lanhe.user.model.dto.UserResetPassDTO;
+import com.newland.lanhe.user.model.dto.*;
 import com.newland.lanhe.user.service.SysUserService;
 import com.newland.lanhe.validator.Insert;
 import com.newland.lanhe.validator.Update;
@@ -52,15 +49,23 @@ public class SysUserController {
     public RestResponse list(@RequestBody UserQueryDTO userQueryDTO) {
         return RestResponse.success(sysUserService.getUsers(userQueryDTO));
     }
+    @ApiOperation("查询用户")
+    @ApiImplicitParams({@ApiImplicitParam(name = "userQueryDTO", value = "用户列表", required = true,
+            dataType = "UserQueryDTO", paramType = "body")})
+    @GetMapping("/{id}")
+//    //@PreAuthorize("hasAuthority('user:select')")
+    public RestResponse list(@PathVariable Long id) {
+        return RestResponse.success(sysUserService.getUser(id));
+    }
 
     @ApiOperation("新增用户")
     @ApiImplicitParams({@ApiImplicitParam(name = "sysUser", value = "用户", required = true,
             dataType = "SysUser", paramType = "body")})
     @PostMapping
     //@PreAuthorize("hasAuthority('user:add')")
-    public RestResponse add(@RequestBody @Validated(Insert.class) SysUser sysUser) {
-        sysUserService.addUser(sysUser);
-        return RestResponse.success("添加成功");
+    public RestResponse add(@RequestBody @Validated(Insert.class) SysUserDto sysUserDto) {
+        sysUserService.addUser(sysUserDto);
+        return RestResponse.msg("添加成功");
     }
 
     @ApiOperation("修改用户")
@@ -68,9 +73,9 @@ public class SysUserController {
             dataType = "SysUser", paramType = "body")})
     @PutMapping
     //@PreAuthorize("hasAuthority('user:update')")
-    public RestResponse update(@RequestBody @Validated(Update.class) SysUser sysUser) {
-        sysUserService.updateUser(sysUser);
-        return RestResponse.success("更新成功");
+    public RestResponse update(@RequestBody @Validated(Update.class) SysUserDto sysUserDto) {
+        sysUserService.updateUser(sysUserDto);
+        return RestResponse.msg("更新成功");
     }
 
     @ApiOperation("修改用户：个人中心")
@@ -90,7 +95,7 @@ public class SysUserController {
     //@PreAuthorize("hasAuthority('user:delete')")
     public RestResponse delete(@RequestBody Set<Long> ids) {
         sysUserService.deleteUser(ids);
-        return RestResponse.success("删除用户成功");
+        return RestResponse.msg("删除用户成功");
     }
 
     @ApiOperation("修改密码")
@@ -100,17 +105,15 @@ public class SysUserController {
     //@PreAuthorize("hasAuthority('user:update')")
     public RestResponse updatePass(@RequestBody UserPassVO userPassVO) {
         sysUserService.updatePass(userPassVO);
-        return RestResponse.success("密码修改成功");
+        return RestResponse.msg("密码修改成功");
     }
 
     @ApiOperation("重置密码")
-    @ApiImplicitParams({@ApiImplicitParam(name = "userResetPassDTO", value = "重置密码", required = true,
-            dataType = "UserResetPassDTO", paramType = "body")})
-    @PutMapping(value = "/resetPass")
+    @PutMapping(value = "/resetPass/{id}")
     //@PreAuthorize("hasAuthority('user:update')")
-    public RestResponse resetPass(@RequestBody UserResetPassDTO userResetPassDTO) {
-        sysUserService.resetPass(userResetPassDTO);
-        return RestResponse.success("密码重置成功");
+    public RestResponse resetPass(@PathVariable Long id) {
+        sysUserService.resetPass(id);
+        return RestResponse.msg("密码重置成功");
     }
 
     @ApiOperation("上传头像")
@@ -118,14 +121,14 @@ public class SysUserController {
     //@PreAuthorize("hasAuthority('user:update')")
     public RestResponse<String> updateAvatar(@RequestParam String avatar) {
         sysUserService.updateAvatar(avatar);
-        return RestResponse.success("头像上传成功");
+        return RestResponse.msg("头像上传成功");
     }
 
     @ApiOperation("修改邮箱")
     @PostMapping(value = "/updateEmail/{code}")
     public RestResponse updateEmail(@PathVariable String code, @RequestBody SysUser user) throws Exception {
 //        sysUserService.updateEmail(code,user);
-        return RestResponse.success("邮箱修改成功");
+        return RestResponse.msg("邮箱修改成功");
     }
 }
 

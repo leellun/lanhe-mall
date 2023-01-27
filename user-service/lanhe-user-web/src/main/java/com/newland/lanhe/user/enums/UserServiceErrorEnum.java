@@ -13,6 +13,8 @@ public enum UserServiceErrorEnum implements ErrorCode {
     USER_PASSWORD_ERROR(1002,"用户密码错误"),
     USER_FORBIDDEN(1003,"用户未启用"),
     USER_EXIST(1004,"该用户名用户已存在！"),
+    USER_PHONE_EXIST(1018,"手机号对应用户已存在！"),
+    USER_EMAIL_EXIST(1019,"邮箱对应用户已存在！"),
     USER_DELETE_FAIL(1005,"删除用户失败！"),
     USER_OLD_PASSWORD_ERROR(1006,"用户旧密码错误"),
     DEPARTMENT_NOT_EXIST(1007,"当前部门不存在"),
@@ -26,6 +28,7 @@ public enum UserServiceErrorEnum implements ErrorCode {
     ROLE_NAME_EXIST(1015,"该名称角色存在！"),
     ROLE_CODE_EXIST(1016,"该编码角色存在！"),
     ROLE_DELETE_FAIL(1017,"角色删除失败！"),
+    ROLE_NOT_SELECT(1020,"角色未选择！"),
     ;
 
 

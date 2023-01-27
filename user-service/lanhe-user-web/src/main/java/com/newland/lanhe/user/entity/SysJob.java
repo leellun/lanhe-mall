@@ -24,8 +24,11 @@ public class SysJob extends BaseEntity {
     @ApiModelProperty(value = "岗位名称")
     private String name;
 
+    /**
+     * @see com.newland.lanhe.enumeration.BasicEnum
+     */
     @ApiModelProperty(value = "岗位状态")
-    private Boolean enabled;
+    private Integer enabled;
 
     @ApiModelProperty(value = "排序")
     private Integer jobSort;

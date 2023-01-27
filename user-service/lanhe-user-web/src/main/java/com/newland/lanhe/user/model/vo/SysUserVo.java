@@ -19,5 +19,5 @@ public class SysUserVo extends SysUser {
     /**
      * 角色名称
      */
-    private List<String> roleName;
+    private List<String> roleNames;
 }
