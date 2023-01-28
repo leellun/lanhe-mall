@@ -36,7 +36,7 @@ public class OssFileController {
         try {
             // 上传并返回访问地址
             OssFile ossFile = fileService.uploadFile(file);
-            return RestResponse.success(ossFile);
+            return RestResponse.ok(ossFile);
         } catch (Exception e) {
             log.error("上传文件失败", e);
         }
@@ -48,6 +48,6 @@ public class OssFileController {
             dataType = "String")})
     @GetMapping("/object/{objectName}")
     public RestResponse getRealUrl(@PathVariable("objectName") String objectName){
-        return RestResponse.success(fileService.getFileUrl(objectName));
+        return RestResponse.ok(fileService.getFileUrl(objectName));
     }
 }

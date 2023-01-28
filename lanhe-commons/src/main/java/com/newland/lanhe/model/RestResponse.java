@@ -12,6 +12,7 @@ import lombok.ToString;
 
 /**
  * 响应体
+ *
  * @author leell
  */
 @Data
@@ -28,24 +29,38 @@ public class RestResponse<T> {
 
     @ApiModelProperty("响应内容")
     private T result;
+    public RestResponse() {
+    }
+    public RestResponse(Integer code, String msg) {
+        this.code = code;
+        this.msg = msg;
+    }
 
+    public RestResponse(Integer code, T data) {
+        this.code = code;
+        this.result = data;
+    }
+
+    public RestResponse(Integer code, String msg, T data) {
+        this.code = code;
+        this.msg = msg;
+        this.result = data;
+    }
+    public static <T> RestResponse ok(T data) {
+        return new RestResponse<>(ResultCode.SUCCESS.getCode(), data);
+    }
+
+    public static <T> RestResponse ok(String msg, T data) {
+        return new RestResponse<>(ResultCode.SUCCESS.getCode(), msg, data);
+    }
     public static <T> RestResponse<T> success() {
         RestResponse<T> response = new RestResponse<T>();
         response.setCode(ResultCode.SUCCESS.getCode());
         return response;
     }
 
-    public static <T> RestResponse<T> success(T result) {
-        RestResponse<T> response = new RestResponse<T>();
-        response.setCode(200);
-        response.setResult(result);
-        return response;
-    }
-    public static <T> RestResponse<T> msg(String msg) {
-        RestResponse<T> response = new RestResponse<T>();
-        response.setCode(200);
-        response.setMsg(msg);
-        return response;
+    public static <T> RestResponse<T> success(String message) {
+        return new RestResponse<>(ResultCode.SUCCESS.getCode(),message);
     }
 
     public static <T> RestResponse<T> error(String msg) {

@@ -40,7 +40,7 @@ public class SysDepartmentController {
     @GetMapping
     //@PreAuthorize("hasAnyAuthority('user:select','dept:select')")
     public RestResponse query(@RequestBody DeptQueryDTO deptQueryDTO) {
-        return RestResponse.success(sysDepartmentService.getDepartments(deptQueryDTO));
+        return RestResponse.ok(sysDepartmentService.getDepartments(deptQueryDTO));
     }
 
     @ApiOperation("查询部门:获取同级与上级数据")
@@ -49,7 +49,7 @@ public class SysDepartmentController {
     @GetMapping("/search")
     //@PreAuthorize("hasAnyAuthority('user:select','dept:select')")
     public RestResponse getDepartSearch(@RequestParam("name") String name) {
-        return RestResponse.success(sysDepartmentService.getDepartSearch(name));
+        return RestResponse.ok(sysDepartmentService.getDepartSearch(name));
     }
 
     @ApiOperation("查询部门:获取子部门")
@@ -58,7 +58,7 @@ public class SysDepartmentController {
     @GetMapping("/sub/{pid}")
     //@PreAuthorize("hasAnyAuthority('user:select','dept:select')")
     public RestResponse<List<SysDepartment>> getSubDepts(@PathVariable("pid") Long pid) {
-        return RestResponse.success(sysDepartmentService.getSubDepts(pid));
+        return RestResponse.ok(sysDepartmentService.getSubDepts(pid));
     }
 
     @ApiOperation("新增部门")

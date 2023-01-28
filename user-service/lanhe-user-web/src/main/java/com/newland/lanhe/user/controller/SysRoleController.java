@@ -37,21 +37,21 @@ public class SysRoleController {
     @GetMapping(value = "/{id}")
     //@PreAuthorize("hasAuthority('role:select')")
     public RestResponse query(@PathVariable Long id) {
-        return RestResponse.success(sysRoleService.getRole(id));
+        return RestResponse.ok(sysRoleService.getRole(id));
     }
 
     @ApiOperation("返回全部的角色")
     @GetMapping(value = "/all")
     //@PreAuthorize("hasAnyAuthority('role:select','user:select')")
     public RestResponse list() {
-        return RestResponse.success(sysRoleService.getAllRoles());
+        return RestResponse.ok(sysRoleService.getAllRoles());
     }
 
     @ApiOperation("查询角色")
     @GetMapping
     //@PreAuthorize("hasAuthority('role:select')")
     public RestResponse list(@RequestBody RoleQueryDTO roleQueryDTO) {
-        return RestResponse.success(sysRoleService.getRolePage(roleQueryDTO));
+        return RestResponse.ok(sysRoleService.getRolePage(roleQueryDTO));
     }
 
     @ApiOperation("新增角色")
@@ -82,14 +82,14 @@ public class SysRoleController {
     @GetMapping("/users")
     //@PreAuthorize("hasAuthority('role:select')")
     public RestResponse listUsersByRole(@RequestBody LevelRoleDTO levelRoleDTO) {
-        return RestResponse.success(sysRoleService.getUsersByRole(levelRoleDTO));
+        return RestResponse.ok(sysRoleService.getUsersByRole(levelRoleDTO));
     }
 
     @ApiOperation("查询非下属用户")
     @GetMapping("/not/users")
     //@PreAuthorize("hasAuthority('role:select')")
     public RestResponse listNotByRole(@RequestBody LevelRoleDTO levelRoleDTO) {
-        return RestResponse.success(sysRoleService.getNoUsersByRole(levelRoleDTO));
+        return RestResponse.ok(sysRoleService.getNoUsersByRole(levelRoleDTO));
     }
 
     @ApiOperation("删除下属用户")

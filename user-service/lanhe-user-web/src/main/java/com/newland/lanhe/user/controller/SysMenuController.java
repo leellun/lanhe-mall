@@ -36,7 +36,7 @@ public class SysMenuController {
     @ApiOperation("获取前端所需菜单")
     @PreAuthorize("hasAuthority('menu:select')")
     public RestResponse buildMenu() {
-        return RestResponse.success(sysMenuService.getUserMenus());
+        return RestResponse.ok(sysMenuService.getUserMenus());
     }
 
     @ApiOperation("返回全部的菜单")
@@ -44,35 +44,35 @@ public class SysMenuController {
     @PreAuthorize("hasAuthority('menu:select','role:select')")
     public RestResponse<List<SysMenu>> listLazy(@RequestParam Long pid,
                                                 @RequestParam Long roleId) {
-        return RestResponse.success(sysMenuService.getLazyList(pid,roleId));
+        return RestResponse.ok(sysMenuService.getLazyList(pid,roleId));
     }
 
     @ApiOperation("根据菜单ID返回所有子节点ID，包含自身ID")
     @GetMapping(value = "/child/{id}")
     @PreAuthorize("hasAuthority('menu:select','Role:select')")
     public RestResponse<Set<Long>> child(@PathVariable Long id) {
-        return RestResponse.success(sysMenuService.getChildIds(id));
+        return RestResponse.ok(sysMenuService.getChildIds(id));
     }
 
     @ApiOperation("查询菜单")
     @GetMapping
     @PreAuthorize("hasAuthority('menu:select')")
     public RestResponse query(@RequestBody MenuQueryDTO menuQueryDTO) throws Exception {
-        return RestResponse.success(sysMenuService.getMenus(menuQueryDTO));
+        return RestResponse.ok(sysMenuService.getMenus(menuQueryDTO));
     }
 
     @ApiOperation("查询菜单分页")
     @GetMapping("/page")
     @PreAuthorize("hasAuthority('menu:select')")
     public RestResponse page(@RequestBody MenuQueryDTO menuQueryDTO) {
-        return RestResponse.success(sysMenuService.getMenuPage(menuQueryDTO));
+        return RestResponse.ok(sysMenuService.getMenuPage(menuQueryDTO));
     }
 
     @ApiOperation("查询菜单:根据ID获取同级与上级数据")
     @PostMapping("/superior")
     @PreAuthorize("hasAuthority('menu:select')")
     public RestResponse getSuperior(@RequestBody List<Long> ids) {
-        return RestResponse.success(sysMenuService.getSuperior(ids));
+        return RestResponse.ok(sysMenuService.getSuperior(ids));
     }
 
     @ApiOperation("新增菜单")

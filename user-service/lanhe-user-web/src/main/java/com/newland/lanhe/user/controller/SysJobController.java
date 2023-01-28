@@ -33,20 +33,20 @@ public class SysJobController {
     private SysJobService sysJobService;
     @ApiOperation("返回全部的岗位")
     @GetMapping(value = "/all")
-    //@PreAuthorize("hasAnyAuthority('job:select','user:select')")
+    ////@PreAuthorize("hasAnyAuthority('job:select','user:select')")
     public RestResponse all() {
-        return RestResponse.success(sysJobService.getAllJobs());
+        return RestResponse.ok(sysJobService.getAllJobs());
     }
     @ApiOperation("查询岗位")
     @GetMapping
-    @PreAuthorize("hasAnyAuthority('job:select','user:select')")
+    //@PreAuthorize("hasAnyAuthority('job:select','user:select')")
     public RestResponse list(@RequestBody JobQueryDTO jobQueryDTO) {
-        return RestResponse.success(sysJobService.getJobs(jobQueryDTO));
+        return RestResponse.ok(sysJobService.getJobs(jobQueryDTO));
     }
 
     @ApiOperation("新增岗位")
     @PostMapping
-    @PreAuthorize("hasAuthority('job:add')")
+    //@PreAuthorize("hasAuthority('job:add')")
     public RestResponse add(@RequestBody @Validated(Insert.class) SysJob sysJob) {
         sysJobService.addJob(sysJob);
         return RestResponse.success("添加岗位成功");
@@ -54,7 +54,7 @@ public class SysJobController {
 
     @ApiOperation("修改岗位")
     @PutMapping
-    @PreAuthorize("hasAuthority('job:update')")
+    //@PreAuthorize("hasAuthority('job:update')")
     public RestResponse update(@RequestBody @Validated(Update.class) SysJob sysJob) {
         sysJobService.updateJob(sysJob);
         return RestResponse.success("更新岗位成功");
@@ -62,7 +62,7 @@ public class SysJobController {
 
     @ApiOperation("删除岗位")
     @DeleteMapping
-    @PreAuthorize("hasAuthority('job:delete')")
+    //@PreAuthorize("hasAuthority('job:delete')")
     public RestResponse delete(@RequestBody Set<Long> ids) {
         sysJobService.deleteJob(ids);
         return RestResponse.success("删除岗位成功");
