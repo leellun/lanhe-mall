@@ -5,6 +5,7 @@ import com.newland.lanhe.model.RestResponse;
 import com.newland.lanhe.user.entity.SysJob;
 import com.newland.lanhe.user.service.SysJobService;
 import com.newland.lanhe.validator.Insert;
+import com.newland.lanhe.validator.IntOptions;
 import com.newland.lanhe.validator.Update;
 import com.newland.lanhe.user.model.dto.JobQueryDTO;
 import io.swagger.annotations.Api;
@@ -33,12 +34,18 @@ public class SysJobController {
     private SysJobService sysJobService;
     @ApiOperation("返回全部的岗位")
     @GetMapping(value = "/all")
-    ////@PreAuthorize("hasAnyAuthority('job:select','user:select')")
+    //@PreAuthorize("hasAnyAuthority('job:select','user:select')")
     public RestResponse all() {
         return RestResponse.ok(sysJobService.getAllJobs());
     }
+    @ApiOperation("返回岗位")
+    @GetMapping(value = "/{id}")
+    //@PreAuthorize("hasAnyAuthority('job:select')")
+    public RestResponse get(@PathVariable Long id) {
+        return RestResponse.ok(sysJobService.getById(id));
+    }
     @ApiOperation("查询岗位")
-    @GetMapping
+    @PostMapping("/list")
     //@PreAuthorize("hasAnyAuthority('job:select','user:select')")
     public RestResponse list(@RequestBody JobQueryDTO jobQueryDTO) {
         return RestResponse.ok(sysJobService.getJobs(jobQueryDTO));
@@ -58,6 +65,13 @@ public class SysJobController {
     public RestResponse update(@RequestBody @Validated(Update.class) SysJob sysJob) {
         sysJobService.updateJob(sysJob);
         return RestResponse.success("更新岗位成功");
+    }
+    @ApiOperation("修改岗位状态")
+    @PutMapping("/enable/{id}")
+    //@PreAuthorize("hasAuthority('job:update')")
+    public RestResponse enable(@PathVariable("id") Long id,@RequestParam("enable") @Validated @IntOptions(options = {0,1},message = "状态不正确") Integer enable) {
+        sysJobService.enable(id,enable);
+        return RestResponse.success("更新状态成功");
     }
 
     @ApiOperation("删除岗位")

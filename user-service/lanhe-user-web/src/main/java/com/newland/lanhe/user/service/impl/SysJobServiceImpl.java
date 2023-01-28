@@ -1,8 +1,11 @@
 package com.newland.lanhe.user.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.newland.lanhe.enumeration.BasicEnum;
+import com.newland.lanhe.exception.BusinessException;
 import com.newland.lanhe.user.entity.SysJob;
 import com.newland.lanhe.user.enums.UserServiceErrorEnum;
 import com.newland.lanhe.user.mapper.SysJobMapper;
@@ -10,7 +13,9 @@ import com.newland.lanhe.user.model.dto.JobQueryDTO;
 import com.newland.lanhe.user.service.SysJobService;
 import com.newland.lanhe.utils.AssertUtil;
 import com.newland.mybatis.page.PageWrapper;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Set;
@@ -34,25 +39,46 @@ public class SysJobServiceImpl extends ServiceImpl<SysJobMapper, SysJob> impleme
     @Override
     public Page<SysJob> getJobs(JobQueryDTO jobQueryDTO) {
         Page<SysJob> page = PageWrapper.wrapper(jobQueryDTO);
-        return baseMapper.selectPage(page, Wrappers.lambdaQuery());
+        LambdaQueryWrapper<SysJob> wrapper = Wrappers.lambdaQuery();
+        if (StringUtils.isNotEmpty(jobQueryDTO.getName())) {
+            wrapper.like(SysJob::getName, jobQueryDTO.getName());
+        }
+        if (jobQueryDTO.getEnabled() != null) {
+            wrapper.eq(SysJob::getEnabled, jobQueryDTO.getEnabled());
+        }
+        return baseMapper.selectPage(page, wrapper);
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class, noRollbackFor = BusinessException.class)
     public void addJob(SysJob sysJob) {
         SysJob dbJob = baseMapper.selectOne(Wrappers.<SysJob>lambdaQuery().eq(SysJob::getName, sysJob.getName()));
         AssertUtil.isNull(dbJob, UserServiceErrorEnum.JOB_EXIST);
+        sysJob.setEnabled(BasicEnum.YES.getCode());
         baseMapper.insert(sysJob);
     }
 
     @Override
     public void updateJob(SysJob sysJob) {
-        SysJob dbJob = baseMapper.selectById(sysJob);
-        AssertUtil.isNull(dbJob, UserServiceErrorEnum.JOB_NOT_EXIST);
+        SysJob dbJob = baseMapper.selectById(sysJob.getId());
+        AssertUtil.notNull(dbJob, UserServiceErrorEnum.JOB_NOT_EXIST);
+        baseMapper.update(new SysJob(), Wrappers.<SysJob>lambdaUpdate()
+                .set(SysJob::getJobSort, sysJob.getJobSort())
+                .eq(SysJob::getId, sysJob.getId()));
     }
 
     @Override
     public void deleteJob(Set<Long> ids) {
         int count = baseMapper.deleteBatchIds(ids);
         AssertUtil.isTrue(count > 0, UserServiceErrorEnum.JOB_DELETE_FAIL);
+    }
+
+    @Override
+    public void enable(Long id, Integer enable) {
+        SysJob dbJob = baseMapper.selectById(id);
+        AssertUtil.notNull(dbJob, UserServiceErrorEnum.JOB_NOT_EXIST);
+        baseMapper.update(new SysJob(), Wrappers.<SysJob>lambdaUpdate()
+                .set(SysJob::getEnabled, enable)
+                .eq(SysJob::getId, id));
     }
 }

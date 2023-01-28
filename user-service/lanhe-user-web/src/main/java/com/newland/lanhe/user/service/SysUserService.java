@@ -51,6 +51,12 @@ public interface SysUserService extends IService<SysUser> {
      * @param sysUserDto
      */
     void updateUser(SysUserDto sysUserDto);
+    /**
+     * 更新用户状态
+     * @param id 用户id
+     * @param enable 状态
+     */
+    void enableUser(Long id,Integer enable);
 
     /**
      * 个人中心修改

@@ -186,10 +186,20 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     }
 
     @Override
+    public void enableUser(Long id, Integer enable) {
+        SysUser dbUser = baseMapper.selectById(id);
+        AssertUtil.notNull(dbUser, UserServiceErrorEnum.USER_NOT_EXIST);
+        baseMapper.update(new SysUser(),Wrappers.<SysUser>lambdaUpdate()
+                .set(SysUser::getEnabled,enable)
+                .eq(SysUser::getId,id)
+        );
+    }
+
+    @Override
     public void updateCenter(UserCenterDTO userCenterDTO) {
         SysUser dbUser = baseMapper.selectById(userCenterDTO.getId());
         AssertUtil.notNull(dbUser, UserServiceErrorEnum.USER_NOT_EXIST);
-        baseMapper.update(null, Wrappers.<SysUser>lambdaUpdate()
+        baseMapper.update(new SysUser(), Wrappers.<SysUser>lambdaUpdate()
                 .set(SysUser::getNickName, userCenterDTO.getNickName())
                 .set(SysUser::getPhone, userCenterDTO.getPhone())
                 .set(SysUser::getGender, userCenterDTO.getGender())

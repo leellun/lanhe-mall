@@ -14,7 +14,6 @@ import java.util.List;
 public class JobQueryDTO extends PageEntity {
     private String name;
 
-    private Boolean enabled;
+    private Integer enabled;
 
-    private List<String> gmtCreate;
 }

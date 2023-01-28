@@ -46,4 +46,10 @@ public interface SysJobService extends IService<SysJob> {
      * @param ids job id列表
      */
     void deleteJob(Set<Long> ids);
+
+    /**
+     * 开启关闭
+     * @param id
+     */
+    void enable(Long id,Integer enable);
 }

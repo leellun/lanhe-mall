@@ -8,6 +8,7 @@ import com.newland.lanhe.user.entity.SysUser;
 import com.newland.lanhe.user.model.dto.*;
 import com.newland.lanhe.user.service.SysUserService;
 import com.newland.lanhe.validator.Insert;
+import com.newland.lanhe.validator.IntOptions;
 import com.newland.lanhe.validator.Update;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -38,9 +39,10 @@ public class SysUserController {
     @ApiImplicitParams({@ApiImplicitParam(name = "loginDTO", value = "登录信息", required = true,
             dataType = "LoginDTO", paramType = "body")})
     @PostMapping(value = "/login")
-    public RestResponse<LoginUser> login(@RequestBody @Validated LoginDTO loginDTO){
+    public RestResponse<LoginUser> login(@RequestBody @Validated LoginDTO loginDTO) {
         return RestResponse.ok(sysUserService.login(loginDTO));
     }
+
     @ApiOperation("查询用户")
     @ApiImplicitParams({@ApiImplicitParam(name = "userQueryDTO", value = "用户列表", required = true,
             dataType = "UserQueryDTO", paramType = "body")})
@@ -49,6 +51,7 @@ public class SysUserController {
     public RestResponse list(@RequestBody UserQueryDTO userQueryDTO) {
         return RestResponse.ok(sysUserService.getUsers(userQueryDTO));
     }
+
     @ApiOperation("查询用户")
     @ApiImplicitParams({@ApiImplicitParam(name = "userQueryDTO", value = "用户列表", required = true,
             dataType = "UserQueryDTO", paramType = "body")})
@@ -75,6 +78,16 @@ public class SysUserController {
     //@PreAuthorize("hasAuthority('user:update')")
     public RestResponse update(@RequestBody @Validated(Update.class) SysUserDto sysUserDto) {
         sysUserService.updateUser(sysUserDto);
+        return RestResponse.success("更新成功");
+    }
+
+    @ApiOperation("修改用户状态")
+    @ApiImplicitParams({@ApiImplicitParam(name = "id", value = "用户id", required = true,
+            dataType = "long", paramType = "path"), @ApiImplicitParam(name = "enable", value = "状态", required = true, dataType = "int", paramType = "param")})
+    @PutMapping("/enable/{id}")
+    //@PreAuthorize("hasAuthority('user:update')")
+    public RestResponse enable(@PathVariable("id") Long id, @RequestParam("enable") @Validated @IntOptions(options = {0, 1}, message = "状态不正确") Integer enable) {
+        sysUserService.enableUser(id, enable);
         return RestResponse.success("更新成功");
     }
 
