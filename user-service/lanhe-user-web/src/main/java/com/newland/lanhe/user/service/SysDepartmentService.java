@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.newland.lanhe.user.entity.SysDepartment;
 import com.newland.lanhe.user.entity.SysMenu;
 import com.newland.lanhe.user.model.dto.DeptQueryDTO;
+import com.newland.lanhe.user.model.vo.SysDepartmentVo;
 
 import java.util.List;
 import java.util.Set;
@@ -19,6 +20,13 @@ import java.util.Set;
  */
 public interface SysDepartmentService extends IService<SysDepartment> {
 
+    /**
+     * 获取部门
+     *
+     * @param deptQueryDTO
+     * @return
+     */
+    SysDepartmentVo getDepartment(Long id);
     /**
      * 获取部门列表
      *
@@ -41,7 +49,19 @@ public interface SysDepartmentService extends IService<SysDepartment> {
      */
 
     void updateDepartment(SysDepartment department);
+    /**
+     * 更新状态
+     * @param id id
+     * @param enable 状态
+     */
+    void enableDepartment(Long id,Integer enable);
 
+    /**
+     * 排序更改
+     * @param id 部门id
+     * @param deptSort 排序
+     */
+    void updateDeptSort(Long id,Integer deptSort);
     /**
      * 删除部门
      *

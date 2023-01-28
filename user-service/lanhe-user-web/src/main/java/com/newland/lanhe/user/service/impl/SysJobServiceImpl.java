@@ -33,7 +33,7 @@ public class SysJobServiceImpl extends ServiceImpl<SysJobMapper, SysJob> impleme
 
     @Override
     public List<SysJob> getAllJobs() {
-        return baseMapper.selectList(Wrappers.<SysJob>lambdaQuery().orderByAsc(SysJob::getJobSort));
+        return baseMapper.selectList(Wrappers.<SysJob>lambdaQuery().eq(SysJob::getEnabled,BasicEnum.YES.getCode()).orderByAsc(SysJob::getJobSort));
     }
 
     @Override

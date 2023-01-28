@@ -4,6 +4,7 @@ package com.newland.lanhe.user.controller;
 import com.newland.lanhe.user.entity.SysDepartment;
 import com.newland.lanhe.user.service.SysDepartmentService;
 import com.newland.lanhe.validator.Insert;
+import com.newland.lanhe.validator.IntOptions;
 import com.newland.lanhe.validator.Update;
 import com.newland.lanhe.model.RestResponse;
 import com.newland.lanhe.user.model.dto.DeptQueryDTO;
@@ -16,6 +17,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.util.List;
 import java.util.Set;
 
@@ -34,13 +37,21 @@ public class SysDepartmentController {
     @Autowired
     private SysDepartmentService sysDepartmentService;
 
-    @ApiOperation("查询部门")
+    @ApiOperation("查询部门列表")
     @ApiImplicitParams({@ApiImplicitParam(name = "deptQueryDTO", value = "查询部门", required = true,
             dataType = "DeptQueryDTO", paramType = "body")})
-    @GetMapping
+    @PostMapping("/list")
     //@PreAuthorize("hasAnyAuthority('user:select','dept:select')")
     public RestResponse query(@RequestBody DeptQueryDTO deptQueryDTO) {
         return RestResponse.ok(sysDepartmentService.getDepartments(deptQueryDTO));
+    }
+    @ApiOperation("查询部门")
+    @ApiImplicitParams({@ApiImplicitParam(name = "id", value = "查询部门", required = true,
+            dataType = "long", paramType = "path")})
+    @GetMapping("/{id}")
+    //@PreAuthorize("hasAnyAuthority('dept:select')")
+    public RestResponse get(@PathVariable Long id) {
+        return RestResponse.ok(sysDepartmentService.getDepartment(id));
     }
 
     @ApiOperation("查询部门:获取同级与上级数据")
@@ -53,7 +64,7 @@ public class SysDepartmentController {
     }
 
     @ApiOperation("查询部门:获取子部门")
-    @ApiImplicitParams({@ApiImplicitParam(name = "pid", value = "获取同级与上级数据", required = true,
+    @ApiImplicitParams({@ApiImplicitParam(name = "pid", value = "上级数据id", required = true,
             dataType = "long", paramType = "path")})
     @GetMapping("/sub/{pid}")
     //@PreAuthorize("hasAnyAuthority('user:select','dept:select')")
@@ -79,6 +90,26 @@ public class SysDepartmentController {
     public RestResponse update(@Validated(Update.class) @RequestBody SysDepartment department) {
         sysDepartmentService.updateDepartment(department);
         return RestResponse.success("修改成功");
+    }
+
+    @ApiOperation("修改部门状态")
+    @ApiImplicitParams({@ApiImplicitParam(name = "id", value = "用户id", required = true,
+            dataType = "long", paramType = "path"), @ApiImplicitParam(name = "enable", value = "状态", required = true, dataType = "int", paramType = "param")})
+    @PutMapping("/enable/{id}")
+    //@PreAuthorize("hasAuthority('user:update')")
+    public RestResponse enable(@PathVariable("id") Long id, @RequestParam("enable") @Validated @IntOptions(options = {0, 1}, message = "状态不正确") Integer enable) {
+        sysDepartmentService.enableDepartment(id, enable);
+        return RestResponse.success("更新成功");
+    }
+
+    @ApiOperation("修改部门排序")
+    @ApiImplicitParams({@ApiImplicitParam(name = "id", value = "用户id", required = true,
+            dataType = "long", paramType = "path"), @ApiImplicitParam(name = "deptSort", value = "排序", required = true, dataType = "int", paramType = "param")})
+    @PutMapping("/sort/{id}")
+    //@PreAuthorize("hasAuthority('user:update')")
+    public RestResponse updateDeptSort(@PathVariable("id") Long id, @RequestParam("deptSort") @Validated @Min(value = 1, message = "不能小于1") @Max(value = 1000, message = "不能大于1000") Integer deptSort) {
+        sysDepartmentService.updateDeptSort(id, deptSort);
+        return RestResponse.success("更新成功");
     }
 
     @ApiOperation("删除部门")

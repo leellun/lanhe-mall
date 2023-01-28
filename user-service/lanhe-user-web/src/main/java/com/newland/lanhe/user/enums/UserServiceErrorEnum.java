@@ -18,6 +18,8 @@ public enum UserServiceErrorEnum implements ErrorCode {
     USER_DELETE_FAIL(1005,"删除用户失败！"),
     USER_OLD_PASSWORD_ERROR(1006,"用户旧密码错误"),
     DEPARTMENT_NOT_EXIST(1007,"当前部门不存在"),
+    DEPARTMENT_EXIST(1021,"当前部门存在"),
+    DEPARTMENT_PARENT_NOT_EXIST(1022,"父部门不存在"),
     DEPARTMENT_DELETE_FAIL(1008,"部门删除失败"),
     JOB_EXIST(1009,"该岗位已存在！"),
     JOB_NOT_EXIST(1010,"该岗位不存在！"),

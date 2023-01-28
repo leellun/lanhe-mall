@@ -27,6 +27,11 @@ public class SysRole extends BaseEntity {
     @ApiModelProperty(value = "编码")
     private String code;
 
+    /**
+     * @see com.newland.lanhe.enumeration.BasicEnum
+     */
+    @ApiModelProperty(value = "状态")
+    private Integer enabled;
     @ApiModelProperty(value = "角色级别")
     private Integer level;
 

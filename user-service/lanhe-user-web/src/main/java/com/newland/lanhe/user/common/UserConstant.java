@@ -14,4 +14,5 @@ public class UserConstant {
     public static final String LOCK_USER_OPERATION_USERNAME_PREFIX = "lock:ad:username:";
     public static final String LOCK_USER_OPERATION_PHONE_PREFIX = "lock:ad:phone:";
     public static final String LOCK_USER_OPERATION_EMAIL_PREFIX = "lock:ad:email:";
+    public static final String LOCK_DEPT_AD_PREFIX = "dept:ad:";
 }

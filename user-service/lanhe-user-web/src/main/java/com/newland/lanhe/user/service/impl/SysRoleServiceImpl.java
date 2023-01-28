@@ -3,6 +3,7 @@ package com.newland.lanhe.user.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.newland.lanhe.enumeration.BasicEnum;
 import com.newland.lanhe.user.entity.SysRole;
 import com.newland.lanhe.user.entity.SysUser;
 import com.newland.lanhe.user.entity.SysUserRole;
@@ -38,7 +39,10 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
     private SysUserRoleService sysUserRoleService;
     @Autowired
     private SysUserMapper sysUserMapper;
-
+    @Override
+    public List<SysRole> getAllRoles() {
+        return baseMapper.selectList(Wrappers.<SysRole>lambdaQuery().eq(SysRole::getEnabled, BasicEnum.YES.getCode()).orderByAsc(SysRole::getLevel));
+    }
     @Override
     public SysRole getRole(Long id) {
         SysRole sysRole = baseMapper.selectById(id);
@@ -114,8 +118,4 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
         return baseMapper.selectPage(PageWrapper.wrapper(roleQueryDTO), Wrappers.lambdaQuery());
     }
 
-    @Override
-    public List<SysRole> getAllRoles() {
-        return baseMapper.selectList(Wrappers.<SysRole>lambdaQuery().orderByAsc(SysRole::getLevel));
-    }
 }

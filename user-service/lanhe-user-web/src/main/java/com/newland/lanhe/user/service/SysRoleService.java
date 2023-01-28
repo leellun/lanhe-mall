@@ -21,7 +21,15 @@ import java.util.Set;
  */
 public interface SysRoleService extends IService<SysRole> {
     /**
+     * 查询所有角色
+     *
+     * @return
+     */
+    List<SysRole> getAllRoles();
+
+    /**
      * 获取单个角色
+     *
      * @param id 角色id
      * @return
      */
@@ -29,35 +37,42 @@ public interface SysRoleService extends IService<SysRole> {
 
     /**
      * 添加角色
+     *
      * @param sysRole
      */
     void addRole(SysRole sysRole);
 
     /**
      * 更新角色
+     *
      * @param sysRole
      */
     void updateRole(SysRole sysRole);
+
     /**
      * 删除角色
+     *
      * @param ids
      */
     void deleteRoles(Set<Long> ids);
 
     /**
      * 添加用户角色绑定
+     *
      * @param list
      */
     void addUserBinds(List<UserRoleDTO> list);
 
     /**
      * 删除用户角色绑定
+     *
      * @param list
      */
     void deleteUsers(List<UserRoleDTO> list);
 
     /**
      * 获取非指定角色的下属用户
+     *
      * @param levelRoleDTO
      * @return
      */
@@ -65,6 +80,7 @@ public interface SysRoleService extends IService<SysRole> {
 
     /**
      * 获取指定角色的下属用户
+     *
      * @param levelRoleDTO
      * @return
      */
@@ -73,14 +89,10 @@ public interface SysRoleService extends IService<SysRole> {
 
     /**
      * 分页查询角色
+     *
      * @param roleQueryDTO
      * @return
      */
     Page<SysRole> getRolePage(RoleQueryDTO roleQueryDTO);
 
-    /**
-     * 查询所有角色
-     * @return
-     */
-    List<SysRole> getAllRoles();
 }
