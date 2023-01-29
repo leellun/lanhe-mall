@@ -9,6 +9,7 @@ import com.newland.lanhe.model.LoginUser;
 import com.newland.lanhe.security.utils.SecurityUtil;
 import com.newland.lanhe.user.entity.SysMenu;
 import com.newland.lanhe.user.entity.SysRole;
+import com.newland.lanhe.user.enums.MenuTypeEnum;
 import com.newland.lanhe.user.enums.UserServiceErrorEnum;
 import com.newland.lanhe.user.mapper.SysMenuMapper;
 import com.newland.lanhe.user.mapper.SysRoleMapper;
@@ -181,12 +182,16 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         LoginUser loginUser = SecurityUtil.getLoginUser();
         List<SysRole> roles = sysRoleMapper.getRoleWithIdByUserId(loginUser.getUserId(), BasicEnum.YES.getCode());
         List<SysMenu> menus = baseMapper.getMenuList(roles.stream().map(SysRole::getId).collect(Collectors.toList()));
-        Map<Long, SysMenu> pidMenuMap = menus.stream().collect(Collectors.toMap(SysMenu::getId, Function.identity()));
-        List<Long> pids = pidMenuMap.values().stream().filter(item -> item.getPid() != null && pidMenuMap.get(item.getPid()) == null).map(SysMenu::getPid).distinct().collect(Collectors.toList());
+        Map<Long, SysMenu> menuMap = menus.stream().collect(Collectors.toMap(SysMenu::getId, Function.identity()));
+        List<Long> pids = menuMap.values().stream().filter(item -> item.getPid() != null && menuMap.get(item.getPid()) == null).map(SysMenu::getPid).distinct().collect(Collectors.toList());
+        menus = menus.stream().filter(item -> item.getType().equals(MenuTypeEnum.MENU.getKey())).collect(Collectors.toList());
         while (pids.size() > 0) {
             List<SysMenu> list = baseMapper.selectList(Wrappers.<SysMenu>lambdaQuery().in(SysMenu::getId, pids));
+            list.forEach(item->{
+                menuMap.put(item.getId(),item);
+            });
             menus.addAll(list);
-            pids = list.stream().filter(item -> item.getPid() != null).map(SysMenu::getPid).collect(Collectors.toList());
+            pids = list.stream().filter(item -> item.getPid() != null && !menuMap.containsKey(item.getPid())).map(SysMenu::getPid).distinct().collect(Collectors.toList());
         }
         return menus;
     }
