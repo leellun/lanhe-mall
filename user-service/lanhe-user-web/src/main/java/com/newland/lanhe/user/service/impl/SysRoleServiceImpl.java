@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.newland.lanhe.constant.Constant;
 import com.newland.lanhe.enumeration.BasicEnum;
 import com.newland.lanhe.exception.BusinessException;
 import com.newland.lanhe.user.entity.SysMenu;
@@ -11,15 +12,13 @@ import com.newland.lanhe.user.entity.SysRole;
 import com.newland.lanhe.user.entity.SysRoleMenu;
 import com.newland.lanhe.user.entity.SysUserRole;
 import com.newland.lanhe.user.enums.UserServiceErrorEnum;
-import com.newland.lanhe.user.mapper.SysMenuMapper;
-import com.newland.lanhe.user.mapper.SysRoleMapper;
-import com.newland.lanhe.user.mapper.SysRoleMenuMapper;
-import com.newland.lanhe.user.mapper.SysUserRoleMapper;
+import com.newland.lanhe.user.mapper.*;
 import com.newland.lanhe.user.model.dto.RoleQueryDTO;
 import com.newland.lanhe.user.service.SysRoleMenuService;
 import com.newland.lanhe.user.service.SysRoleService;
 import com.newland.lanhe.utils.AssertUtil;
 import com.newland.mybatis.page.PageWrapper;
+import com.newland.redis.utils.RedisUtil;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,6 +45,8 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
     private SysRoleMenuService sysRoleMenuService;
     @Autowired
     private SysMenuMapper sysMenuMapper;
+    @Autowired
+    private RedisUtil redisUtil;
 
     @Override
     public List<SysRole> getAllRoles() {
@@ -136,6 +137,11 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
         if (roleMenus.size() >= 0) {
             sysRoleMenuService.saveBatch(roleMenus);
         }
+        List<Object> uObjs = sysUserRoleMapper.selectObjs(Wrappers.<SysUserRole>lambdaQuery().select(SysUserRole::getUserId).eq(SysUserRole::getRoleId, id));
+        List<Long> userIds = uObjs.stream().map(item -> (Long) item).collect(Collectors.toList());
+        userIds.forEach(userId -> {
+            redisUtil.del(Constant.USER_LOGIN_INFO + userId);
+        });
     }
 
     @Override
@@ -153,6 +159,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
      */
     private List<Long> getAllExpandMenuIds(Collection<Long> ids) {
         List<Long> list = new ArrayList<>();
+        List<Long> checkPids=new ArrayList<>(ids);
         while (ids.size() > 0) {
             Set<Long> set = new HashSet<>(ids);
             list.addAll(set);

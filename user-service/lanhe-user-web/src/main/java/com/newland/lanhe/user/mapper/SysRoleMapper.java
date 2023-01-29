@@ -23,5 +23,5 @@ public interface SysRoleMapper extends BaseMapper<SysRole> {
      * @param userId 用户id
      * @return
      */
-    List<SysRole> getRoleNameWithIdByUserId(@Param("userId") Long userId);
+    List<SysRole> getRoleWithIdByUserId(@Param("userId") Long userId,@Param("enabled")Integer enabled);
 }

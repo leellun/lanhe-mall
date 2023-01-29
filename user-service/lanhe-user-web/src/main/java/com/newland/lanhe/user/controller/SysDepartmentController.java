@@ -41,7 +41,7 @@ public class SysDepartmentController {
     @ApiImplicitParams({@ApiImplicitParam(name = "deptQueryDTO", value = "查询部门", required = true,
             dataType = "DeptQueryDTO", paramType = "body")})
     @PostMapping("/list")
-    //@PreAuthorize("hasAnyAuthority('user:select','dept:select')")
+    @PreAuthorize("hasAnyAuthority('user:select','dept:select')")
     public RestResponse query(@RequestBody DeptQueryDTO deptQueryDTO) {
         return RestResponse.ok(sysDepartmentService.getDepartments(deptQueryDTO));
     }
@@ -49,7 +49,7 @@ public class SysDepartmentController {
     @ApiImplicitParams({@ApiImplicitParam(name = "id", value = "查询部门", required = true,
             dataType = "long", paramType = "path")})
     @GetMapping("/{id}")
-    //@PreAuthorize("hasAnyAuthority('dept:select')")
+    @PreAuthorize("hasAnyAuthority('dept:select')")
     public RestResponse get(@PathVariable Long id) {
         return RestResponse.ok(sysDepartmentService.getDepartment(id));
     }
@@ -58,7 +58,7 @@ public class SysDepartmentController {
     @ApiImplicitParams({@ApiImplicitParam(name = "ids", value = "获取同级与上级数据", required = true,
             dataType = "list", paramType = "body")})
     @GetMapping("/search")
-    //@PreAuthorize("hasAnyAuthority('user:select','dept:select')")
+    @PreAuthorize("hasAnyAuthority('user:select','dept:select')")
     public RestResponse getDepartSearch(@RequestParam("name") String name) {
         return RestResponse.ok(sysDepartmentService.getDepartSearch(name));
     }
@@ -67,7 +67,7 @@ public class SysDepartmentController {
     @ApiImplicitParams({@ApiImplicitParam(name = "pid", value = "上级数据id", required = true,
             dataType = "long", paramType = "path")})
     @GetMapping("/sub/{pid}")
-    //@PreAuthorize("hasAnyAuthority('user:select','dept:select')")
+    @PreAuthorize("hasAnyAuthority('user:select','dept:select')")
     public RestResponse<List<SysDepartment>> getSubDepts(@PathVariable("pid") Long pid) {
         return RestResponse.ok(sysDepartmentService.getSubDepts(pid));
     }
@@ -76,7 +76,7 @@ public class SysDepartmentController {
     @ApiImplicitParams({@ApiImplicitParam(name = "department", value = "新增部门", required = true,
             dataType = "SysDepartment", paramType = "body")})
     @PostMapping
-    //@PreAuthorize("hasAuthority('dept:add')")
+    @PreAuthorize("hasAuthority('dept:add')")
     public RestResponse add(@Validated(Insert.class) @RequestBody SysDepartment department) {
         sysDepartmentService.addDepartment(department);
         return RestResponse.success("添加成功");
@@ -86,7 +86,7 @@ public class SysDepartmentController {
     @ApiImplicitParams({@ApiImplicitParam(name = "department", value = "修改部门", required = true,
             dataType = "SysDepartment", paramType = "body")})
     @PutMapping
-    //@PreAuthorize("hasAuthority('dept:update')")
+    @PreAuthorize("hasAuthority('dept:update')")
     public RestResponse update(@Validated(Update.class) @RequestBody SysDepartment department) {
         sysDepartmentService.updateDepartment(department);
         return RestResponse.success("修改成功");
@@ -96,7 +96,7 @@ public class SysDepartmentController {
     @ApiImplicitParams({@ApiImplicitParam(name = "id", value = "部门id", required = true,
             dataType = "long", paramType = "path"), @ApiImplicitParam(name = "enable", value = "状态", required = true, dataType = "int", paramType = "param")})
     @PutMapping("/enable/{id}")
-    //@PreAuthorize("hasAuthority('dept:update')")
+    @PreAuthorize("hasAuthority('dept:update')")
     public RestResponse enable(@PathVariable("id") Long id, @RequestParam("enable") @Validated @IntOptions(options = {0, 1}, message = "状态不正确") Integer enable) {
         sysDepartmentService.enableDepartment(id, enable);
         return RestResponse.success("更新成功");
@@ -106,7 +106,7 @@ public class SysDepartmentController {
     @ApiImplicitParams({@ApiImplicitParam(name = "id", value = "用户id", required = true,
             dataType = "long", paramType = "path"), @ApiImplicitParam(name = "deptSort", value = "排序", required = true, dataType = "int", paramType = "param")})
     @PutMapping("/sort/{id}")
-    //@PreAuthorize("hasAuthority('dept:update')")
+    @PreAuthorize("hasAuthority('dept:update')")
     public RestResponse updateDeptSort(@PathVariable("id") Long id, @RequestParam("deptSort") @Validated @Min(value = 1, message = "不能小于1") @Max(value = 1000, message = "不能大于1000") Integer deptSort) {
         sysDepartmentService.updateDeptSort(id, deptSort);
         return RestResponse.success("更新成功");
@@ -116,7 +116,7 @@ public class SysDepartmentController {
     @ApiImplicitParams({@ApiImplicitParam(name = "ids", value = "删除部门id", required = true,
             dataType = "set", paramType = "body")})
     @DeleteMapping
-    //@PreAuthorize("hasAuthority('dept:delete')")
+    @PreAuthorize("hasAuthority('dept:delete')")
     public RestResponse delete(@RequestBody Set<Long> ids) {
         sysDepartmentService.deleteDepartment(ids);
         return RestResponse.success("删除成功");

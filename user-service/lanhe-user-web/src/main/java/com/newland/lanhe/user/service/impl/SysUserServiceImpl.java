@@ -70,7 +70,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         SysUser sysUser = baseMapper.selectOne(Wrappers.<SysUser>lambdaQuery().eq(SysUser::getUsername, loginDTO.getUsername()));
         AssertUtil.notNull(sysUser, UserServiceErrorEnum.USER_NOT_EXIST);
         AssertUtil.isTrue(md5Password.endsWith(sysUser.getPassword()), UserServiceErrorEnum.USER_PASSWORD_ERROR);
-        baseMapper.update(null, Wrappers.<SysUser>lambdaUpdate().set(SysUser::getLastLoginTime,LocalDateTime.now()).eq(SysUser::getId, sysUser.getId()));
+        baseMapper.update(null, Wrappers.<SysUser>lambdaUpdate().set(SysUser::getLastLoginTime, LocalDateTime.now()).eq(SysUser::getId, sysUser.getId()));
         LoginUser loginUser = new LoginUser();
         loginUser.setUsername(sysUser.getUsername());
         loginUser.setMobile(sysUser.getPhone());
@@ -85,7 +85,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         Page<SysUserVo> page = PageWrapper.wrapper(userQueryDTO);
         Page<SysUserVo> result = baseMapper.selectUsersPage(page, userQueryDTO);
         result.getRecords().forEach(item -> {
-            List<SysRole> roles = sysRoleMapper.getRoleNameWithIdByUserId(item.getId());
+            List<SysRole> roles = sysRoleMapper.getRoleWithIdByUserId(item.getId(), null);
             item.setRoleNames(roles.stream().map(SysRole::getName).collect(Collectors.toList()));
         });
         return result;

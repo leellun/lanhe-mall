@@ -22,6 +22,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.newland.lanhe.utils.AssertUtil;
 import com.newland.mybatis.page.PageEntity;
 import com.newland.mybatis.page.PageWrapper;
+import io.prometheus.client.CollectorRegistry;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +30,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -115,7 +115,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
 
     @Override
     public List<String> getPermissions(Long userId) {
-        List<SysRole> roles = sysRoleMapper.getRoleNameWithIdByUserId(userId);
+        List<SysRole> roles = sysRoleMapper.getRoleWithIdByUserId(userId, BasicEnum.YES.getCode());
         List<String> permissions = baseMapper.getPermissions(roles.stream().map(SysRole::getId).collect(Collectors.toList()));
         permissions.addAll(roles.stream().map(item -> "ROLE_" + item.getName()).collect(Collectors.toList()));
         return permissions;
@@ -181,22 +181,21 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         return menuVo;
     }
 
-    /**
-     * 检查菜单添加修改菜单数据
-     *
-     * @param sysMenu
-     */
-    private void checkMenu(SysMenu sysMenu) {
-    }
-
-
     @Override
     public List<SysMenu> getUserMenus() {
         LoginUser loginUser = SecurityUtil.getLoginUser();
-        List<SysRole> roles = sysRoleMapper.getRoleNameWithIdByUserId(loginUser.getUserId());
+        List<SysRole> roles = sysRoleMapper.getRoleWithIdByUserId(loginUser.getUserId(), BasicEnum.YES.getCode());
         List<SysMenu> menus = baseMapper.getMenuList(roles.stream().map(SysRole::getId).collect(Collectors.toList()));
+        Map<Long, SysMenu> pidMenuMap = menus.stream().collect(Collectors.toMap(SysMenu::getId, Function.identity()));
+        List<Long> pids = pidMenuMap.values().stream().filter(item -> item.getPid() != null && pidMenuMap.get(item.getPid()) == null).map(SysMenu::getPid).distinct().collect(Collectors.toList());
+        while (pids.size() > 0) {
+            List<SysMenu> list = baseMapper.selectList(Wrappers.<SysMenu>lambdaQuery().in(SysMenu::getId, pids));
+            menus.addAll(list);
+            pids = list.stream().filter(item -> item.getPid() != null).map(SysMenu::getPid).collect(Collectors.toList());
+        }
         return menus;
     }
+
 
     @Override
     public List<SysMenu> getLazyList(Long pid, Long roleId) {

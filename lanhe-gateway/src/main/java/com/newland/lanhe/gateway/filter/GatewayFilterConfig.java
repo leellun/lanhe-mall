@@ -53,9 +53,13 @@ public class GatewayFilterConfig implements GlobalFilter, Ordered {
                 //获取用户权限
                 Number userId = (Number) additionalInformation.get(Constant.KEY_USERID);
                 LoginUser loginUser = redisUtil.get(Constant.USER_LOGIN_INFO + userId);
-                ServerHttpRequest tokenRequest = exchange.getRequest().mutate().header("json-token", JSON.toJSONString(loginUser)).build();
-                ServerWebExchange build = exchange.mutate().request(tokenRequest).build();
-                return chain.filter(build);
+                if (loginUser != null) {
+                    ServerHttpRequest tokenRequest = exchange.getRequest().mutate().header("json-token", JSON.toJSONString(loginUser)).build();
+                    ServerWebExchange build = exchange.mutate().request(tokenRequest).build();
+                    return chain.filter(build);
+                } else {
+                    return chain.filter(exchange);
+                }
             } catch (InvalidTokenException e) {
                 log.info("无效的token: {}", token);
                 return chain.filter(exchange);

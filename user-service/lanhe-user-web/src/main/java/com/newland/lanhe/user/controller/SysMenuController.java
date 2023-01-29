@@ -14,6 +14,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,27 +37,32 @@ public class SysMenuController {
 
     @Autowired
     private SysMenuService sysMenuService;
+    @ApiOperation("获取所有菜单")
+    @GetMapping("/catalogue")
+    public RestResponse getUserMenus() {
+        return RestResponse.ok(sysMenuService.getUserMenus());
+    }
     @ApiOperation("查询菜单分页")
     @GetMapping
-    //@PreAuthorize("hasAuthority('menu:select')")
+    @PreAuthorize("hasAuthority('menu:select')")
     public RestResponse page(@RequestParam("pageNo") Integer pageNo,@RequestParam("pageSize") Integer pageSize) {
         return RestResponse.ok(sysMenuService.getMenuPage(PageEntity.page(pageNo,pageSize)));
     }
     @ApiOperation("返回子菜单")
     @GetMapping(value = "/{id}")
-    //@PreAuthorize("hasAuthority('menu:select')")
+    @PreAuthorize("hasAuthority('menu:select')")
     public RestResponse<MenuVo> getMenu(@PathVariable Long id) {
         return RestResponse.ok(sysMenuService.getMenu(id));
     }
     @ApiOperation("返回子菜单")
     @GetMapping(value = "/sub/{id}")
-    //@PreAuthorize("hasAuthority('menu:select')")
+    @PreAuthorize("hasAnyAuthority('menu:select','role:select')")
     public RestResponse<Set<Long>> getSubMenus(@PathVariable Long id) {
         return RestResponse.ok(sysMenuService.getSubMenus(id));
     }
     @ApiOperation("新增菜单")
     @PostMapping
-    //@PreAuthorize("hasAuthority('menu:add')")
+    @PreAuthorize("hasAuthority('menu:add')")
     public RestResponse add(@RequestBody @Validated(Insert.class) SysMenu sysMenu) {
         sysMenuService.addMenu(sysMenu);
         return RestResponse.success("添加成功");
@@ -64,7 +70,7 @@ public class SysMenuController {
 
     @ApiOperation("修改菜单")
     @PutMapping
-    //@PreAuthorize("hasAuthority('menu:update')")
+    @PreAuthorize("hasAuthority('menu:update')")
     public RestResponse update(@RequestBody @Validated(Update.class) SysMenu sysMenu) {
         sysMenuService.updateMenu(sysMenu);
         return RestResponse.success("修改成功");
@@ -72,7 +78,7 @@ public class SysMenuController {
 
     @ApiOperation("删除菜单")
     @DeleteMapping
-    // @PreAuthorize("hasAuthority('menu:delete')")
+    @PreAuthorize("hasAuthority('menu:delete')")
     public RestResponse delete(@RequestBody Set<Long> ids) {
         sysMenuService.deleteMenu(ids);
         return RestResponse.success("删除成功");
@@ -81,7 +87,7 @@ public class SysMenuController {
     @ApiImplicitParams({@ApiImplicitParam(name = "id", value = "菜单id", required = true,
             dataType = "long", paramType = "path"), @ApiImplicitParam(name = "menuSort", value = "排序", required = true, dataType = "int", paramType = "param")})
     @PutMapping("/sort/{id}")
-    //@PreAuthorize("hasAuthority('menu:update')")
+    @PreAuthorize("hasAuthority('menu:update')")
     public RestResponse updateDeptSort(@PathVariable("id") Long id, @RequestParam("menuSort") @Validated @Min(value = 1, message = "不能小于1") @Max(value = 1000, message = "不能大于1000") Integer menuSort) {
         sysMenuService.updateMenuSort(id, menuSort);
         return RestResponse.success("更新成功");
@@ -90,7 +96,7 @@ public class SysMenuController {
     @ApiImplicitParams({@ApiImplicitParam(name = "id", value = "菜单id", required = true,
             dataType = "long", paramType = "path"), @ApiImplicitParam(name = "enable", value = "状态", required = true, dataType = "int", paramType = "param")})
     @PutMapping("/enable/{id}")
-    //@PreAuthorize("hasAuthority('dept:update')")
+    @PreAuthorize("hasAuthority('dept:update')")
     public RestResponse enable(@PathVariable("id") Long id, @RequestParam("enable") @Validated @IntOptions(options = {0, 1}, message = "状态不正确") Integer enable) {
         sysMenuService.enableMenu(id, enable);
         return RestResponse.success("更新成功");

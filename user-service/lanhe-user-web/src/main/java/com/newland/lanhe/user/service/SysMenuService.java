@@ -71,14 +71,13 @@ public interface SysMenuService extends IService<SysMenu> {
      * @return
      */
     Page<SysMenu> getMenuPage(PageEntity pageEntity);
-
-
-
     /**
      * 获取用户菜单
      * @return
      */
     List<SysMenu> getUserMenus();
+
+
 
     /**
      * 返回全部的菜单

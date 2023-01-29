@@ -45,19 +45,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
         http.addFilterBefore(authenticationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .csrf().disable();
-//        if (securityProperties.getPermitItems() != null && securityProperties.getPermitItems().length > 0) {
-//            for (HttpItem httpItem : securityProperties.getPermitItems()) {
-//                if (httpItem.getMethod() == null) {
-//                    http.authorizeRequests().antMatchers(httpItem.getUrl()).permitAll();
-//                } else {
-//                    http.authorizeRequests().antMatchers(HttpMethod.resolve(httpItem.getMethod()), httpItem.getUrl()).permitAll();
-//                }
-//            }
-//            http.authorizeRequests().anyRequest().authenticated();
-//        } else {
-//            http.authorizeRequests().anyRequest().authenticated();
-//        }
-        http.authorizeRequests().anyRequest().permitAll();
+        if (securityProperties.getPermitItems() != null && securityProperties.getPermitItems().length > 0) {
+            for (HttpItem httpItem : securityProperties.getPermitItems()) {
+                if (httpItem.getMethod() == null) {
+                    http.authorizeRequests().antMatchers(httpItem.getUrl()).permitAll();
+                } else {
+                    http.authorizeRequests().antMatchers(HttpMethod.resolve(httpItem.getMethod()), httpItem.getUrl()).permitAll();
+                }
+            }
+            http.authorizeRequests().anyRequest().authenticated();
+        } else {
+            http.authorizeRequests().anyRequest().authenticated();
+        }
+//        http.authorizeRequests().anyRequest().permitAll();
         http.exceptionHandling()
                 .accessDeniedHandler(new NewlandAccessDeniedHandler())
                 .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint())
