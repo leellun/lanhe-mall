@@ -76,5 +76,10 @@ public interface SysMenuService extends IService<SysMenu> {
      * @return
      */
     List<SysMenu> getUserMenus();
+    /**
+     * 获取用户权限
+     * @return
+     */
+    List<String> getUserPermissions();
 
 }

@@ -191,4 +191,11 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         return menus;
     }
 
+    @Override
+    public List<String> getUserPermissions() {
+        LoginUser loginUser = SecurityUtil.getLoginUser();
+        List<SysRole> roles = sysRoleMapper.getRoleWithIdByUserId(loginUser.getUserId(), BasicEnum.YES.getCode());
+        List<String> menus = baseMapper.getPermissions(roles.stream().map(SysRole::getId).collect(Collectors.toList()));
+        return menus;
+    }
 }

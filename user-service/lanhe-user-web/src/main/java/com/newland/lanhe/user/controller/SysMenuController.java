@@ -42,6 +42,11 @@ public class SysMenuController {
     public RestResponse getUserMenus() {
         return RestResponse.ok(sysMenuService.getUserMenus());
     }
+    @ApiOperation("获取所有权限")
+    @GetMapping("/permission")
+    public RestResponse getUserPermissions() {
+        return RestResponse.ok(sysMenuService.getUserPermissions());
+    }
     @ApiOperation("查询菜单分页")
     @GetMapping
     @PreAuthorize("hasAuthority('menu:select')")

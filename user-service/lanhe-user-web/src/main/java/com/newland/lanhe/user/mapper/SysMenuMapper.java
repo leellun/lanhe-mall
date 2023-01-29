@@ -30,11 +30,4 @@ public interface SysMenuMapper extends BaseMapper<SysMenu> {
      * @return
      */
     List<SysMenu> getMenuList(@Param("roleIds") List<Long> roleIds);
-    /**
-     * 获取菜单
-     * @param pid 父菜单
-     * @param roleId 角色
-     * @return
-     */
-    List<SysMenu> getLazyMenus(@Param("pid") Long pid,@Param("roleId") Long roleId);
 }
