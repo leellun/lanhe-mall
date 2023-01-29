@@ -102,34 +102,5 @@ public class SysMenuController {
         return RestResponse.success("更新成功");
     }
 
-
-//    @GetMapping(value = "/build")
-//    @ApiOperation("获取前端所需菜单")
-//    @PreAuthorize("hasAuthority('menu:select')")
-//    public RestResponse buildMenu() {
-//        return RestResponse.ok(sysMenuService.getUserMenus());
-//    }
-//
-//    @ApiOperation("返回全部的菜单")
-//    @GetMapping(value = "/lazy")
-//    @PreAuthorize("hasAuthority('menu:select','role:select')")
-//    public RestResponse<List<SysMenu>> listLazy(@RequestParam Long pid,
-//                                                @RequestParam Long roleId) {
-//        return RestResponse.ok(sysMenuService.getLazyList(pid,roleId));
-//    }
-//    @ApiOperation("查询菜单")
-//    @GetMapping
-//    @PreAuthorize("hasAuthority('menu:select')")
-//    public RestResponse query(@RequestBody MenuQueryDTO menuQueryDTO) throws Exception {
-//        return RestResponse.ok(sysMenuService.getMenus(menuQueryDTO));
-//    }
-//    @ApiOperation("查询菜单:根据ID获取同级与上级数据")
-//    @PostMapping("/superior")
-//    @PreAuthorize("hasAuthority('menu:select')")
-//    public RestResponse getSuperior(@RequestBody List<Long> ids) {
-//        return RestResponse.ok(sysMenuService.getSuperior(ids));
-//    }
-
-
 }
 

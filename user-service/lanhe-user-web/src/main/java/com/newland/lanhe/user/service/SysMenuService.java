@@ -77,29 +77,4 @@ public interface SysMenuService extends IService<SysMenu> {
      */
     List<SysMenu> getUserMenus();
 
-
-
-    /**
-     * 返回全部的菜单
-     * @param pid
-     * @return
-     */
-    List<SysMenu> getLazyList(Long pid,Long roleId);
-
-
-    /**
-     * 获取菜单
-     * @param menuQueryDTO
-     * @return
-     */
-    List<SysMenu> getMenus(MenuQueryDTO menuQueryDTO);
-
-
-    /**
-     * 根据ID获取同级与上级数据
-     * @param ids
-     * @return
-     */
-    List<SysMenu> getSuperior(List<Long> ids);
-
 }

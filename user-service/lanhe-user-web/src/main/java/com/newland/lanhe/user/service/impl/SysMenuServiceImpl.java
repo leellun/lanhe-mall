@@ -1,36 +1,31 @@
 package com.newland.lanhe.user.service.impl;
 
-import cn.hutool.core.collection.CollUtil;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.newland.lanhe.enumeration.BasicEnum;
 import com.newland.lanhe.exception.BusinessException;
 import com.newland.lanhe.model.LoginUser;
 import com.newland.lanhe.security.utils.SecurityUtil;
-import com.newland.lanhe.user.entity.SysDepartment;
 import com.newland.lanhe.user.entity.SysMenu;
 import com.newland.lanhe.user.entity.SysRole;
-import com.newland.lanhe.user.enums.MenuTypeEnum;
 import com.newland.lanhe.user.enums.UserServiceErrorEnum;
 import com.newland.lanhe.user.mapper.SysMenuMapper;
 import com.newland.lanhe.user.mapper.SysRoleMapper;
-import com.newland.lanhe.user.model.dto.MenuQueryDTO;
 import com.newland.lanhe.user.model.vo.MenuVo;
 import com.newland.lanhe.user.service.SysMenuService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.newland.lanhe.utils.AssertUtil;
 import com.newland.mybatis.page.PageEntity;
 import com.newland.mybatis.page.PageWrapper;
-import io.prometheus.client.CollectorRegistry;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.lang.reflect.Method;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -194,49 +189,6 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
             pids = list.stream().filter(item -> item.getPid() != null).map(SysMenu::getPid).collect(Collectors.toList());
         }
         return menus;
-    }
-
-
-    @Override
-    public List<SysMenu> getLazyList(Long pid, Long roleId) {
-        return baseMapper.getLazyMenus(pid, roleId);
-    }
-
-    @Override
-    public List<SysMenu> getMenus(MenuQueryDTO menuQueryDTO) {
-        List<SysMenu> menus;
-        if (menuQueryDTO.getPid() != null && !menuQueryDTO.getPid().equals(0L)) {
-            menus = this.baseMapper.selectList(Wrappers.<SysMenu>lambdaQuery().eq(SysMenu::getPid, menuQueryDTO.getPid()));
-        } else {
-            menus = this.baseMapper.selectList(Wrappers.<SysMenu>lambdaQuery().isNull(SysMenu::getPid));
-        }
-        return menus;
-    }
-
-
-    @Override
-    public List<SysMenu> getSuperior(List<Long> ids) {
-        List<SysMenu> list = new ArrayList<>();
-        List<Long> tempIds = ids;
-        boolean pidNull = false;
-        for (int i = 0; i < 2; i++) {
-            List<SysMenu> pMenus = baseMapper.selectList(Wrappers.<SysMenu>lambdaQuery().select(SysMenu::getPid).select(SysMenu::getId).in(SysMenu::getId, tempIds));
-            List<SysMenu> newDepts = new ArrayList<>();
-            for (SysMenu department : pMenus) {
-                if (department.getPid() == null) {
-                    if (!pidNull) {
-                        pidNull = true;
-                        newDepts.addAll(baseMapper.selectList(Wrappers.<SysMenu>lambdaQuery().isNull(SysMenu::getPid)));
-                    }
-                } else {
-                    newDepts.addAll(baseMapper.selectList(Wrappers.<SysMenu>lambdaQuery().eq(SysMenu::getPid, department.getPid())));
-                }
-            }
-            list.addAll(newDepts);
-            tempIds = pMenus.stream().filter(item -> item.getPid() != null).map(SysMenu::getPid).collect(Collectors.toList());
-        }
-
-        return list;
     }
 
 }
