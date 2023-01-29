@@ -77,7 +77,7 @@ public class SysMenuController {
         sysMenuService.deleteMenu(ids);
         return RestResponse.success("删除成功");
     }
-    @ApiOperation("修改部门排序")
+    @ApiOperation("修改菜单排序")
     @ApiImplicitParams({@ApiImplicitParam(name = "id", value = "菜单id", required = true,
             dataType = "long", paramType = "path"), @ApiImplicitParam(name = "menuSort", value = "排序", required = true, dataType = "int", paramType = "param")})
     @PutMapping("/sort/{id}")

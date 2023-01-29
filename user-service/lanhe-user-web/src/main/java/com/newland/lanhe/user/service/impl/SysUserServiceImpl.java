@@ -70,6 +70,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         SysUser sysUser = baseMapper.selectOne(Wrappers.<SysUser>lambdaQuery().eq(SysUser::getUsername, loginDTO.getUsername()));
         AssertUtil.notNull(sysUser, UserServiceErrorEnum.USER_NOT_EXIST);
         AssertUtil.isTrue(md5Password.endsWith(sysUser.getPassword()), UserServiceErrorEnum.USER_PASSWORD_ERROR);
+        baseMapper.update(null, Wrappers.<SysUser>lambdaUpdate().set(SysUser::getLastLoginTime,LocalDateTime.now()).eq(SysUser::getId, sysUser.getId()));
         LoginUser loginUser = new LoginUser();
         loginUser.setUsername(sysUser.getUsername());
         loginUser.setMobile(sysUser.getPhone());
@@ -189,9 +190,9 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     public void enableUser(Long id, Integer enable) {
         SysUser dbUser = baseMapper.selectById(id);
         AssertUtil.notNull(dbUser, UserServiceErrorEnum.USER_NOT_EXIST);
-        baseMapper.update(new SysUser(),Wrappers.<SysUser>lambdaUpdate()
-                .set(SysUser::getEnabled,enable)
-                .eq(SysUser::getId,id)
+        baseMapper.update(new SysUser(), Wrappers.<SysUser>lambdaUpdate()
+                .set(SysUser::getEnabled, enable)
+                .eq(SysUser::getId, id)
         );
     }
 
@@ -208,7 +209,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class,noRollbackFor = BusinessException.class)
+    @Transactional(rollbackFor = Exception.class, noRollbackFor = BusinessException.class)
     public void deleteUser(Set<Long> ids) {
         int count = baseMapper.delete(Wrappers.<SysUser>lambdaQuery().in(SysUser::getId, ids).eq(SysUser::getCanDeleted, BasicEnum.YES.getCode()));
         AssertUtil.isTrue(count > 0, UserServiceErrorEnum.USER_DELETE_FAIL);
