@@ -208,9 +208,12 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class,noRollbackFor = BusinessException.class)
     public void deleteUser(Set<Long> ids) {
         int count = baseMapper.delete(Wrappers.<SysUser>lambdaQuery().in(SysUser::getId, ids).eq(SysUser::getCanDeleted, BasicEnum.YES.getCode()));
         AssertUtil.isTrue(count > 0, UserServiceErrorEnum.USER_DELETE_FAIL);
+        //删除用户关联角色
+        sysUserRoleMapper.delete(Wrappers.<SysUserRole>lambdaQuery().eq(SysUserRole::getUserId, ids));
     }
 
     @Override

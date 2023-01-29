@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.newland.lanhe.user.entity.SysMenu;
 import com.newland.lanhe.user.model.dto.MenuQueryDTO;
+import com.newland.lanhe.user.model.vo.MenuVo;
+import com.newland.mybatis.page.PageEntity;
 
 import java.util.List;
 import java.util.Set;
@@ -23,47 +25,12 @@ public interface SysMenuService extends IService<SysMenu> {
      * @return
      */
     List<String> getPermissions(Long userId);
-
     /**
-     * 获取用户菜单
-     * @return
-     */
-    List<SysMenu> getUserMenus();
-
-    /**
-     * 返回全部的菜单
-     * @param pid
-     * @return
-     */
-    List<SysMenu> getLazyList(Long pid,Long roleId);
-
-    /**
-     * 根据菜单ID返回所有子节点ID，包含自身ID
+     * 获取子菜单那
      * @param id
      * @return
      */
-    Set<Long> getChildIds(Long id);
-
-    /**
-     * 获取菜单
-     * @param menuQueryDTO
-     * @return
-     */
-    List<SysMenu> getMenus(MenuQueryDTO menuQueryDTO);
-    /**
-     * 获取分页菜单
-     * @param menuQueryDTO
-     * @return
-     */
-    Page<SysMenu> getMenuPage(MenuQueryDTO menuQueryDTO);
-
-    /**
-     * 根据ID获取同级与上级数据
-     * @param ids
-     * @return
-     */
-    List<SysMenu> getSuperior(List<Long> ids);
-
+    List<SysMenu> getSubMenus(Long id);
     /**
      * 添加菜单
      * @param sysMenu
@@ -81,5 +48,59 @@ public interface SysMenuService extends IService<SysMenu> {
      * @param ids
      */
     void deleteMenu(Set<Long> ids);
+    /**
+     * 排序更改
+     * @param id 菜单id
+     * @param menuSort 排序
+     */
+    void updateMenuSort(Long id,Integer menuSort);
+    /**
+     * 更新状态
+     * @param id id
+     * @param enable 状态
+     */
+    void enableMenu(Long id,Integer enable);
+    /**
+     * 获取菜单详情
+     * @param id
+     * @return
+     */
+    MenuVo getMenu(Long id);
+    /**
+     * 获取分页菜单
+     * @return
+     */
+    Page<SysMenu> getMenuPage(PageEntity pageEntity);
+
+
+
+    /**
+     * 获取用户菜单
+     * @return
+     */
+    List<SysMenu> getUserMenus();
+
+    /**
+     * 返回全部的菜单
+     * @param pid
+     * @return
+     */
+    List<SysMenu> getLazyList(Long pid,Long roleId);
+
+
+    /**
+     * 获取菜单
+     * @param menuQueryDTO
+     * @return
+     */
+    List<SysMenu> getMenus(MenuQueryDTO menuQueryDTO);
+
+
+    /**
+     * 根据ID获取同级与上级数据
+     * @param ids
+     * @return
+     */
+    List<SysMenu> getSuperior(List<Long> ids);
 
 }

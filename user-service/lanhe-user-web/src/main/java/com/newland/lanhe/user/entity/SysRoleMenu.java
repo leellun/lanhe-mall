@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
@@ -18,6 +19,7 @@ import java.io.Serializable;
  * @since 2023-01-14
  */
 @Data
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @ApiModel(value="SysRoleMenu对象", description="角色菜单关联")
 public class SysRoleMenu implements Serializable {
@@ -34,5 +36,8 @@ public class SysRoleMenu implements Serializable {
     @ApiModelProperty(value = "角色ID")
     private Long roleId;
 
-
+    public SysRoleMenu(Long roleId,Long menuId){
+        this.roleId=roleId;
+        this.menuId=menuId;
+    }
 }

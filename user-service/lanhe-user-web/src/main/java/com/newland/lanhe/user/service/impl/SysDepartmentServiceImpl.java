@@ -117,14 +117,18 @@ public class SysDepartmentServiceImpl extends ServiceImpl<SysDepartmentMapper, S
     @Override
     @Transactional(rollbackFor = Exception.class, noRollbackFor = BusinessException.class)
     public void deleteDepartment(Set<Long> ids) {
+        List<Long> pids = new ArrayList<>();
         ids.forEach(id -> {
             SysDepartment dept = baseMapper.selectOne(Wrappers.<SysDepartment>lambdaQuery().select(SysDepartment::getPid).eq(SysDepartment::getId, id));
             if (dept != null) {
-                this.updateSubCount(dept.getPid());
+                pids.add(dept.getPid());
             }
         });
         int count = baseMapper.deleteBatchIds(ids);
         AssertUtil.isTrue(count > 0, UserServiceErrorEnum.DEPARTMENT_DELETE_FAIL);
+        pids.forEach(id -> {
+            this.updateSubCount(id);
+        });
     }
 
     @Override

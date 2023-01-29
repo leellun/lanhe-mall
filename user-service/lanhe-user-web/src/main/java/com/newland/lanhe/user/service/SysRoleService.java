@@ -26,7 +26,13 @@ public interface SysRoleService extends IService<SysRole> {
      * @return
      */
     List<SysRole> getAllRoles();
-
+    /**
+     * 分页查询角色
+     *
+     * @param roleQueryDTO
+     * @return
+     */
+    Page<SysRole> getRolePage(RoleQueryDTO roleQueryDTO);
     /**
      * 获取单个角色
      *
@@ -48,7 +54,12 @@ public interface SysRoleService extends IService<SysRole> {
      * @param sysRole
      */
     void updateRole(SysRole sysRole);
-
+    /**
+     * 更新状态
+     * @param id id
+     * @param enable 状态
+     */
+    void enableRole(Long id,Integer enable);
     /**
      * 删除角色
      *
@@ -57,42 +68,16 @@ public interface SysRoleService extends IService<SysRole> {
     void deleteRoles(Set<Long> ids);
 
     /**
-     * 添加用户角色绑定
-     *
-     * @param list
+     * 添加权限
+     * @param id 角色id
+     * @param permissions 权限菜单id列表
      */
-    void addUserBinds(List<UserRoleDTO> list);
+    void addMenuPermission(Long id, Set<Long> permissions);
 
     /**
-     * 删除用户角色绑定
-     *
-     * @param list
-     */
-    void deleteUsers(List<UserRoleDTO> list);
-
-    /**
-     * 获取非指定角色的下属用户
-     *
-     * @param levelRoleDTO
+     * 获取权限
+     * @param id 角色id
      * @return
      */
-    Page<SysUser> getNoUsersByRole(LevelRoleDTO levelRoleDTO);
-
-    /**
-     * 获取指定角色的下属用户
-     *
-     * @param levelRoleDTO
-     * @return
-     */
-    Page<SysUser> getUsersByRole(LevelRoleDTO levelRoleDTO);
-
-
-    /**
-     * 分页查询角色
-     *
-     * @param roleQueryDTO
-     * @return
-     */
-    Page<SysRole> getRolePage(RoleQueryDTO roleQueryDTO);
-
+    List<Long> getMenuPermission(Long id);
 }

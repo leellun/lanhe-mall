@@ -93,10 +93,10 @@ public class SysDepartmentController {
     }
 
     @ApiOperation("修改部门状态")
-    @ApiImplicitParams({@ApiImplicitParam(name = "id", value = "用户id", required = true,
+    @ApiImplicitParams({@ApiImplicitParam(name = "id", value = "部门id", required = true,
             dataType = "long", paramType = "path"), @ApiImplicitParam(name = "enable", value = "状态", required = true, dataType = "int", paramType = "param")})
     @PutMapping("/enable/{id}")
-    //@PreAuthorize("hasAuthority('user:update')")
+    //@PreAuthorize("hasAuthority('dept:update')")
     public RestResponse enable(@PathVariable("id") Long id, @RequestParam("enable") @Validated @IntOptions(options = {0, 1}, message = "状态不正确") Integer enable) {
         sysDepartmentService.enableDepartment(id, enable);
         return RestResponse.success("更新成功");
@@ -106,7 +106,7 @@ public class SysDepartmentController {
     @ApiImplicitParams({@ApiImplicitParam(name = "id", value = "用户id", required = true,
             dataType = "long", paramType = "path"), @ApiImplicitParam(name = "deptSort", value = "排序", required = true, dataType = "int", paramType = "param")})
     @PutMapping("/sort/{id}")
-    //@PreAuthorize("hasAuthority('user:update')")
+    //@PreAuthorize("hasAuthority('dept:update')")
     public RestResponse updateDeptSort(@PathVariable("id") Long id, @RequestParam("deptSort") @Validated @Min(value = 1, message = "不能小于1") @Max(value = 1000, message = "不能大于1000") Integer deptSort) {
         sysDepartmentService.updateDeptSort(id, deptSort);
         return RestResponse.success("更新成功");

@@ -1,5 +1,7 @@
 package com.newland.lanhe.user.entity;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.newland.lanhe.model.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -22,6 +24,7 @@ public class SysMenu extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "上级菜单ID")
+    @JsonSerialize(using= ToStringSerializer.class)
     private Long pid;
 
     @ApiModelProperty(value = "子菜单数目")
@@ -51,14 +54,29 @@ public class SysMenu extends BaseEntity {
     @ApiModelProperty(value = "链接地址")
     private String path;
 
+
     @ApiModelProperty(value = "是否外链")
-    private Boolean iFrame;
+    private Integer target;
 
+    /**
+     * 1 启用 0 禁用
+     * @see com.newland.lanhe.enumeration.BasicEnum
+     */
+    @ApiModelProperty(value = "启用状态")
+    private Integer enabled;
+    /**
+     * 1 缓存 0 不缓存
+     * @see com.newland.lanhe.enumeration.BasicEnum
+     */
     @ApiModelProperty(value = "缓存")
-    private Boolean cache;
+    private Integer keepAlive;
 
+    /**
+     * 1 隐藏 0不隐藏
+     * @see com.newland.lanhe.enumeration.BasicEnum
+     */
     @ApiModelProperty(value = "隐藏")
-    private Boolean hidden;
+    private Integer hidden;
 
     @ApiModelProperty(value = "权限")
     private String permission;

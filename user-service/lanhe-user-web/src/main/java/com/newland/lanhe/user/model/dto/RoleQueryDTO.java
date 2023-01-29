@@ -12,7 +12,7 @@ import java.util.List;
  */
 @Data
 public class RoleQueryDTO extends PageEntity {
-    private String blurry;
+    private String name;
 
-    private List<String> gmtCreate;
+    private Integer enabled;
 }

@@ -5,11 +5,14 @@ import com.newland.lanhe.model.RestResponse;
 import com.newland.lanhe.user.entity.SysRole;
 import com.newland.lanhe.user.service.SysRoleService;
 import com.newland.lanhe.validator.Insert;
+import com.newland.lanhe.validator.IntOptions;
 import com.newland.lanhe.validator.Update;
 import com.newland.lanhe.user.model.dto.LevelRoleDTO;
 import com.newland.lanhe.user.model.dto.RoleQueryDTO;
 import com.newland.lanhe.user.model.dto.UserRoleDTO;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -33,6 +37,7 @@ import java.util.Set;
 public class SysRoleController {
     @Autowired
     private SysRoleService sysRoleService;
+
     @ApiOperation("获取单个role")
     @GetMapping(value = "/{id}")
     //@PreAuthorize("hasAuthority('role:select')")
@@ -43,12 +48,12 @@ public class SysRoleController {
     @ApiOperation("返回全部的角色")
     @GetMapping(value = "/all")
     //@PreAuthorize("hasAnyAuthority('role:select','user:select')")
-    public RestResponse list() {
+    public RestResponse all() {
         return RestResponse.ok(sysRoleService.getAllRoles());
     }
 
     @ApiOperation("查询角色")
-    @GetMapping
+    @PostMapping("/list")
     //@PreAuthorize("hasAuthority('role:select')")
     public RestResponse list(@RequestBody RoleQueryDTO roleQueryDTO) {
         return RestResponse.ok(sysRoleService.getRolePage(roleQueryDTO));
@@ -70,6 +75,16 @@ public class SysRoleController {
         return RestResponse.success("修改成功");
     }
 
+    @ApiOperation("修改状态")
+    @ApiImplicitParams({@ApiImplicitParam(name = "id", value = "角色id", required = true,
+            dataType = "long", paramType = "path"), @ApiImplicitParam(name = "enable", value = "状态", required = true, dataType = "int", paramType = "param")})
+    @PutMapping("/enable/{id}")
+    //@PreAuthorize("hasAuthority('dept:update')")
+    public RestResponse enable(@PathVariable("id") Long id, @RequestParam("enable") @Validated @IntOptions(options = {0, 1}, message = "状态不正确") Integer enable) {
+        sysRoleService.enableRole(id, enable);
+        return RestResponse.success("更新成功");
+    }
+
     @ApiOperation("删除角色")
     @DeleteMapping
     //@PreAuthorize("hasAuthority('role:delete')")
@@ -78,34 +93,22 @@ public class SysRoleController {
         return RestResponse.success("删除成功");
     }
 
-    @ApiOperation("查询下属用户")
-    @GetMapping("/users")
-    //@PreAuthorize("hasAuthority('role:select')")
-    public RestResponse listUsersByRole(@RequestBody LevelRoleDTO levelRoleDTO) {
-        return RestResponse.ok(sysRoleService.getUsersByRole(levelRoleDTO));
+    @ApiOperation("添加权限")
+    @ApiImplicitParams({@ApiImplicitParam(name = "id", value = "角色id", required = true,
+            dataType = "long", paramType = "path"), @ApiImplicitParam(name = "permissions", value = "权限", required = true, dataType = "Set", paramType = "body")})
+    @PostMapping("/permission/{id}")
+    public RestResponse addMenuPermission(@PathVariable("id") Long id, @RequestBody Set<Long> permissions) {
+        sysRoleService.addMenuPermission(id, permissions);
+        return RestResponse.success("设置成功");
     }
 
-    @ApiOperation("查询非下属用户")
-    @GetMapping("/not/users")
-    //@PreAuthorize("hasAuthority('role:select')")
-    public RestResponse listNotByRole(@RequestBody LevelRoleDTO levelRoleDTO) {
-        return RestResponse.ok(sysRoleService.getNoUsersByRole(levelRoleDTO));
-    }
-
-    @ApiOperation("删除下属用户")
-    @DeleteMapping("/users")
-    //@PreAuthorize("hasAuthority('role:delete')")
-    public RestResponse deleteUsers(@RequestBody List<UserRoleDTO> list) {
-        sysRoleService.deleteUsers(list);
-        return RestResponse.success("删除成功");
-    }
-
-    @ApiOperation("添加下属用户")
-    @PostMapping("/users")
-    //@PreAuthorize("hasAuthority('role:delete')")
-    public RestResponse addUsers(@RequestBody List<UserRoleDTO> list) {
-        sysRoleService.addUserBinds(list);
-        return RestResponse.success("添加成功");
+    @ApiOperation("获取权限")
+    @ApiImplicitParams({@ApiImplicitParam(name = "id", value = "角色id", required = true,
+            dataType = "long", paramType = "path")})
+    @GetMapping("/permission/{id}")
+    public RestResponse getMenuPermission(@PathVariable("id") Long id) {
+        List<Long> list = sysRoleService.getMenuPermission(id);
+        return RestResponse.ok(list.stream().map(String::valueOf).collect(Collectors.toList()));
     }
 }
 

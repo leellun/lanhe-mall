@@ -28,6 +28,13 @@ public class PageEntity {
      */
     private boolean desc;
 
+    public static PageEntity page(Integer pageNo, Integer pageSize) {
+        PageEntity pageEntity = new PageEntity();
+        pageEntity.setPageNo(pageNo);
+        pageEntity.setPageSize(pageSize);
+        return pageEntity;
+    }
+
     public String getOrder() {
         if (StringUtils.isEmpty(this.order)) {
             return null;

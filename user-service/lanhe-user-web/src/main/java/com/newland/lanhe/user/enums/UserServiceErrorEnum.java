@@ -26,6 +26,7 @@ public enum UserServiceErrorEnum implements ErrorCode {
     JOB_DELETE_FAIL(1011,"删除岗位失败！"),
     MENU_NOT_EXIST(1012,"该菜单不存在！"),
     MENU_DELETE_FAIL(1013,"菜单删除失败！"),
+    MENU_PARENT_NOT_EXIST(1023,"父菜单不存在"),
     ROLE_NOT_EXIST(1014,"角色不存在！"),
     ROLE_NAME_EXIST(1015,"该名称角色存在！"),
     ROLE_CODE_EXIST(1016,"该编码角色存在！"),
