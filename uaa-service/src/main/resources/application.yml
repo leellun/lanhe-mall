@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: uaa-service
+  profiles:
+    active: dev
+
+logging:
+  config: classpath:logback-spring.xml

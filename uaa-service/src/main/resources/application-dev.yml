@@ -1,0 +1,60 @@
+server:
+  port: 9000
+spring:
+  profiles: dev
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.100.100:32065
+        namespace: e5dfe71c-4579-4e22-bc7a-ac2e5ffab032
+    sentinel:
+      transport:
+        dashboard: 192.168.100.100:32329
+  zipkin:
+    base-url: http://192.168.100.100:32239
+    sender:
+      type: web
+    discovery-client-enabled: false
+  sleuth:
+    sampler:
+      probability: 1
+
+  datasource:
+    url: jdbc:mysql://192.168.100.100:30325/lanhe_uaa?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    username: root
+    password: lanheerp
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  redis:
+    host: 192.168.100.100
+    port: 31351
+    database: 0
+    password: liulun666
+    timeout: PT10S
+    lettuce:
+      pool:
+        max-active:  50
+        max-idle: 20
+        min-idle: 1
+        max-wait: PT10S
+
+feign:
+  client:
+    config:
+      default:
+        connect-timeout: 10000
+        read-timeout: 10000
+  hystrix:
+    enabled: true
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          strategy: com.newland.openfeign.config.FeignHystrixConcurrencyStrategy
+
+mybatis-plus:
+  mapper-locations: classpath:/xml/*.xml
+  global-config:
+    db-config:
+      id-type: auto

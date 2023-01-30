@@ -29,7 +29,7 @@ public class UserServiceCoreGenerator {
 
         // 3、数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://192.168.100.100:30325/lanhe_user?serverTimezone=GMT%2B8&characterEncoding=utf-8");
+        dsc.setUrl("jdbc:mysql://192.168.100.100:30325/lanhe_sys?serverTimezone=GMT%2B8&characterEncoding=utf-8");
         dsc.setDriverName("com.mysql.cj.jdbc.Driver");
         dsc.setUsername("root");
         dsc.setPassword("lanheerp");
@@ -38,7 +38,7 @@ public class UserServiceCoreGenerator {
 
         // 4、包配置
         PackageConfig pc = new PackageConfig();
-        pc.setParent("com.newland.lanhe.user");
+        pc.setParent("com.newland.lanhe.system");
         pc.setEntity("entity"); //此对象与数据库表结构一一对应，通过 DAO 层向上传输数据源对象。
         mpg.setPackageInfo(pc);
 
