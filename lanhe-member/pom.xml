@@ -1,0 +1,18 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.newland.lanhe</groupId>
+        <artifactId>lanheerp</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>lanhe-member</artifactId>
+    <packaging>pom</packaging>
+    <description>会员管理</description>
+    <modules>
+        <module>member-service</module>
+        <module>member-service-api</module>
+        <module>member-mgb</module>
+        <module>member-admin</module>
+    </modules>
+</project>

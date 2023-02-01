@@ -21,8 +21,8 @@ public class RestOauthExceptionJacksonSerializer extends StdSerializer<RestOauth
         jgen.writeStartObject();
         if (value.getResponse() != null) {
             jgen.writeObjectField("code",value.getResponse().getCode());
-            jgen.writeObjectField("msg",value.getResponse().getMsg());
-            jgen.writeObjectField("result",value.getResponse().getResult());
+            jgen.writeObjectField("msg",value.getResponse().getMessage());
+            jgen.writeObjectField("result",value.getResponse().getData());
         }else{
             jgen.writeObjectField("code", value.getHttpErrorCode());
             jgen.writeStringField("msg", value.getMessage());

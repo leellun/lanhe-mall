@@ -43,7 +43,7 @@ public class UserDetailsAuthenticationService {
         if (!response.getCode().equals(ResultCode.SUCCESS.getCode())) {
             throw new RestOauth2Exception(response);
         }
-        LoginUser accountDTO = response.getResult();
+        LoginUser accountDTO = response.getData();
         UnifiedUserDetails userDetails = new UnifiedUserDetails(accountDTO.getUsername(), presentedPassword, accountDTO);
         return userDetails;
     }

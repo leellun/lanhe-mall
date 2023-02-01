@@ -17,7 +17,7 @@ public class RestOauth2Exception extends OAuth2Exception {
     }
 
     public RestOauth2Exception(RestResponse response) {
-        super(response.getMsg());
+        super(response.getMessage());
         this.response = response;
     }
 

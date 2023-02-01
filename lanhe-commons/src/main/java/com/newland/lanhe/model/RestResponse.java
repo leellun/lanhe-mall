@@ -23,28 +23,27 @@ public class RestResponse<T> {
 
     @ApiModelProperty("响应错误编码,200为正常")
     private Integer code;
-
     @ApiModelProperty("响应错误信息")
-    private String msg;
+    private String message;
 
     @ApiModelProperty("响应内容")
-    private T result;
+    private T data;
     public RestResponse() {
     }
     public RestResponse(Integer code, String msg) {
         this.code = code;
-        this.msg = msg;
+        this.message = msg;
     }
 
     public RestResponse(Integer code, T data) {
         this.code = code;
-        this.result = data;
+        this.data = data;
     }
 
     public RestResponse(Integer code, String msg, T data) {
         this.code = code;
-        this.msg = msg;
-        this.result = data;
+        this.message = msg;
+        this.data = data;
     }
     public static <T> RestResponse ok(T data) {
         return new RestResponse<>(ResultCode.SUCCESS.getCode(), data);
@@ -66,14 +65,14 @@ public class RestResponse<T> {
     public static <T> RestResponse<T> error(String msg) {
         RestResponse<T> response = new RestResponse<T>();
         response.setCode(-2);
-        response.setMsg(msg);
+        response.setMessage(msg);
         return response;
     }
 
     public static <T> RestResponse<T> error(int code, String msg) {
         RestResponse<T> response = new RestResponse<T>();
         response.setCode(code);
-        response.setMsg(msg);
+        response.setMessage(msg);
         return response;
     }
 
