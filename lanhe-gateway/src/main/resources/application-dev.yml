@@ -35,6 +35,18 @@ spring:
             - Path=/pms/**
           filters:
             - RewritePath=/pms/(?<segment>/?.*),/$\{segment}
+        - id: member-admin
+          uri: lb://member-admin
+          predicates:
+            - Path=/member/**
+          filters:
+            - RewritePath=/ums/(?<segment>/?.*),/$\{segment}
+        - id: cms-admin
+          uri: lb://cms-admin
+          predicates:
+            - Path=/cms/**
+          filters:
+            - RewritePath=/cms/(?<segment>/?.*),/$\{segment}
   zipkin:
     base-url: http://192.168.100.100:32239
     sender:

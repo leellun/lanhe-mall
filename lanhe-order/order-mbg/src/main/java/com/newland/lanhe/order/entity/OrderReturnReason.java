@@ -1,4 +1,4 @@
-package com.newland.lanhe.cms.entity;
+package com.newland.lanhe.order.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -9,10 +9,11 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * <p>
- * 优选专区
+ * 退货原因表
  * </p>
  *
  * @author leellun
@@ -20,30 +21,26 @@ import java.io.Serializable;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@TableName("cms_prefrence_area")
-@ApiModel(value="PrefrenceArea对象", description="优选专区")
-public class PrefrenceArea implements Serializable {
+@TableName("oms_order_return_reason")
+@ApiModel(value="OrderReturnReason对象", description="退货原因表")
+public class OrderReturnReason implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "优选专区id")
       @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    @ApiModelProperty(value = "优选专区名称")
+    @ApiModelProperty(value = "退货类型")
     private String name;
-
-    @ApiModelProperty(value = "子标题")
-    private String subTitle;
-
-    @ApiModelProperty(value = "展示图片")
-    private String pic;
 
     @ApiModelProperty(value = "排序")
     private Integer sort;
 
-    @ApiModelProperty(value = "显示状态")
-    private Integer showStatus;
+    @ApiModelProperty(value = "状态：0->不启用；1->启用")
+    private Integer status;
+
+    @ApiModelProperty(value = "添加时间")
+    private LocalDateTime createTime;
 
 
 }

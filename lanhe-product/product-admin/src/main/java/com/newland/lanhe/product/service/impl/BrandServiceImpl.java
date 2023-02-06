@@ -34,7 +34,7 @@ public class BrandServiceImpl extends ServiceImpl<BrandMapper, Brand> implements
 
     @Override
     public List<Brand> listAllBrand() {
-        return baseMapper.selectList(Wrappers.lambdaQuery());
+        return baseMapper.selectList(Wrappers.<Brand>lambdaQuery().orderByDesc(Brand::getSort));
     }
 
     @Override

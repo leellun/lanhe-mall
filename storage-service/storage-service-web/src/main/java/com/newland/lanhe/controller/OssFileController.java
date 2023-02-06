@@ -30,10 +30,8 @@ public class OssFileController {
      * 文件上传请求
      */
     @ApiOperation("文件上传")
-    @ApiImplicitParams({@ApiImplicitParam(name = "file", value = "文件", required = true,
-            dataType = "file")})
     @PostMapping("/upload")
-    public RestResponse<OssFile> upload(MultipartFile file) {
+    public RestResponse<OssFile> upload(@RequestParam("file") MultipartFile file) {
         try {
             // 上传并返回访问地址
             OssFile ossFile = fileService.uploadFile(file);
