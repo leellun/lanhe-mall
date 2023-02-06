@@ -31,5 +31,12 @@ public class MemberLevelController {
         List<MemberLevel> memberLevelList = memberLevelService.list(defaultStatus);
         return RestResponse.ok(memberLevelList);
     }
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    @ApiOperation("查询所有会员等级")
+    @ResponseBody
+    public RestResponse<List<MemberLevel>> getAllMemberLevels() {
+        List<MemberLevel> memberLevelList = memberLevelService.getAllMemberLevels();
+        return RestResponse.ok(memberLevelList);
+    }
 }
 

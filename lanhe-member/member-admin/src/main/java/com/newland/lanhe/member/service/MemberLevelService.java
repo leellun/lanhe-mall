@@ -19,4 +19,10 @@ public interface MemberLevelService extends IService<MemberLevel> {
      * @param defaultStatus 是否为默认会员
      */
     List<MemberLevel> list(Integer defaultStatus);
+
+    /**
+     * 获取所有会员等级，通过增长点排序
+     * @return
+     */
+    List<MemberLevel> getAllMemberLevels();
 }

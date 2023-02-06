@@ -3,6 +3,7 @@ package com.newland.lanhe.product.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -138,9 +139,11 @@ public class Product implements Serializable {
     private String detailMobileHtml;
 
     @ApiModelProperty(value = "促销开始时间")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime promotionStartTime;
 
     @ApiModelProperty(value = "促销结束时间")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime promotionEndTime;
 
     @ApiModelProperty(value = "活动限购数量")

@@ -38,7 +38,7 @@ spring:
         - id: member-admin
           uri: lb://member-admin
           predicates:
-            - Path=/member/**
+            - Path=/ums/**
           filters:
             - RewritePath=/ums/(?<segment>/?.*),/$\{segment}
         - id: cms-admin

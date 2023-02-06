@@ -24,4 +24,9 @@ public class MemberLevelServiceImpl extends ServiceImpl<MemberLevelMapper, Membe
     public List<MemberLevel> list(Integer defaultStatus) {
         return baseMapper.selectList(Wrappers.<MemberLevel>lambdaQuery().eq(MemberLevel::getDefaultStatus, defaultStatus));
     }
+
+    @Override
+    public List<MemberLevel> getAllMemberLevels() {
+        return baseMapper.selectList(Wrappers.<MemberLevel>lambdaQuery().orderByAsc(MemberLevel::getGrowthPoint));
+    }
 }
