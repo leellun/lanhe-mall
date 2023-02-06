@@ -28,8 +28,10 @@ public class RestResponse<T> {
 
     @ApiModelProperty("响应内容")
     private T data;
+
     public RestResponse() {
     }
+
     public RestResponse(Integer code, String msg) {
         this.code = code;
         this.message = msg;
@@ -45,6 +47,7 @@ public class RestResponse<T> {
         this.message = msg;
         this.data = data;
     }
+
     public static <T> RestResponse ok(T data) {
         return new RestResponse<>(ResultCode.SUCCESS.getCode(), data);
     }
@@ -52,6 +55,7 @@ public class RestResponse<T> {
     public static <T> RestResponse ok(String msg, T data) {
         return new RestResponse<>(ResultCode.SUCCESS.getCode(), msg, data);
     }
+
     public static <T> RestResponse<T> success() {
         RestResponse<T> response = new RestResponse<T>();
         response.setCode(ResultCode.SUCCESS.getCode());
@@ -59,7 +63,11 @@ public class RestResponse<T> {
     }
 
     public static <T> RestResponse<T> success(String message) {
-        return new RestResponse<>(ResultCode.SUCCESS.getCode(),message);
+        return new RestResponse<>(ResultCode.SUCCESS.getCode(), message);
+    }
+
+    public static <T> RestResponse<T> success(T data) {
+        return new RestResponse<>(ResultCode.SUCCESS.getCode(), data);
     }
 
     public static <T> RestResponse<T> error(String msg) {

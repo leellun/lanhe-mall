@@ -17,7 +17,7 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author leellun
- * @since 2023-02-01
+ * @since 2023-02-03
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -27,9 +27,11 @@ public class MemberStatisticsInfo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @ApiModelProperty(value = "会员统计信息id")
       @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
+    @ApiModelProperty(value = "会员id")
     private Long memberId;
 
     @ApiModelProperty(value = "累计消费金额")
@@ -56,14 +58,19 @@ public class MemberStatisticsInfo implements Serializable {
     @ApiModelProperty(value = "粉丝数量")
     private Integer fansCount;
 
+    @ApiModelProperty(value = "商品收藏数")
     private Integer collectProductCount;
 
+    @ApiModelProperty(value = "专题收藏数")
     private Integer collectSubjectCount;
 
+    @ApiModelProperty(value = "主题收藏数")
     private Integer collectTopicCount;
 
+    @ApiModelProperty(value = "评论收藏数")
     private Integer collectCommentCount;
 
+    @ApiModelProperty(value = "好友邀请数")
     private Integer inviteFriendCount;
 
     @ApiModelProperty(value = "最后一次下订单时间")

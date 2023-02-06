@@ -11,6 +11,12 @@ spring:
         dashboard: 192.168.100.100:32329
     gateway:
       routes:
+        - id: storage-service
+          uri: lb://storage-service
+          predicates:
+            - Path=/storage/**
+          filters:
+            - RewritePath=/storage/(?<segment>/?.*),/$\{segment}
         - id: uaa-service
           uri: lb://uaa-service
           predicates:
@@ -23,6 +29,12 @@ spring:
             - Path=/system/**
           filters:
             - RewritePath=/system/(?<segment>/?.*),/$\{segment}
+        - id: product-admin
+          uri: lb://product-admin
+          predicates:
+            - Path=/pms/**
+          filters:
+            - RewritePath=/pms/(?<segment>/?.*),/$\{segment}
   zipkin:
     base-url: http://192.168.100.100:32239
     sender:

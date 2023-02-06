@@ -17,6 +17,7 @@ public enum ResultCode implements ErrorCode{
     UNAUTHORIZED( 403, "没有该权限" ),
     //接口不存在
     NOT_FOUND( 404, "接口不存在" ),
+    DATA_ERROR( 410, "请求异常" ),
     //服务器内部错误
     INTERNAL_SERVER_ERROR( 500, "服务器内部错误" );
 

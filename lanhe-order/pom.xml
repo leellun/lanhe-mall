@@ -12,5 +12,7 @@
     <modules>
         <module>order-service</module>
         <module>order-service-api</module>
+        <module>order-mbg</module>
+        <module>order-admin</module>
     </modules>
 </project>

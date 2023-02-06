@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
  * </p>
  *
  * @author leellun
- * @since 2023-02-01
+ * @since 2023-02-03
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -28,9 +28,11 @@ public class Member implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @ApiModelProperty(value = "会员id")
       @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
+    @ApiModelProperty(value = "会员等级id")
     private Long memberLevelId;
 
     @ApiModelProperty(value = "用户名")

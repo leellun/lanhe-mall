@@ -13,8 +13,8 @@
     <name>file-service</name>
     <description>file-service</description>
     <modules>
-        <module>file-service-api</module>
-        <module>file-service-web</module>
+        <module>storage-service-api</module>
+        <module>storage-service-web</module>
     </modules>
 
 </project>

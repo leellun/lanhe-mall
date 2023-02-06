@@ -17,7 +17,7 @@ import java.math.BigDecimal;
  * </p>
  *
  * @author leellun
- * @since 2023-02-01
+ * @since 2023-02-03
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -27,11 +27,14 @@ public class MemberLevel implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @ApiModelProperty(value = "会员等级id")
       @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
+    @ApiModelProperty(value = "会员等级名称")
     private String name;
 
+    @ApiModelProperty(value = "增长点")
     private Integer growthPoint;
 
     @ApiModelProperty(value = "是否为默认等级：0->不是；1->是")
@@ -61,6 +64,7 @@ public class MemberLevel implements Serializable {
     @ApiModelProperty(value = "是否有生日特权")
     private Integer priviledgeBirthday;
 
+    @ApiModelProperty(value = "备注")
     private String note;
 
 

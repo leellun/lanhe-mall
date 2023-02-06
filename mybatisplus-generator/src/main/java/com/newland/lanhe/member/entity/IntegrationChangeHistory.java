@@ -16,7 +16,7 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author leellun
- * @since 2023-02-01
+ * @since 2023-02-03
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -26,11 +26,14 @@ public class IntegrationChangeHistory implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @ApiModelProperty(value = "积分变化历史记录id")
       @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
+    @ApiModelProperty(value = "会员id")
     private Long memberId;
 
+    @ApiModelProperty(value = "创建时间")
     private LocalDateTime createTime;
 
     @ApiModelProperty(value = "改变类型：0->增加；1->减少")

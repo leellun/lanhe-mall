@@ -16,7 +16,7 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author leellun
- * @since 2023-02-01
+ * @since 2023-02-03
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -26,20 +26,26 @@ public class MemberLoginLog implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @ApiModelProperty(value = "会员登录记录id")
       @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
+    @ApiModelProperty(value = "会员id")
     private Long memberId;
 
+    @ApiModelProperty(value = "创建时间")
     private LocalDateTime createTime;
 
+    @ApiModelProperty(value = "ip")
     private String ip;
 
+    @ApiModelProperty(value = "城市")
     private String city;
 
     @ApiModelProperty(value = "登录类型：0->PC；1->android;2->ios;3->小程序")
     private Integer loginType;
 
+    @ApiModelProperty(value = "省份")
     private String province;
 
 

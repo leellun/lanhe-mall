@@ -11,5 +11,8 @@
     <description>产品管理</description>
     <modules>
         <module>product-service</module>
+        <module>product-mbg</module>
+        <module>product-admin</module>
+        <module>product-admin-api</module>
     </modules>
 </project>

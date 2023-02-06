@@ -15,7 +15,7 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author leellun
- * @since 2023-02-01
+ * @since 2023-02-03
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -25,9 +25,11 @@ public class MemberTask implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @ApiModelProperty(value = "会员任务id")
       @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
+    @ApiModelProperty(value = "会员任务名称")
     private String name;
 
     @ApiModelProperty(value = "赠送成长值")

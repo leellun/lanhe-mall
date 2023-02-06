@@ -16,7 +16,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author leellun
- * @since 2023-02-01
+ * @since 2023-02-03
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -26,6 +26,7 @@ public class IntegrationConsumeSetting implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @ApiModelProperty(value = "积分消费设置id")
       @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 

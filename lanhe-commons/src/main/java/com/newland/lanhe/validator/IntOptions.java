@@ -1,5 +1,7 @@
 package com.newland.lanhe.validator;
 
+import org.springframework.core.annotation.AliasFor;
+
 import javax.validation.Constraint;
 import javax.validation.Payload;
 import java.lang.annotation.*;
@@ -15,7 +17,9 @@ import java.lang.annotation.*;
 )
 public @interface IntOptions {
     String message() default "{javax.validation.constraints.NotNull.message}";
-
+    @AliasFor("options")
+    int[] value() default {};
+    @AliasFor("value")
     int[] options() default {};
 
     Class<?>[] groups() default {};

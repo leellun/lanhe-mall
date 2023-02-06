@@ -12,12 +12,14 @@
         <module>lanhe-components</module>
         <module>lanhe-commons</module>
         <module>uaa-service</module>
-        <module>lanhe-system</module>
         <module>storage-service</module>
+        <module>lanhe-system</module>
         <module>lanhe-member</module>
         <module>lanhe-product</module>
         <module>lanhe-order</module>
         <module>lanhe-coupon</module>
+        <module>lanhe-cms</module>
+        <module>lanhe-sms</module>
     </modules>
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
@@ -34,6 +36,7 @@
         <druid-spring-boot-starter.version>1.2.11</druid-spring-boot-starter.version>
         <mybatis-plus.version>3.4.1</mybatis-plus.version>
         <velocity.version>2.0</velocity.version>
+        <knife4j.version>3.0.3</knife4j.version>
         <springfox-swagger2.version>2.9.2</springfox-swagger2.version>
         <fastjson2.version>2.0.20</fastjson2.version>
         <redisson.version>3.17.0</redisson.version>
@@ -116,15 +119,16 @@
             </dependency>
 
             <!--SwaggerUI-->
+            <!--整合Knife4j-->
             <dependency>
-                <groupId>io.springfox</groupId>
-                <artifactId>springfox-swagger2</artifactId>
-                <version>${springfox-swagger2.version}</version>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-spring-boot-starter</artifactId>
+                <version>${knife4j.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.springfox</groupId>
-                <artifactId>springfox-swagger-ui</artifactId>
-                <version>${springfox-swagger2.version}</version>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-spring-boot-autoconfigure</artifactId>
+                <version>${knife4j.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.alibaba.fastjson2</groupId>

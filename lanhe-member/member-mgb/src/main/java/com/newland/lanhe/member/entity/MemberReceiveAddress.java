@@ -16,7 +16,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author leellun
- * @since 2023-02-01
+ * @since 2023-02-03
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -26,14 +26,17 @@ public class MemberReceiveAddress implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @ApiModelProperty(value = "会员收货地址id")
       @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
+    @ApiModelProperty(value = "会员id")
     private Long memberId;
 
     @ApiModelProperty(value = "收货人名称")
     private String name;
 
+    @ApiModelProperty(value = "电话号码")
     private String phoneNumber;
 
     @ApiModelProperty(value = "是否为默认")
