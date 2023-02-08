@@ -17,7 +17,11 @@ public class JwtFeignInterceptor implements RequestInterceptor {
         if (!template.headers().containsKey(key)) {
             String value = getHeaderValue(key);
             if (value != null) {
-                template.header(key, getHeaderValue(key));
+                try{
+                    template.header(key, value);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }
         }
     }

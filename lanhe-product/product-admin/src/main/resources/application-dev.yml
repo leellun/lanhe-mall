@@ -77,3 +77,20 @@ mybatis-plus:
   global-config:
     db-config:
       id-type: auto
+
+feign:
+  client:
+    config:
+      default:
+        connect-timeout: 10000
+        read-timeout: 10000
+  hystrix:
+    enabled: true
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          strategy: com.newland.openfeign.config.FeignHystrixConcurrencyStrategy
+        thread:
+          timeoutInMilliseconds: 5000  #熔断超时时间

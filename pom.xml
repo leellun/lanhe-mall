@@ -44,6 +44,7 @@
         <hibernate.version>6.1.0.Final</hibernate.version>
         <minio.version>8.0.0</minio.version>
         <mail.version>1.6.2</mail.version>
+        <thumbnailator.version>0.4.17</thumbnailator.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -174,6 +175,11 @@
                 <groupId>com.sun.mail</groupId>
                 <artifactId>javax.mail</artifactId>
                 <version>${mail.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.coobird</groupId>
+                <artifactId>thumbnailator</artifactId>
+                <version>${thumbnailator.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

@@ -15,7 +15,7 @@ public class FileUtils {
     }
 
     public static final String getGenerateName(String fileName) {
-        int index = fileName.indexOf(".");
+        int index = fileName.lastIndexOf(".");
         return index > 0 ? (System.nanoTime() + fileName.substring(index)) : String.valueOf(System.nanoTime());
     }
 

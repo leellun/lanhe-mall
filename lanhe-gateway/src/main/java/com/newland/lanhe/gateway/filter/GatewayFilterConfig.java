@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.newland.lanhe.constant.Constant;
 import com.newland.lanhe.model.LoginUser;
+import com.newland.lanhe.utils.Base64Utils;
 import com.newland.redis.utils.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
@@ -24,7 +25,6 @@ import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
 import java.nio.charset.StandardCharsets;
-import java.util.List;
 import java.util.Map;
 
 @Component
@@ -54,7 +54,7 @@ public class GatewayFilterConfig implements GlobalFilter, Ordered {
                 Number userId = (Number) additionalInformation.get(Constant.KEY_USERID);
                 LoginUser loginUser = redisUtil.get(Constant.USER_LOGIN_INFO + userId);
                 if (loginUser != null) {
-                    ServerHttpRequest tokenRequest = exchange.getRequest().mutate().header("json-token", JSON.toJSONString(loginUser)).build();
+                    ServerHttpRequest tokenRequest = exchange.getRequest().mutate().header("json-token", Base64Utils.encodeToString(JSON.toJSONString(loginUser))).build();
                     ServerWebExchange build = exchange.mutate().request(tokenRequest).build();
                     return chain.filter(build);
                 } else {

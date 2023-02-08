@@ -12,6 +12,7 @@ import com.newland.lanhe.cms.service.PrefrenceAreaService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -42,6 +43,7 @@ public class PrefrenceAreaServiceImpl extends ServiceImpl<PrefrenceAreaMapper, P
     @Override
     public void relateAndInsertList(List<PrefrenceAreaProductRelationDto> productRelationInput, Long productId) {
         List<PrefrenceAreaProductRelation> productRelationList = relationConvert(productRelationInput, productId);
+
         prefrenceAreaProductRelationService.saveBatch(productRelationList);
     }
 

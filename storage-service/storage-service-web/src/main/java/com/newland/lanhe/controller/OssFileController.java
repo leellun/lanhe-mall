@@ -41,6 +41,21 @@ public class OssFileController {
         }
         return RestResponse.error("上传文件失败");
     }
+    /**
+     * 文件上传请求
+     */
+    @ApiOperation("图片上传")
+    @PostMapping("/uploadpic")
+    public RestResponse<OssFile> uploadPicture(@RequestParam("pic") MultipartFile file) {
+        try {
+            // 上传并返回访问地址
+            OssFile ossFile = fileService.uploadPicture(file);
+            return RestResponse.ok(ossFile);
+        } catch (Exception e) {
+            log.error("上传文件失败", e);
+        }
+        return RestResponse.error("上传文件失败");
+    }
 
     @ApiOperation("文件地址查询")
     @ApiImplicitParams({@ApiImplicitParam(name = "objectName", value = "对象名", required = true,

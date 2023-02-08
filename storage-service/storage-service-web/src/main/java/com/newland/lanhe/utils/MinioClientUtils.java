@@ -1,9 +1,7 @@
 package com.newland.lanhe.utils;
 
-import com.newland.lanhe.common.StorageConstant;
 import com.newland.lanhe.properties.MinioProperties;
 import io.minio.*;
-import io.minio.errors.*;
 import io.minio.http.Method;
 import io.minio.messages.Tags;
 import okhttp3.OkHttpClient;
@@ -13,9 +11,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.net.ssl.*;
-import java.io.IOException;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
-import java.security.InvalidKeyException;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -49,33 +47,37 @@ public class MinioClientUtils implements InitializingBean {
     }
 
     /**
+     * 获取文件外链
      * @param objectName 文件名称
      * @return url
-     * @Description 获取文件外链
      */
     public String getObjectURL(String objectName) throws Exception {
-        return getObjectURL(objectName, 7);
+        StringBuilder sb = new StringBuilder(minioProperties.getUrl());
+        if (!minioProperties.getUrl().endsWith("/")) {
+            sb.append("/");
+        }
+        sb.append(minioProperties.getBucketName());
+        sb.append("/");
+        sb.append(objectName);
+        return sb.toString();
     }
 
     /**
+     * 获取文件外链
      * @param objectName 文件名称
      * @param expires    过期时间 <=7
      * @return url
-     * @Description 获取文件外链
      */
     public String getObjectURL(String objectName, Integer expires) throws Exception {
         Map<String, String> tags = getTags(objectName);
-        GetPresignedObjectUrlArgs.Builder builder = GetPresignedObjectUrlArgs.builder().bucket(minioProperties.getBucketName()).method(Method.GET).object(objectName).extraQueryParams(tags);
-        if (expires != null) {
-            builder.expiry(expires);
-        }
+        GetPresignedObjectUrlArgs.Builder builder = GetPresignedObjectUrlArgs.builder().bucket(minioProperties.getBucketName()).expiry(expires).method(Method.GET).object(objectName).extraQueryParams(tags);
         return minioClient.getPresignedObjectUrl(builder.build());
     }
 
     /**
+     * 获取文件
      * @param objectName 文件名称
      * @return 二进制流
-     * @Description 获取文件
      */
 
     public InputStream getObject(String objectName) throws Exception {
@@ -83,47 +85,41 @@ public class MinioClientUtils implements InitializingBean {
     }
 
     /**
+     * 获取文件
      * @param objectName 文件名称
      * @return 二进制流
-     * @Description 获取文件
      */
 
     public InputStream getObject(String objectName, long offset, Long length) throws Exception {
         return minioClient.getObject(GetObjectArgs.builder().bucket(minioProperties.getBucketName()).object(objectName).offset(offset).length(length).build());
     }
 
-
     /**
-     * @param objectName 文件名称
-     * @return url
-     * @Description 获取文件访问地址(有效期)
-     */
-    public String getPresignedObjectUrl(String objectName) throws Exception {
-        return getPresignedObjectUrl(objectName, null);
-    }
-
-    /**
-     * @param objectName 文件名称
-     * @param expires    过期时间 <=7
-     * @return url
-     * @Description 获取文件访问地址(有效期)
-     */
-    public String getPresignedObjectUrl(String objectName, Integer expires) throws Exception {
-        Map<String, String> tags = getTags(objectName);
-        GetPresignedObjectUrlArgs.Builder builder = GetPresignedObjectUrlArgs.builder().bucket(minioProperties.getBucketName()).object(objectName).method(Method.GET).extraQueryParams(tags);
-        if (expires != null) {
-            builder.expiry(expires);
-        }
-        return minioClient.getPresignedObjectUrl(builder.build());
-    }
-
-    /**
+     * 删除文件
      * @param objectName 文件名称
      * @throws Exception https://docs.minio.io/cn/java-client-api-reference.html#removeObject
-     * @Description 删除文件
      */
     public void removeObject(String objectName) throws Exception {
         minioClient.removeObject(RemoveObjectArgs.builder().bucket(minioProperties.getBucketName()).object(objectName).build());
+    }
+
+    public String putObject(String objectName, File file) throws Exception {
+        String filename = file.getName();
+        return putObject(objectName, filename, file);
+    }
+
+    public String putObject(String objectName, String filename, File file) throws Exception {
+        Map<String, String> queryParams = new HashMap<>(1);
+//        queryParams.put(StorageConstant.KEY_FILE_NAME, Base64Utils.encodeToString(filename));
+        FileInputStream fis = new FileInputStream(file);
+        PutObjectArgs args = PutObjectArgs.builder()
+                .bucket(minioProperties.getBucketName())
+                .object(objectName)
+                .tags(queryParams)
+                .stream(fis, fis.available(), -1)
+                .build();
+        minioClient.putObject(args);
+        return objectName;
     }
 
     public String putObject(String objectName, MultipartFile file) throws Exception {
@@ -133,7 +129,7 @@ public class MinioClientUtils implements InitializingBean {
 
     public String putObject(String objectName, String filename, MultipartFile file) throws Exception {
         Map<String, String> queryParams = new HashMap<>(1);
-        queryParams.put(StorageConstant.KEY_FILE_NAME, filename);
+//        queryParams.put(StorageConstant.KEY_FILE_NAME, Base64Utils.encodeToString(filename));
         PutObjectArgs args = PutObjectArgs.builder()
                 .bucket(minioProperties.getBucketName())
                 .object(objectName)

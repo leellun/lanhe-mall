@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
-@FeignClient(name = "admin-cms",path = "subject",contextId = "subject")
+@FeignClient(name = "cms-admin",path = "subject",contextId = "subject")
 public interface SubjectProductRelationAgent {
     /**
      * 关联优选

@@ -1,7 +1,6 @@
 package com.newland.lanhe.product.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
-import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -14,10 +13,11 @@ import com.newland.lanhe.enumeration.BasicEnum;
 import com.newland.lanhe.enumeration.CommonErrorEnum;
 import com.newland.lanhe.enumeration.ResultCode;
 import com.newland.lanhe.exception.BusinessException;
-import com.newland.lanhe.model.ErrorEntity;
 import com.newland.lanhe.model.RestResponse;
 import com.newland.lanhe.product.entity.*;
-import com.newland.lanhe.product.mapper.*;
+import com.newland.lanhe.product.mapper.ProductAttributeValueMapper;
+import com.newland.lanhe.product.mapper.ProductMapper;
+import com.newland.lanhe.product.mapper.SkuStockMapper;
 import com.newland.lanhe.product.model.dto.ProductDto;
 import com.newland.lanhe.product.model.dto.ProductQueryDto;
 import com.newland.lanhe.product.model.vo.ProductDetailVo;
@@ -33,7 +33,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
-import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -73,6 +72,8 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
     private ProductAttributeValueService productAttributeValueService;
     @Autowired
     private ProductVertifyRecordService productVertifyRecordService;
+    @Autowired
+    private ProductAttrPicService productAttrPicService;
 
     @Override
     public Page<Product> list(ProductQueryDto productQueryDto) {
@@ -97,6 +98,7 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
         if (productQueryDto.getProductCategoryId() != null) {
             queryWrapper.eq(Product::getProductCategoryId, productQueryDto.getProductCategoryId());
         }
+        queryWrapper.orderByDesc(Product::getId);
         return baseMapper.selectPage(wrapper, queryWrapper);
     }
 
@@ -126,6 +128,9 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
         //添加商品参数,添加自定义商品规格
         productDto.getProductAttributeValueList().forEach(item -> item.setProductId(productId));
         productAttributeValueService.saveBatch(productDto.getProductAttributeValueList());
+        //属性图片
+        productDto.getProductAttrPics().forEach(item -> item.setProductId(productId));
+        productAttrPicService.saveBatch(productDto.getProductAttrPics());
         //关联专题
         cmsSubjectProductRelationClient.relateAndInsertList(productDto.getSubjectProductRelationList(), productId);
         //关联优选
@@ -157,6 +162,10 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
         productAttributeValueMapper.delete(Wrappers.<ProductAttributeValue>lambdaQuery().eq(ProductAttributeValue::getProductId, id));
         productDto.getProductAttributeValueList().forEach(item -> item.setProductId(id));
         productAttributeValueService.saveBatch(productDto.getProductAttributeValueList());
+        //属性图片
+        productAttrPicService.remove(Wrappers.<ProductAttrPic>lambdaQuery().eq(ProductAttrPic::getProductId, id));
+        productDto.getProductAttrPics().forEach(item -> item.setProductId(id));
+        productAttrPicService.saveBatch(productDto.getProductAttrPics());
         //关联专题
         cmsSubjectProductRelationClient.relateAndUpdateList(productDto.getSubjectProductRelationList(), id);
         //关联优选
@@ -212,6 +221,8 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
         productDetailVo.setProductFullReductionList(productFullReductionService.list(Wrappers.<ProductFullReduction>lambdaQuery().eq(ProductFullReduction::getProductId, id)));
         //sku库存信息
         productDetailVo.setSkuStockList(skuStockMapper.selectList(Wrappers.<SkuStock>lambdaQuery().eq(SkuStock::getProductId, id)));
+        //属性图片
+        productDetailVo.setProductAttrPics(productAttrPicService.list(Wrappers.<ProductAttrPic>lambdaQuery().eq(ProductAttrPic::getProductId, id)));
         //商品参数,添加自定义商品规格
         productDetailVo.setProductAttributeValueList(productAttributeValueMapper.selectList(Wrappers.<ProductAttributeValue>lambdaQuery().eq(ProductAttributeValue::getProductId, id)));
         return productDetailVo;

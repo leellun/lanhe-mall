@@ -15,7 +15,7 @@ import java.util.List;
  * @github https://github.com/mtcarpenter/mall-cloud-alibaba
  * @desc 微信公众号：山间木匠
  */
-@FeignClient(name = "admin-cms", path = "prefrenceArea",contextId = "prefrenceArea")
+@FeignClient(name = "cms-admin", path = "prefrenceArea",contextId = "prefrenceArea")
 public interface PrefrenceAreaProductRelationAgent {
 
     /**

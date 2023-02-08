@@ -38,7 +38,7 @@ public class ProductController {
         return RestResponse.ok(productPage);
     }
     @ApiOperation("创建商品")
-    @PostMapping(value = "/add")
+    @PostMapping(value = "/create")
     @ResponseBody
     public RestResponse add(@RequestBody ProductDto productDto) {
         productService.add(productDto);

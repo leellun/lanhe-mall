@@ -15,6 +15,12 @@ public interface IFileService {
      * @return
      */
     OssFile uploadFile(MultipartFile file);
+    /**
+     * 上传图片
+     * @param pic
+     * @return
+     */
+    OssFile uploadPicture(MultipartFile pic);
 
     /**
      * 获取真实地址

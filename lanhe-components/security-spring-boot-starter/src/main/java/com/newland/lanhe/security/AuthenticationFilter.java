@@ -2,6 +2,7 @@ package com.newland.lanhe.security;
 
 import com.alibaba.fastjson2.JSON;
 import com.newland.lanhe.model.LoginUser;
+import com.newland.lanhe.utils.Base64Utils;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,7 +25,7 @@ public class AuthenticationFilter extends OncePerRequestFilter {
                                     FilterChain filterChain) throws ServletException, IOException {
         String json = request.getHeader("json-token");
         if (!StringUtils.isEmpty(json)) {
-            LoginUser user = JSON.parseObject(json, LoginUser.class);
+            LoginUser user = JSON.parseObject(Base64Utils.decodeToString(json), LoginUser.class);
             //身份信息、权限信息填充到用户身份token对象中
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user, null,
                     AuthorityUtils.createAuthorityList(user.getAuthorities().toArray(new String[]{})));
