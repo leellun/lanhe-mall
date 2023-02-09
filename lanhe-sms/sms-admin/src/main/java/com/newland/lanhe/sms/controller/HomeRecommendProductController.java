@@ -65,8 +65,8 @@ public class HomeRecommendProductController {
     public RestResponse<Page<HomeRecommendProduct>> list(@RequestParam(value = "productName", required = false) String productName,
                                                          @RequestParam(value = "recommendStatus", required = false) Integer recommendStatus,
                                                          @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
-                                                         @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
-        Page<HomeRecommendProduct> page = recommendProductService.list(productName, recommendStatus, pageSize, pageNum);
+                                                         @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo) {
+        Page<HomeRecommendProduct> page = recommendProductService.list(productName, recommendStatus, pageSize, pageNo);
         return RestResponse.success(page);
     }
 }

@@ -72,8 +72,8 @@ public class FlashPromotionController {
     @ResponseBody
     public RestResponse<Page<FlashPromotion>> getItem(@RequestParam(value = "keyword", required = false) String keyword,
                                       @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
-                                      @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
-        Page<FlashPromotion> page = flashPromotionService.list(keyword, pageSize, pageNum);
+                                      @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo) {
+        Page<FlashPromotion> page = flashPromotionService.list(keyword, pageSize, pageNo);
         return RestResponse.success(page);
     }
 }

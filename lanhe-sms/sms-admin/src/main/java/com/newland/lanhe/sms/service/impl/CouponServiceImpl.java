@@ -95,7 +95,7 @@ public class CouponServiceImpl extends ServiceImpl<CouponMapper, Coupon> impleme
     }
 
     @Override
-    public Page<Coupon> list(String name, Integer type, Integer pageSize, Integer pageNum) {
+    public Page<Coupon> list(String name, Integer type, Integer pageSize, Integer pageNo) {
         LambdaQueryWrapper<Coupon> queryWrapper=Wrappers.lambdaQuery();
         if (!StringUtils.isEmpty(name)) {
             queryWrapper.like(Coupon::getName,name);
@@ -103,7 +103,7 @@ public class CouponServiceImpl extends ServiceImpl<CouponMapper, Coupon> impleme
         if (type != null) {
             queryWrapper.eq(Coupon::getType,type);
         }
-        return baseMapper.selectPage(PageWrapper.wrapper(PageEntity.page(pageNum,pageSize)),queryWrapper);
+        return baseMapper.selectPage(PageWrapper.wrapper(PageEntity.page(pageNo,pageSize)),queryWrapper);
     }
 
     @Override

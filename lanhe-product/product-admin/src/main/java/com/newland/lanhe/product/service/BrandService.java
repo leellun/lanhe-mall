@@ -45,7 +45,7 @@ public interface BrandService extends IService<Brand> {
     /**
      * 分页查询品牌
      */
-    Page<Brand> listBrand(String keyword, int pageNum, int pageSize);
+    Page<Brand> listBrand(String keyword, int pageNo, int pageSize);
 
     /**
      * 获取品牌

@@ -55,8 +55,8 @@ public class OrderReturnReasonController {
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
     public RestResponse<Page<OrderReturnReason>> list(@RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
-                                                      @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
-        Page<OrderReturnReason> page = orderReturnReasonService.list(pageSize, pageNum);
+                                                      @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo) {
+        Page<OrderReturnReason> page = orderReturnReasonService.list(pageSize, pageNo);
         return RestResponse.success(page);
     }
 

@@ -55,7 +55,7 @@ public class HomeBrandServiceImpl extends ServiceImpl<HomeBrandMapper, HomeBrand
     }
 
     @Override
-    public Page<HomeBrand> list(String brandName, Integer recommendStatus, Integer pageSize, Integer pageNum) {
+    public Page<HomeBrand> list(String brandName, Integer recommendStatus, Integer pageSize, Integer pageNo) {
         LambdaQueryWrapper<HomeBrand> queryWrapper = Wrappers.lambdaQuery();
         if (!StringUtils.isEmpty(brandName)) {
             queryWrapper.like(HomeBrand::getBrandName, brandName);
@@ -63,7 +63,7 @@ public class HomeBrandServiceImpl extends ServiceImpl<HomeBrandMapper, HomeBrand
         if (recommendStatus != null) {
             queryWrapper.eq(HomeBrand::getRecommendStatus, recommendStatus);
         }
-        PageEntity pageEntity = PageEntity.page(pageNum, pageSize);
+        PageEntity pageEntity = PageEntity.page(pageNo, pageSize);
         pageEntity.setOrder("sort");
         pageEntity.setDesc(true);
         return baseMapper.selectPage(PageWrapper.wrapper(pageEntity), queryWrapper);

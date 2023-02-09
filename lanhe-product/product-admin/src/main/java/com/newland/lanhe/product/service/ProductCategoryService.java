@@ -30,7 +30,7 @@ public interface ProductCategoryService extends IService<ProductCategory> {
     /**
      * 分页获取商品分类
      */
-    Page<ProductCategory> getList(Long parentId, Integer pageSize, Integer pageNum);
+    Page<ProductCategory> getList(Long parentId, Integer pageSize, Integer pageNo);
 
     /**
      * 删除商品分类

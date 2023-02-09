@@ -21,5 +21,5 @@ public interface CouponHistoryService extends IService<CouponHistory> {
      * @param useStatus 使用状态
      * @param orderSn 使用订单号码
      */
-    Page<CouponHistory> list(Long couponId, Integer useStatus, String orderSn, Integer pageSize, Integer pageNum);
+    Page<CouponHistory> list(Long couponId, Integer useStatus, String orderSn, Integer pageSize, Integer pageNo);
 }

@@ -36,8 +36,8 @@ public class ProductAttributeServiceImpl extends ServiceImpl<ProductAttributeMap
     private ProductAttributeDao productAttributeDao;
 
     @Override
-    public Page<ProductAttribute> getList(Long cid, Integer type, Integer pageSize, Integer pageNum) {
-        PageEntity pageEntity = PageEntity.page(pageNum, pageSize);
+    public Page<ProductAttribute> getList(Long cid, Integer type, Integer pageSize, Integer pageNo) {
+        PageEntity pageEntity = PageEntity.page(pageNo, pageSize);
         pageEntity.setDesc(true);
         pageEntity.setOrder("sort");
         Page<ProductAttribute> wrapper = PageWrapper.wrapper(pageEntity);

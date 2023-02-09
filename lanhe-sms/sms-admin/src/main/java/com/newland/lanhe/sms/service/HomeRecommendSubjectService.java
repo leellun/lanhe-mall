@@ -39,5 +39,5 @@ public interface HomeRecommendSubjectService extends IService<HomeRecommendSubje
     /**
      * 分页查询推荐
      */
-    Page<HomeRecommendSubject> list(String subjectName, Integer recommendStatus, Integer pageSize, Integer pageNum);
+    Page<HomeRecommendSubject> list(String subjectName, Integer recommendStatus, Integer pageSize, Integer pageNo);
 }

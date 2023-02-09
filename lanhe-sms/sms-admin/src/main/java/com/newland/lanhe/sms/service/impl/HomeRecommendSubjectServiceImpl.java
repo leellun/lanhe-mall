@@ -54,7 +54,7 @@ public class HomeRecommendSubjectServiceImpl extends ServiceImpl<HomeRecommendSu
     }
 
     @Override
-    public Page<HomeRecommendSubject> list(String subjectName, Integer recommendStatus, Integer pageSize, Integer pageNum) {
+    public Page<HomeRecommendSubject> list(String subjectName, Integer recommendStatus, Integer pageSize, Integer pageNo) {
         LambdaQueryWrapper<HomeRecommendSubject> queryWrapper = Wrappers.lambdaQuery();
         if (!StringUtils.isEmpty(subjectName)) {
             queryWrapper.like(HomeRecommendSubject::getSubjectName, subjectName);
@@ -62,7 +62,7 @@ public class HomeRecommendSubjectServiceImpl extends ServiceImpl<HomeRecommendSu
         if (recommendStatus != null) {
             queryWrapper.eq(HomeRecommendSubject::getRecommendStatus, recommendStatus);
         }
-        PageEntity pageEntity = PageEntity.page(pageNum, pageSize);
+        PageEntity pageEntity = PageEntity.page(pageNo, pageSize);
         pageEntity.setOrder("sort");
         pageEntity.setDesc(true);
         return baseMapper.selectPage(PageWrapper.wrapper(pageEntity), queryWrapper);

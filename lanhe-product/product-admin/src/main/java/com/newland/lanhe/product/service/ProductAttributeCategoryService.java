@@ -39,7 +39,7 @@ public interface ProductAttributeCategoryService extends IService<ProductAttribu
     /**
      * 分页查询属性分类
      */
-    Page<ProductAttributeCategory> getList(Integer pageSize, Integer pageNum);
+    Page<ProductAttributeCategory> getList(Integer pageSize, Integer pageNo);
 
     /**
      * 获取包含属性的属性分类

@@ -56,8 +56,8 @@ public class ProductAttributeCategoryServiceImpl extends ServiceImpl<ProductAttr
     }
 
     @Override
-    public Page<ProductAttributeCategory> getList(Integer pageSize, Integer pageNum) {
-        return productAttributeCategoryMapper.selectPage(PageWrapper.wrapper(PageEntity.page(pageNum, pageSize)), Wrappers.lambdaQuery());
+    public Page<ProductAttributeCategory> getList(Integer pageSize, Integer pageNo) {
+        return productAttributeCategoryMapper.selectPage(PageWrapper.wrapper(PageEntity.page(pageNo, pageSize)), Wrappers.lambdaQuery());
     }
 
     @Override

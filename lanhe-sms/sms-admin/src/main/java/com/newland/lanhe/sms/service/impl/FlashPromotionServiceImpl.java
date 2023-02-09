@@ -56,11 +56,11 @@ public class FlashPromotionServiceImpl extends ServiceImpl<FlashPromotionMapper,
     }
 
     @Override
-    public Page<FlashPromotion> list(String keyword, Integer pageSize, Integer pageNum) {
+    public Page<FlashPromotion> list(String keyword, Integer pageSize, Integer pageNo) {
         LambdaQueryWrapper<FlashPromotion> queryWrapper = Wrappers.lambdaQuery();
         if (!StringUtils.isEmpty(keyword)) {
             queryWrapper.like(FlashPromotion::getTitle, keyword);
         }
-        return baseMapper.selectPage(PageWrapper.wrapper(PageEntity.page(pageNum, pageSize)), queryWrapper);
+        return baseMapper.selectPage(PageWrapper.wrapper(PageEntity.page(pageNo, pageSize)), queryWrapper);
     }
 }

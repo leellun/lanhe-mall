@@ -57,7 +57,7 @@ public class HomeAdvertiseServiceImpl extends ServiceImpl<HomeAdvertiseMapper, H
     }
 
     @Override
-    public Page<HomeAdvertise> list(String name, Integer type, String endTime, Integer pageSize, Integer pageNum) {
+    public Page<HomeAdvertise> list(String name, Integer type, String endTime, Integer pageSize, Integer pageNo) {
         LambdaQueryWrapper<HomeAdvertise> queryWrapper = Wrappers.lambdaQuery();
         if (!StringUtils.isEmpty(name)) {
             queryWrapper.like(HomeAdvertise::getName, name);
@@ -74,7 +74,7 @@ public class HomeAdvertiseServiceImpl extends ServiceImpl<HomeAdvertiseMapper, H
                 e.printStackTrace();
             }
         }
-        PageEntity pageEntity = PageEntity.page(pageNum, pageSize);
+        PageEntity pageEntity = PageEntity.page(pageNo, pageSize);
         pageEntity.setOrder("sort");
         pageEntity.setDesc(true);
         return baseMapper.selectPage(PageWrapper.wrapper(pageEntity), queryWrapper);

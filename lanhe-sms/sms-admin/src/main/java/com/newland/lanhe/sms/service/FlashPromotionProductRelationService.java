@@ -43,7 +43,7 @@ public interface FlashPromotionProductRelationService extends IService<FlashProm
      * @param flashPromotionId        限时购id
      * @param flashPromotionSessionId 限时购场次id
      */
-    Page<FlashPromotionProductVo> list(Long flashPromotionId, Long flashPromotionSessionId, Integer pageSize, Integer pageNum);
+    Page<FlashPromotionProductVo> list(Long flashPromotionId, Long flashPromotionSessionId, Integer pageSize, Integer pageNo);
 
     /**
      * 根据活动和场次id获取商品关系数量

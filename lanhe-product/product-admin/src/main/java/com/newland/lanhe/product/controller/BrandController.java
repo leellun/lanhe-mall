@@ -66,9 +66,9 @@ public class BrandController {
     @GetMapping(value = "/list")
     @ResponseBody
     public RestResponse<Page<Brand>> getList(@RequestParam(value = "keyword", required = false) String keyword,
-                                             @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
+                                             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                                              @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
-        return RestResponse.ok(brandService.listBrand(keyword, pageNum, pageSize));
+        return RestResponse.ok(brandService.listBrand(keyword, pageNo, pageSize));
     }
 
     @ApiOperation(value = "根据编号查询品牌信息")

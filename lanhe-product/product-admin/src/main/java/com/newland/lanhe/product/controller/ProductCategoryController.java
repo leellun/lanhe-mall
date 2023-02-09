@@ -56,8 +56,8 @@ public class ProductCategoryController {
     @ResponseBody
     public RestResponse<Page<ProductCategory>> getList(@PathVariable Long parentId,
                                                        @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
-                                                       @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
-        Page<ProductCategory> productCategoryList = productCategoryService.getList(parentId, pageSize, pageNum);
+                                                       @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo) {
+        Page<ProductCategory> productCategoryList = productCategoryService.getList(parentId, pageSize, pageNo);
         return RestResponse.ok(productCategoryList);
     }
 

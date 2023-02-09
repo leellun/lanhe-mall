@@ -74,8 +74,8 @@ public class HomeAdvertiseController {
                                                   @RequestParam(value = "type", required = false) Integer type,
                                                   @RequestParam(value = "endTime", required = false) String endTime,
                                                   @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
-                                                  @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
-        Page<HomeAdvertise> page = advertiseService.list(name, type, endTime, pageSize, pageNum);
+                                                  @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo) {
+        Page<HomeAdvertise> page = advertiseService.list(name, type, endTime, pageSize, pageNo);
         return RestResponse.success(page);
     }
 }

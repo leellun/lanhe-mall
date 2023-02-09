@@ -26,7 +26,7 @@ import java.util.List;
 @Service
 public class CouponHistoryServiceImpl extends ServiceImpl<CouponHistoryMapper, CouponHistory> implements CouponHistoryService {
     @Override
-    public Page<CouponHistory> list(Long couponId, Integer useStatus, String orderSn, Integer pageSize, Integer pageNum) {
+    public Page<CouponHistory> list(Long couponId, Integer useStatus, String orderSn, Integer pageSize, Integer pageNo) {
         LambdaQueryWrapper<CouponHistory> queryWrapper = Wrappers.lambdaQuery();
         if (couponId != null) {
             queryWrapper.eq(CouponHistory::getCouponId, couponId);
@@ -37,6 +37,6 @@ public class CouponHistoryServiceImpl extends ServiceImpl<CouponHistoryMapper, C
         if (!StringUtils.isEmpty(orderSn)) {
             queryWrapper.eq(CouponHistory::getOrderSn, orderSn);
         }
-        return baseMapper.selectPage(PageWrapper.wrapper(PageEntity.page(pageNum, pageSize)), queryWrapper);
+        return baseMapper.selectPage(PageWrapper.wrapper(PageEntity.page(pageNo, pageSize)), queryWrapper);
     }
 }

@@ -35,7 +35,7 @@ public interface CouponService extends IService<Coupon> {
     /**
      * 分页获取优惠券列表
      */
-    Page<Coupon> list(String name, Integer type, Integer pageSize, Integer pageNum);
+    Page<Coupon> list(String name, Integer type, Integer pageSize, Integer pageNo);
 
     /**
      * 获取优惠券详情

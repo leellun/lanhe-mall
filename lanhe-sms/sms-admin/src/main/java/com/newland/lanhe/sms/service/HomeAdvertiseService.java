@@ -43,5 +43,5 @@ public interface HomeAdvertiseService extends IService<HomeAdvertise> {
     /**
      * 分页查询广告
      */
-    Page<HomeAdvertise> list(String name, Integer type, String endTime, Integer pageSize, Integer pageNum);
+    Page<HomeAdvertise> list(String name, Integer type, String endTime, Integer pageSize, Integer pageNo);
 }

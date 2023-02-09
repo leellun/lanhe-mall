@@ -65,8 +65,8 @@ public class HomeRecommendSubjectController {
     public RestResponse<Page<HomeRecommendSubject>> list(@RequestParam(value = "subjectName", required = false) String subjectName,
                                                          @RequestParam(value = "recommendStatus", required = false) Integer recommendStatus,
                                                          @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
-                                                         @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
-        Page<HomeRecommendSubject> page = recommendSubjectService.list(subjectName, recommendStatus, pageSize, pageNum);
+                                                         @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo) {
+        Page<HomeRecommendSubject> page = recommendSubjectService.list(subjectName, recommendStatus, pageSize, pageNo);
         return RestResponse.success(page);
     }
 }

@@ -100,8 +100,8 @@ public class ProductCategoryServiceImpl extends ServiceImpl<ProductCategoryMappe
     }
 
     @Override
-    public Page<ProductCategory> getList(Long parentId, Integer pageSize, Integer pageNum) {
-        PageEntity pageEntity = PageEntity.page(pageNum, pageSize);
+    public Page<ProductCategory> getList(Long parentId, Integer pageSize, Integer pageNo) {
+        PageEntity pageEntity = PageEntity.page(pageNo, pageSize);
         pageEntity.setOrder("sort");
         pageEntity.setDesc(true);
         return productCategoryMapper.selectPage(PageWrapper.wrapper(pageEntity), Wrappers.<ProductCategory>lambdaQuery().eq(ProductCategory::getParentId, parentId));

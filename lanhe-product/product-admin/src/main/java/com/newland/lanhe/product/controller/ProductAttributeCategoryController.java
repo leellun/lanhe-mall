@@ -62,8 +62,8 @@ public class ProductAttributeCategoryController {
     @ApiOperation("分页获取所有商品属性分类")
     @GetMapping(value = "/list")
     @ResponseBody
-    public RestResponse<Page<ProductAttributeCategory>> getList(@RequestParam(defaultValue = "5") Integer pageSize, @RequestParam(defaultValue = "1") Integer pageNum) {
-        return RestResponse.ok(productAttributeCategoryService.getList(pageSize, pageNum));
+    public RestResponse<Page<ProductAttributeCategory>> getList(@RequestParam(defaultValue = "5") Integer pageSize, @RequestParam(defaultValue = "1") Integer pageNo) {
+        return RestResponse.ok(productAttributeCategoryService.getList(pageSize, pageNo));
     }
     @ApiOperation("获取所有商品属性分类")
     @GetMapping(value = "/all")

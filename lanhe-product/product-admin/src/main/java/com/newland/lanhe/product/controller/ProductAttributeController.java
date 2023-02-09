@@ -35,9 +35,9 @@ public class ProductAttributeController {
     public RestResponse<Page<ProductAttribute>> getList(@PathVariable Long cid,
                                                         @ApiParam("0表示属性，1表示参数") @RequestParam(value = "type") Integer type,
                                                         @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
-                                                        @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
+                                                        @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo) {
 
-        Page<ProductAttribute> productAttributeList = productAttributeService.getList(cid, type, pageSize, pageNum);
+        Page<ProductAttribute> productAttributeList = productAttributeService.getList(cid, type, pageSize, pageNo);
         return RestResponse.ok(productAttributeList);
     }
     @ApiOperation("根据分类获取所有规格属性和销售属性")

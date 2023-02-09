@@ -56,8 +56,8 @@ public class FlashPromotionProductRelationServiceImpl extends ServiceImpl<FlashP
     }
 
     @Override
-    public Page<FlashPromotionProductVo> list(Long flashPromotionId, Long flashPromotionSessionId, Integer pageSize, Integer pageNum) {
-        Page<FlashPromotionProductRelation> page = baseMapper.selectPage(PageWrapper.wrapper(PageEntity.page(pageNum, pageSize)), Wrappers.<FlashPromotionProductRelation>lambdaQuery().eq(FlashPromotionProductRelation::getFlashPromotionId, flashPromotionId).eq(FlashPromotionProductRelation::getFlashPromotionSessionId, flashPromotionSessionId));
+    public Page<FlashPromotionProductVo> list(Long flashPromotionId, Long flashPromotionSessionId, Integer pageSize, Integer pageNo) {
+        Page<FlashPromotionProductRelation> page = baseMapper.selectPage(PageWrapper.wrapper(PageEntity.page(pageNo, pageSize)), Wrappers.<FlashPromotionProductRelation>lambdaQuery().eq(FlashPromotionProductRelation::getFlashPromotionId, flashPromotionId).eq(FlashPromotionProductRelation::getFlashPromotionSessionId, flashPromotionSessionId));
         Page<FlashPromotionProductVo> result = new Page<>();
         result.setCurrent(page.getCurrent());
         result.setSize(page.getSize());

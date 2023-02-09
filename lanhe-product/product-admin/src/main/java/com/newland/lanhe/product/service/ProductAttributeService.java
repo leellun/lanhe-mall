@@ -23,7 +23,7 @@ public interface ProductAttributeService extends IService<ProductAttribute> {
      * @param cid 分类id
      * @param type 0->属性；2->参数
      */
-    Page<ProductAttribute> getList(Long cid, Integer type, Integer pageSize, Integer pageNum);
+    Page<ProductAttribute> getList(Long cid, Integer type, Integer pageSize, Integer pageNo);
 
     /**
      * 获取属性分类下所有属性，包含规格属性和销售属性

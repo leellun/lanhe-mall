@@ -24,7 +24,7 @@ public interface SubjectService extends IService<Subject> {
     /**
      * 分页查询专题
      */
-    Page<Subject> list(String keyword, Integer pageNum, Integer pageSize);
+    Page<Subject> list(String keyword, Integer pageNo, Integer pageSize);
 
     /**
      * 批量插入专题

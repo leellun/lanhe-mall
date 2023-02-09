@@ -39,5 +39,5 @@ public interface HomeBrandService extends IService<HomeBrand> {
     /**
      * 分页查询品牌推荐
      */
-    Page<HomeBrand> list(String brandName, Integer recommendStatus, Integer pageSize, Integer pageNum);
+    Page<HomeBrand> list(String brandName, Integer recommendStatus, Integer pageSize, Integer pageNo);
 }

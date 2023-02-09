@@ -73,8 +73,8 @@ public class BrandServiceImpl extends ServiceImpl<BrandMapper, Brand> implements
     }
 
     @Override
-    public Page<Brand> listBrand(String keyword, int pageNum, int pageSize) {
-        PageEntity pageEntity = PageEntity.page(pageNum, pageSize);
+    public Page<Brand> listBrand(String keyword, int pageNo, int pageSize) {
+        PageEntity pageEntity = PageEntity.page(pageNo, pageSize);
         Page<Brand> wrapper = PageWrapper.wrapper(pageEntity);
         LambdaQueryWrapper<Brand> queryWrapper = Wrappers.<Brand>lambdaQuery();
         if (!StringUtils.isEmpty(keyword)) {

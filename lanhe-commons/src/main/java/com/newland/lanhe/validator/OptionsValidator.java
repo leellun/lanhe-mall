@@ -12,6 +12,9 @@ public class OptionsValidator implements ConstraintValidator<IntOptions, Object>
     @Override
     public void initialize(IntOptions constraintAnnotation) {
         options = constraintAnnotation.options();
+        if (options.length == 0) {
+            options = constraintAnnotation.value();
+        }
     }
 
     @Override

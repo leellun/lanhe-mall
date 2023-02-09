@@ -58,8 +58,8 @@ public class CouponController {
             @RequestParam(value = "name",required = false) String name,
             @RequestParam(value = "type",required = false) Integer type,
             @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
-            @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
-        Page<Coupon> page = couponService.list(name,type,pageSize,pageNum);
+            @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo) {
+        Page<Coupon> page = couponService.list(name,type,pageSize,pageNo);
         return RestResponse.success(page);
     }
 

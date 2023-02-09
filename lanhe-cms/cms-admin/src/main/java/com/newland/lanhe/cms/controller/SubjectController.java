@@ -41,9 +41,9 @@ public class SubjectController {
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
     public RestResponse<Page<Subject>> getList(@RequestParam(value = "keyword", required = false) String keyword,
-                                               @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
+                                               @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                                                @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
-        Page<Subject> page = subjectService.list(keyword, pageNum, pageSize);
+        Page<Subject> page = subjectService.list(keyword, pageNo, pageSize);
         return RestResponse.ok(page);
     }
 

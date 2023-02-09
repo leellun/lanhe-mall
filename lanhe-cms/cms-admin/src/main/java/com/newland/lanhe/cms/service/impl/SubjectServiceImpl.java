@@ -44,8 +44,8 @@ public class SubjectServiceImpl extends ServiceImpl<SubjectMapper, Subject> impl
     }
 
     @Override
-    public Page<Subject> list(String keyword, Integer pageNum, Integer pageSize) {
-        Page<Subject> wrapper = PageWrapper.wrapper(PageEntity.page(pageNum, pageSize));
+    public Page<Subject> list(String keyword, Integer pageNo, Integer pageSize) {
+        Page<Subject> wrapper = PageWrapper.wrapper(PageEntity.page(pageNo, pageSize));
         LambdaQueryWrapper<Subject> queryWrapper = Wrappers.<Subject>lambdaQuery();
         if (org.apache.commons.lang.StringUtils.isNotEmpty(keyword)) {
             queryWrapper.like(Subject::getTitle, keyword);

@@ -43,5 +43,5 @@ public interface FlashPromotionService extends IService<FlashPromotion> {
     /**
      * 分页查询活动
      */
-    Page<FlashPromotion> list(String keyword, Integer pageSize, Integer pageNum);
+    Page<FlashPromotion> list(String keyword, Integer pageSize, Integer pageNo);
 }

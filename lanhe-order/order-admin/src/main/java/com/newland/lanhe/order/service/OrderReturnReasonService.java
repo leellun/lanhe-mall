@@ -33,7 +33,7 @@ public interface OrderReturnReasonService extends IService<OrderReturnReason> {
     /**
      * 分页获取退货原因
      */
-    Page<OrderReturnReason> list(Integer pageSize, Integer pageNum);
+    Page<OrderReturnReason> list(Integer pageSize, Integer pageNo);
 
     /**
      * 批量修改退货原因状态

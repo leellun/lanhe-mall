@@ -46,8 +46,8 @@ public class OrderReturnReasonServiceImpl extends ServiceImpl<OrderReturnReasonM
     }
 
     @Override
-    public Page<OrderReturnReason> list(Integer pageSize, Integer pageNum) {
-        PageEntity pageEntity=PageEntity.page(pageNum,pageSize);
+    public Page<OrderReturnReason> list(Integer pageSize, Integer pageNo) {
+        PageEntity pageEntity=PageEntity.page(pageNo,pageSize);
         pageEntity.setOrder("sort");
         pageEntity.setDesc(true);
         return baseMapper.selectPage(PageWrapper.wrapper(pageEntity), Wrappers.emptyWrapper());

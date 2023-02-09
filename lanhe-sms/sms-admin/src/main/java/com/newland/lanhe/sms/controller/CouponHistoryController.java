@@ -32,8 +32,8 @@ public class CouponHistoryController {
                                                   @RequestParam(value = "useStatus", required = false) Integer useStatus,
                                                   @RequestParam(value = "orderSn", required = false) String orderSn,
                                                   @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
-                                                  @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
-        Page<CouponHistory> page = historyService.list(couponId, useStatus, orderSn, pageSize, pageNum);
+                                                  @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo) {
+        Page<CouponHistory> page = historyService.list(couponId, useStatus, orderSn, pageSize, pageNo);
         return RestResponse.success(page);
     }
 }
