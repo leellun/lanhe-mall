@@ -107,6 +107,9 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
     public void add(ProductDto productDto) {
         //创建商品
         Product product = productDto;
+        if(productDto.getProductAttrPics().size()>0){
+            product.setPic(productDto.getProductAttrPics().get(0).getPic());
+        }
         product.setId(null);
         baseMapper.insert(product);
         //根据促销类型设置价格：会员价格、阶梯价格、满减价格
@@ -142,6 +145,9 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
     public void update(Long id, ProductDto productDto) {
         //更新商品信息
         Product product = productDto;
+        if(productDto.getProductAttrPics().size()>0){
+            product.setPic(productDto.getProductAttrPics().get(0).getPic());
+        }
         product.setId(id);
         baseMapper.updateById(product);
         //会员价格

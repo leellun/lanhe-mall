@@ -51,26 +51,26 @@ public class ProductAttributeServiceImpl extends ServiceImpl<ProductAttributeMap
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void create(ProductAttributeDto ProductAttributeDto) {
-        ProductAttribute ProductAttribute = new ProductAttribute();
-        BeanUtils.copyProperties(ProductAttributeDto, ProductAttribute);
-        baseMapper.insert(ProductAttribute);
+    public void create(ProductAttributeDto productAttributeDto) {
+        ProductAttribute productAttribute = new ProductAttribute();
+        BeanUtils.copyProperties(productAttributeDto, productAttribute);
+        baseMapper.insert(productAttribute);
         //新增商品属性以后需要更新商品属性分类数量
-        ProductAttributeCategory ProductAttributeCategory = productAttributeCategoryMapper.selectById(ProductAttribute.getProductAttributeCategoryId());
-        if (ProductAttribute.getType() == 0) {
-            ProductAttributeCategory.setAttributeCount(ProductAttributeCategory.getAttributeCount() + 1);
-        } else if (ProductAttribute.getType() == 1) {
-            ProductAttributeCategory.setParamCount(ProductAttributeCategory.getParamCount() + 1);
+        ProductAttributeCategory productAttributeCategory = productAttributeCategoryMapper.selectById(productAttribute.getProductAttributeCategoryId());
+        if (productAttribute.getType() == 0) {
+            productAttributeCategory.setAttributeCount(productAttributeCategory.getAttributeCount() + 1);
+        } else if (productAttribute.getType() == 1) {
+            productAttributeCategory.setParamCount(productAttributeCategory.getParamCount() + 1);
         }
-        productAttributeCategoryMapper.updateById(ProductAttributeCategory);
+        productAttributeCategoryMapper.updateById(productAttributeCategory);
     }
 
     @Override
     public void update(Long id, ProductAttributeDto productAttributeParam) {
-        ProductAttribute ProductAttribute = new ProductAttribute();
-        ProductAttribute.setId(id);
-        BeanUtils.copyProperties(productAttributeParam, ProductAttribute);
-        baseMapper.updateById(ProductAttribute);
+        ProductAttribute productAttribute = new ProductAttribute();
+        productAttribute.setId(id);
+        BeanUtils.copyProperties(productAttributeParam, productAttribute);
+        baseMapper.updateById(productAttribute);
     }
 
     @Override
@@ -81,25 +81,25 @@ public class ProductAttributeServiceImpl extends ServiceImpl<ProductAttributeMap
     @Override
     public int delete(List<Long> ids) {
         //获取分类
-        ProductAttribute ProductAttribute = baseMapper.selectById(ids.get(0));
-        Integer type = ProductAttribute.getType();
-        ProductAttributeCategory ProductAttributeCategory = productAttributeCategoryMapper.selectById(ProductAttribute.getProductAttributeCategoryId());
+        ProductAttribute productAttribute = baseMapper.selectById(ids.get(0));
+        Integer type = productAttribute.getType();
+        ProductAttributeCategory productAttributeCategory = productAttributeCategoryMapper.selectById(productAttribute.getProductAttributeCategoryId());
         int count = baseMapper.deleteBatchIds(ids);
         //删除完成后修改数量
         if (type == 0) {
-            if (ProductAttributeCategory.getAttributeCount() >= count) {
-                ProductAttributeCategory.setAttributeCount(ProductAttributeCategory.getAttributeCount() - count);
+            if (productAttributeCategory.getAttributeCount() >= count) {
+                productAttributeCategory.setAttributeCount(productAttributeCategory.getAttributeCount() - count);
             } else {
-                ProductAttributeCategory.setAttributeCount(0);
+                productAttributeCategory.setAttributeCount(0);
             }
         } else if (type == 1) {
-            if (ProductAttributeCategory.getParamCount() >= count) {
-                ProductAttributeCategory.setParamCount(ProductAttributeCategory.getParamCount() - count);
+            if (productAttributeCategory.getParamCount() >= count) {
+                productAttributeCategory.setParamCount(productAttributeCategory.getParamCount() - count);
             } else {
-                ProductAttributeCategory.setParamCount(0);
+                productAttributeCategory.setParamCount(0);
             }
         }
-        productAttributeCategoryMapper.updateById(ProductAttributeCategory);
+        productAttributeCategoryMapper.updateById(productAttributeCategory);
         return count;
     }
 

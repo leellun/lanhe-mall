@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.newland.lanhe.product.dao.ProductAttributeCategoryDao">
-    <resultMap id="getListWithAttrMap" type="com.newland.lanhe.product.model.vo.ProductAttributeCategoryItemVo">
+    <resultMap id="getListWithAttrMap" type="com.newland.lanhe.product.model.vo.ProductAttributeCategoryItemVo" extends="com.newland.lanhe.product.mapper.ProductAttributeMapper.BaseResultMap">
         <collection property="productAttributeList" columnPrefix="attr_" resultMap="com.newland.lanhe.product.mapper.ProductAttributeMapper.BaseResultMap">
         </collection>
     </resultMap>
