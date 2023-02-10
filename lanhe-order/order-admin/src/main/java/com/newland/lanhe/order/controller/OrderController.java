@@ -57,7 +57,7 @@ public class OrderController {
     }
 
     @ApiOperation("批量删除订单")
-    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    @DeleteMapping(value = "/delete")
     @ResponseBody
     public RestResponse delete(@RequestParam("ids") List<Long> ids) {
         orderService.delete(ids);
