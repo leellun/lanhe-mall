@@ -3,6 +3,7 @@ package com.newland.lanhe.order.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -35,7 +36,7 @@ public class OrderOperateHistory implements Serializable {
 
     @ApiModelProperty(value = "操作人：用户；系统；后台管理员")
     private String operateMan;
-
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "操作时间")
     private LocalDateTime createTime;
 

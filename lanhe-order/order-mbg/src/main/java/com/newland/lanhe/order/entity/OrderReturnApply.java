@@ -3,6 +3,7 @@ package com.newland.lanhe.order.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -42,7 +43,7 @@ public class OrderReturnApply implements Serializable {
 
     @ApiModelProperty(value = "订单编号")
     private String orderSn;
-
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "申请时间")
     private LocalDateTime createTime;
 
@@ -60,7 +61,7 @@ public class OrderReturnApply implements Serializable {
 
     @ApiModelProperty(value = "申请状态：0->待处理；1->退货中；2->已完成；3->已拒绝")
     private Integer status;
-
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "处理时间")
     private LocalDateTime handleTime;
 
@@ -102,7 +103,7 @@ public class OrderReturnApply implements Serializable {
 
     @ApiModelProperty(value = "收货人")
     private String receiveMan;
-
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "收货时间")
     private LocalDateTime receiveTime;
 

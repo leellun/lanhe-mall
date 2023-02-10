@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
 import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -51,10 +53,10 @@ public class Coupon implements Serializable {
 
     @ApiModelProperty(value = "使用门槛；0表示无门槛")
     private BigDecimal minPoint;
-
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "开始时间")
     private LocalDateTime startTime;
-
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "结束时间")
     private LocalDateTime endTime;
 
@@ -72,7 +74,7 @@ public class Coupon implements Serializable {
 
     @ApiModelProperty(value = "领取数量")
     private Integer receiveCount;
-
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "可以领取的日期")
     private LocalDateTime enableTime;
 

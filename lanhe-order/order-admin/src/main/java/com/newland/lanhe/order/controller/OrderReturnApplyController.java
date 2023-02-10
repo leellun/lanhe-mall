@@ -31,9 +31,9 @@ public class OrderReturnApplyController {
     private OrderReturnApplyService returnApplyService;
 
     @ApiOperation("分页查询退货申请")
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @PostMapping(value = "/list")
     @ResponseBody
-    public RestResponse<Page<OrderReturnApply>> list(ReturnApplyQueryDto returnApplyQueryDto) {
+    public RestResponse<Page<OrderReturnApply>> list(@RequestBody  ReturnApplyQueryDto returnApplyQueryDto) {
         Page<OrderReturnApply> page = returnApplyService.list(returnApplyQueryDto);
         return RestResponse.success(page);
     }

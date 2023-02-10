@@ -3,6 +3,7 @@ package com.newland.lanhe.order.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -38,7 +39,7 @@ public class OrderReturnReason implements Serializable {
 
     @ApiModelProperty(value = "状态：0->不启用；1->启用")
     private Integer status;
-
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "添加时间")
     private LocalDateTime createTime;
 

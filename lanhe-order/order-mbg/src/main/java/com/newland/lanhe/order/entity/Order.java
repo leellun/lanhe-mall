@@ -3,6 +3,7 @@ package com.newland.lanhe.order.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -40,7 +41,7 @@ public class Order implements Serializable {
 
     @ApiModelProperty(value = "订单编号")
     private String orderSn;
-
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "提交时间")
     private LocalDateTime createTime;
 
@@ -145,19 +146,19 @@ public class Order implements Serializable {
 
     @ApiModelProperty(value = "下单时使用的积分")
     private Integer useIntegration;
-
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "支付时间")
     private LocalDateTime paymentTime;
-
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "发货时间")
     private LocalDateTime deliveryTime;
-
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "确认收货时间")
     private LocalDateTime receiveTime;
-
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "评价时间")
     private LocalDateTime commentTime;
-
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "修改时间")
     private LocalDateTime modifyTime;
 
