@@ -36,9 +36,11 @@ public class FlashPromotion implements Serializable {
     @ApiModelProperty(value = "限时购标题")
     private String title;
 
+    @JsonFormat(pattern="yyyy-MM-dd")
     @ApiModelProperty(value = "开始日期")
     private LocalDate startDate;
 
+    @JsonFormat(pattern="yyyy-MM-dd")
     @ApiModelProperty(value = "结束日期")
     private LocalDate endDate;
 

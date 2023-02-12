@@ -53,6 +53,12 @@ spring:
             - Path=/oms/**
           filters:
             - RewritePath=/oms/(?<segment>/?.*),/$\{segment}
+        - id: sms-admin
+          uri: lb://sms-admin
+          predicates:
+            - Path=/sms/**
+          filters:
+            - RewritePath=/sms/(?<segment>/?.*),/$\{segment}
   zipkin:
     base-url: http://192.168.100.100:32239
     sender:

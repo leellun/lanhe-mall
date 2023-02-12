@@ -1,9 +1,15 @@
 package com.newland.lanhe.sms.controller;
 
 
-import org.springframework.web.bind.annotation.RequestMapping;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.newland.lanhe.sms.entity.CouponHistory;
+import com.newland.lanhe.sms.service.CouponHistoryService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.RestController;
+import java.util.List;
 
 /**
  * <p>
@@ -14,8 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2023-02-03
  */
 @RestController
+@Api(tags = "优惠券领取记录管理", description = "优惠券领取记录管理")
 @RequestMapping("/couponHistory")
 public class CouponHistoryController {
-
 }
 

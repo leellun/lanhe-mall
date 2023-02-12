@@ -3,6 +3,7 @@ package com.newland.lanhe.member.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -58,7 +59,7 @@ public class Member implements Serializable {
 
     @ApiModelProperty(value = "性别：0->未知；1->男；2->女")
     private Integer gender;
-
+    @JsonFormat(pattern="yyyy-MM-dd")
     @ApiModelProperty(value = "生日")
     private LocalDate birthday;
 

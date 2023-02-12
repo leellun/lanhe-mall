@@ -87,7 +87,7 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
             queryWrapper.eq(Product::getVerifyStatus, productQueryDto.getVerifyStatus());
         }
         if (!StringUtils.isEmpty(productQueryDto.getKeyword())) {
-            queryWrapper.like(Product::getKeywords, productQueryDto.getKeyword());
+            queryWrapper.and(w->w.like(Product::getKeywords, productQueryDto.getKeyword()).or().like(Product::getName, productQueryDto.getKeyword()));
         }
         if (!StringUtils.isEmpty(productQueryDto.getProductSn())) {
             queryWrapper.like(Product::getProductSn, productQueryDto.getProductSn());

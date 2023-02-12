@@ -6,6 +6,8 @@ import java.time.LocalDate;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
 import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -33,10 +35,10 @@ public class FlashPromotion implements Serializable {
 
     @ApiModelProperty(value = "限时购标题")
     private String title;
-
+    @JsonFormat(pattern="yyyy-MM-dd")
     @ApiModelProperty(value = "开始日期")
     private LocalDate startDate;
-
+    @JsonFormat(pattern="yyyy-MM-dd")
     @ApiModelProperty(value = "结束日期")
     private LocalDate endDate;
 

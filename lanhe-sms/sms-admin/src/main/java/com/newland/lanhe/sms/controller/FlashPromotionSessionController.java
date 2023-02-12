@@ -78,7 +78,7 @@ public class FlashPromotionSessionController {
     @ApiOperation("获取全部可选场次及其数量")
     @RequestMapping(value = "/selectList", method = RequestMethod.GET)
     @ResponseBody
-    public RestResponse<List<FlashPromotionSessionDetailVo>> selectList(Long flashPromotionId) {
+    public RestResponse<List<FlashPromotionSessionDetailVo>> selectList(@RequestParam("flashPromotionId") Long flashPromotionId) {
         List<FlashPromotionSessionDetailVo> promotionSessionList = flashPromotionSessionService.selectList(flashPromotionId);
         return RestResponse.success(promotionSessionList);
     }

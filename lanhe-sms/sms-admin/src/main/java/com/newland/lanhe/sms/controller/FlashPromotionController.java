@@ -70,7 +70,7 @@ public class FlashPromotionController {
     @ApiOperation("根据活动名称分页查询")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
-    public RestResponse<Page<FlashPromotion>> getItem(@RequestParam(value = "keyword", required = false) String keyword,
+    public RestResponse<Page<FlashPromotion>> getList(@RequestParam(value = "keyword", required = false) String keyword,
                                       @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
                                       @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo) {
         Page<FlashPromotion> page = flashPromotionService.list(keyword, pageSize, pageNo);

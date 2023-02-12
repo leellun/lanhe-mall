@@ -38,7 +38,7 @@ public class HomeNewProductController {
     @ApiOperation("修改推荐排序")
     @RequestMapping(value = "/update/sort/{id}", method = RequestMethod.POST)
     @ResponseBody
-    public RestResponse updateSort(@PathVariable Long id, Integer sort) {
+    public RestResponse updateSort(@PathVariable Long id,@RequestParam("sort") Integer sort) {
         homeNewProductService.updateSort(id, sort);
         return RestResponse.success("操作成功");
     }

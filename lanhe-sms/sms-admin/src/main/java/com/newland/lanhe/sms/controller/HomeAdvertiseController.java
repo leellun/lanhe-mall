@@ -36,9 +36,9 @@ public class HomeAdvertiseController {
     }
 
     @ApiOperation("删除广告")
-    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    @DeleteMapping(value = "/delete")
     @ResponseBody
-    public RestResponse delete(@RequestParam("ids") List<Long> ids) {
+    public RestResponse delete(@RequestBody List<Long> ids) {
         advertiseService.delete(ids);
         return RestResponse.success("操作成功");
     }
@@ -46,7 +46,7 @@ public class HomeAdvertiseController {
     @ApiOperation("修改上下线状态")
     @RequestMapping(value = "/update/status/{id}", method = RequestMethod.POST)
     @ResponseBody
-    public RestResponse updateStatus(@PathVariable Long id, Integer status) {
+    public RestResponse updateStatus(@PathVariable Long id,@RequestParam("status") Integer status) {
         advertiseService.updateStatus(id, status);
         return RestResponse.success("操作成功");
     }

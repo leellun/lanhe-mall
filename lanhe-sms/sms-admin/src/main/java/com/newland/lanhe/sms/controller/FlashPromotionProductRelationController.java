@@ -64,7 +64,7 @@ public class FlashPromotionProductRelationController {
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
     public RestResponse<Page<FlashPromotionProductVo>> list(@RequestParam(value = "flashPromotionId") Long flashPromotionId,
-                                                            @RequestParam(value = "flashPromotionSessionId") Long flashPromotionSessionId,
+                                                            @RequestParam(value = "flashPromotionSessionId",required = false) Long flashPromotionSessionId,
                                                             @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
                                                             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo) {
         Page<FlashPromotionProductVo> page = relationService.list(flashPromotionId, flashPromotionSessionId, pageSize, pageNo);

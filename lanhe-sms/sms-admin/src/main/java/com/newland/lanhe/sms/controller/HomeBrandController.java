@@ -38,7 +38,7 @@ public class HomeBrandController {
     @ApiOperation("修改品牌排序")
     @RequestMapping(value = "/update/sort/{id}", method = RequestMethod.POST)
     @ResponseBody
-    public RestResponse updateSort(@PathVariable Long id, Integer sort) {
+    public RestResponse updateSort(@PathVariable Long id,@RequestParam("sort") Integer sort) {
         homeBrandService.updateSort(id, sort);
         return RestResponse.success("操作成功");
     }
@@ -54,7 +54,7 @@ public class HomeBrandController {
     @ApiOperation("批量修改推荐状态")
     @RequestMapping(value = "/update/recommendStatus", method = RequestMethod.POST)
     @ResponseBody
-    public RestResponse updateRecommendStatus(@RequestParam("ids") List<Long> ids, @RequestParam Integer recommendStatus) {
+    public RestResponse updateRecommendStatus(@RequestParam("ids") List<Long> ids, @RequestParam("recommendStatus") Integer recommendStatus) {
         homeBrandService.updateRecommendStatus(ids, recommendStatus);
         return RestResponse.success("操作成功");
     }

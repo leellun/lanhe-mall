@@ -63,7 +63,7 @@ public class ProductController {
     @ApiOperation("根据商品名称或货号模糊查询")
     @GetMapping(value = "/simpleList")
     @ResponseBody
-    public RestResponse<List<Product>> getList(String keyword) {
+    public RestResponse<List<Product>> getList(@RequestParam("keyword") String keyword) {
         List<Product> productList = productService.list(keyword);
         return RestResponse.ok(productList);
     }
