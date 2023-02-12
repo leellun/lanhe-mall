@@ -17,7 +17,6 @@
         <module>lanhe-member</module>
         <module>lanhe-product</module>
         <module>lanhe-order</module>
-        <module>lanhe-coupon</module>
         <module>lanhe-cms</module>
         <module>lanhe-sms</module>
     </modules>
